@@ -3,6 +3,10 @@ using System;
 
 namespace AtleX.CommandLineArguments.Parsers
 {
+  /// <summary>
+  /// Represents a Microsoft Windows CLI style ("/key value /key2 value2
+  /// /toggle") command line arguments parser
+  /// </summary>
   public sealed class WindowsStyleCommandLineArgumentsParser
     : CommandLineArgumentsParser
   {

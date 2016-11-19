@@ -1,14 +1,9 @@
 ﻿using AtleX.CommandLineArguments.Parsers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AtleX.CommandLineArguments.Configuration
 {
   /// <summary>
-  /// 
+  /// Represents the configuration for <see cref="AtleX.CommandLineArguments.CommandLineArguments"/>
   /// </summary>
   public abstract class CommandLineArgumentsConfiguration
   {

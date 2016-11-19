@@ -1,5 +1,8 @@
 ﻿namespace AtleX.CommandLineArguments.Parsers
 {
+  /// <summary>
+  /// Represents a commandline arguments parser
+  /// </summary>
   public abstract class CommandLineArgumentsParser
   {
     /// <summary>
