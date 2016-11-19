@@ -19,7 +19,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// https://msdn.microsoft.com/en-us/library/aa711900(v=vs.71).aspx
     /// </remarks>
     // PERF: By caching these, we avoid allocating them over and over again
-    private static readonly Type byteType,
+    private readonly Type byteType,
       shortType,
       intType,
       longType,
@@ -35,17 +35,19 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
       charType,
       stringType;
 
-
     /// <summary>
     /// Gets the collection of <see cref="PropertyInfo"/> for <see cref="{T}"/>
     /// </summary>
     private readonly PropertyInfo[] argumentProperties;
 
     /// <summary>
-    /// Initializes <see cref="ArgumentPropertiesHelper{T}"/>
+    /// Initializes a new instance of <see cref="ArgumentPropertiesHelper{T}"/>
     /// </summary>
-    static ArgumentPropertiesHelper()
+    public ArgumentPropertiesHelper()
     {
+      this.argumentProperties = typeof(T).GetProperties();
+
+      // Cache the primitive types
       byteType = typeof(byte);
       shortType = typeof(short);
       intType = typeof(int);
@@ -62,14 +64,6 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
 
       charType = typeof(char);
       stringType = typeof(string);
-    }
-
-    /// <summary>
-    /// Initializes a new instance of <see cref="ArgumentPropertiesHelper{T}"/>
-    /// </summary>
-    public ArgumentPropertiesHelper()
-    {
-      this.argumentProperties = typeof(T).GetProperties();
     }
 
     /// <summary>
