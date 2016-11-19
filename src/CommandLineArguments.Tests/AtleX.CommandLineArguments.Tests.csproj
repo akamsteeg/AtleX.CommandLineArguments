@@ -56,6 +56,7 @@
     <Compile Include="Mocks\TestArguments.cs" />
     <Compile Include="Mocks\TestCommandLineArgumentsConfiguration.cs" />
     <Compile Include="Parsers\CommandLineArgumentsParserTests.cs" />
+    <Compile Include="Parsers\KeyValueCommandLineArgumentsParserTests.cs" />
     <Compile Include="Parsers\PrimitiveTypeTestValues.cs" />
     <Compile Include="Parsers\WindowsStyleCommandLineArgumentsParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

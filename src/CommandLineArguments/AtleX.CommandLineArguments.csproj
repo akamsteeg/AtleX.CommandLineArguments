@@ -42,6 +42,7 @@
     <Compile Include="CommandLineArguments.cs" />
     <Compile Include="Configuration\CommandLineArgumentsConfiguration.cs" />
     <Compile Include="Configuration\DefaultCommandLineArgumentsConfiguration.cs" />
+    <Compile Include="Parsers\KeyValueCommandLineArgumentsParser.cs" />
     <Compile Include="Parsers\CommandLineArgumentsParser.cs" />
     <Compile Include="Parsers\Helpers\ArgumentPropertiesHelper.cs" />
     <Compile Include="Parsers\WindowsStyleCommandLineArgumentsParser.cs" />

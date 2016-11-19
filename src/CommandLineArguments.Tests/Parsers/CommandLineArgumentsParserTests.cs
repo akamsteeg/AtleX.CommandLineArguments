@@ -55,42 +55,6 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
     /// <returns>
     /// The valid commandline arguments
     /// </returns>
-    protected object[] CreateValidArguments()
-    {
-      var result = new object[]
-      {
-        CreateAppropriateKey("Byte"), PrimitiveTypeTestValues.Byte.ToString(),
-        CreateAppropriateKey("Short"), PrimitiveTypeTestValues.Short.ToString(),
-        CreateAppropriateKey("Int"), PrimitiveTypeTestValues.Int.ToString(),
-        CreateAppropriateKey("Long"), PrimitiveTypeTestValues.Long.ToString(),
-
-        CreateAppropriateKey("Float"), PrimitiveTypeTestValues.Float.ToString(),
-        CreateAppropriateKey("Double"), PrimitiveTypeTestValues.Double.ToString(),
-
-        CreateAppropriateKey("Decimal"), PrimitiveTypeTestValues.Decimal.ToString(),
-
-        CreateAppropriateKey("Bool"), PrimitiveTypeTestValues.Bool.ToString(),
-
-        CreateAppropriateKey("DateTime"), PrimitiveTypeTestValues.DateTime.ToString(),
-
-        CreateAppropriateKey("Char"), PrimitiveTypeTestValues.Char.ToString(),
-        CreateAppropriateKey("String"), PrimitiveTypeTestValues.String.ToString(),
-
-        CreateAppropriateKey("Toggle") /* No value after this one! */,
-      };
-
-      return result;
-    }
-
-    /// <summary>
-    /// Create the appropriate full key with the specified name
-    /// </summary>
-    /// <param name="keyName">
-    /// The name of the key
-    /// </param>
-    /// <returns>
-    /// The appropriate full key
-    /// </returns>
-    protected abstract string CreateAppropriateKey(string keyName);
+    protected abstract object[] CreateValidArguments();
   }
 }
