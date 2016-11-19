@@ -24,7 +24,7 @@ namespace AtleX.CommandLineArguments.Tests
     [Test]
     public void Parse_WithoutParser_Throws()
     {
-      CommandLineArguments.Configuration = new TestCommandLineArgumentsConfiguration();
+      CommandLineArguments.Configuration = new TestCommandLineArgumentsConfiguration(null);
 
       Assert.Throws<InvalidOperationException>(() => CommandLineArguments.Parse<TestArguments>(new object[0]));
     }

@@ -27,26 +27,43 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
 
       var result = parser.Parse<TestArguments>(arguments);
 
-      Assert.IsNotNull(result);
+      AssertValidArguments(result);
+    }
 
-      Assert.AreEqual(PrimitiveTypeTestValues.Byte, result.Byte);
-      Assert.AreEqual(PrimitiveTypeTestValues.Short, result.Short);
-      Assert.AreEqual(PrimitiveTypeTestValues.Int, result.Int);
-      Assert.AreEqual(PrimitiveTypeTestValues.Long, result.Long);
+    [Test]
+    public void CommandLineArgumentsParse_ValidArguments()
+    {
+      var configuration = new TestCommandLineArgumentsConfiguration(parser);
+      CommandLineArguments.Configuration = configuration;
 
-      Assert.AreEqual(PrimitiveTypeTestValues.Float, result.Float);
-      Assert.AreEqual(PrimitiveTypeTestValues.Double, result.Double);
+      var arguments = CreateValidArguments();
 
-      Assert.AreEqual(PrimitiveTypeTestValues.Decimal, result.Decimal);
+      var result = CommandLineArguments.Parse<TestArguments>(arguments);
+      AssertValidArguments(result);
+    }
 
-      Assert.AreEqual(PrimitiveTypeTestValues.Bool, result.Bool);
+    private static void AssertValidArguments(TestArguments arguments)
+    {
+      Assert.IsNotNull(arguments);
 
-      Assert.AreEqual(PrimitiveTypeTestValues.DateTime, result.DateTime);
+      Assert.AreEqual(PrimitiveTypeTestValues.Byte, arguments.Byte);
+      Assert.AreEqual(PrimitiveTypeTestValues.Short, arguments.Short);
+      Assert.AreEqual(PrimitiveTypeTestValues.Int, arguments.Int);
+      Assert.AreEqual(PrimitiveTypeTestValues.Long, arguments.Long);
 
-      Assert.AreEqual(PrimitiveTypeTestValues.Char, result.Char);
-      Assert.AreEqual(PrimitiveTypeTestValues.String, result.String);
+      Assert.AreEqual(PrimitiveTypeTestValues.Float, arguments.Float);
+      Assert.AreEqual(PrimitiveTypeTestValues.Double, arguments.Double);
 
-      Assert.AreEqual(true, result.Toggle);
+      Assert.AreEqual(PrimitiveTypeTestValues.Decimal, arguments.Decimal);
+
+      Assert.AreEqual(PrimitiveTypeTestValues.Bool, arguments.Bool);
+
+      Assert.AreEqual(PrimitiveTypeTestValues.DateTime, arguments.DateTime);
+
+      Assert.AreEqual(PrimitiveTypeTestValues.Char, arguments.Char);
+      Assert.AreEqual(PrimitiveTypeTestValues.String, arguments.String);
+
+      Assert.AreEqual(true, arguments.Toggle);
     }
 
     /// <summary>
