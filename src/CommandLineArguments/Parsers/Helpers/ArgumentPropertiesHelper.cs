@@ -135,11 +135,19 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
       // Bool
       else if (propertyType == this.boolType)
       {
-        bool propertyValue;
-        if (result = bool.TryParse(value, out propertyValue) == true)
+        var propertyValue = false;
+        if (value != null)
         {
-          property.SetValue(arguments, propertyValue);
+          result = bool.TryParse(value, out propertyValue);          
         }
+        else // Just a toggle (argument without value)
+        {
+          propertyValue = true;
+          result = true;
+        }
+
+        property.SetValue(arguments, propertyValue);
+
       }
       // Int
       else if (propertyType == this.intType)

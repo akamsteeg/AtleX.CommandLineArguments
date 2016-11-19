@@ -42,11 +42,18 @@ namespace AtleX.CommandLineArguments.Parsers
         {
           key = currentItem.Substring(1);
 
-          var possibleValue = arguments[i + 1].ToString();
-          if (!ArgumentIsKey(possibleValue))
+          if (i + 1 != arguments.Length)
           {
-            value = possibleValue;
-            i++;
+            var possibleValue = arguments[i + 1].ToString();
+            if (!ArgumentIsKey(possibleValue))
+            {
+              value = possibleValue;
+              i++;
+            }
+            else
+            {
+              value = null;
+            }
           }
           else
           {

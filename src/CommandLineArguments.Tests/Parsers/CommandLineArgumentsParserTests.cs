@@ -45,6 +45,8 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
 
       Assert.AreEqual(PrimitiveTypeTestValues.Char, result.Char);
       Assert.AreEqual(PrimitiveTypeTestValues.String, result.String);
+
+      Assert.AreEqual(true, result.Toggle);
     }
 
     /// <summary>
