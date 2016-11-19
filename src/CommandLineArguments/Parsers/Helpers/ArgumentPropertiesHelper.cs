@@ -67,27 +67,33 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     }
 
     /// <summary>
-    /// 
+    /// Set the value of the property with the specified name in the <see
+    /// cref="Arguments"/> to the specified value
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="arguments"></param>
-    /// <param name="key"></param>
-    /// <param name="value"></param>
-    public void FillProperty(T arguments, string key, string value)
+    /// <param name="arguments">
+    /// The <see cref="Arguments"/> instance to set the property in
+    /// </param>
+    /// <param name="propertyName">
+    /// The name of the property to set
+    /// </param>
+    /// <param name="propertyValue">
+    /// The value of the property to set
+    /// </param>
+    public void FillProperty(T arguments, string propertyName, string propertyValue)
     {
       if (arguments == null)
         throw new ArgumentNullException(nameof(arguments));
-      if (string.IsNullOrWhiteSpace(key))
-        throw new ArgumentNullException(nameof(key));
+      if (string.IsNullOrWhiteSpace(propertyName))
+        throw new ArgumentNullException(nameof(propertyName));
       
       foreach (var currentPropertyInfo in this.argumentProperties)
       {
-        if (currentPropertyInfo.Name.Equals(key, StringComparison.OrdinalIgnoreCase))
+        if (currentPropertyInfo.Name.Equals(propertyName, StringComparison.OrdinalIgnoreCase))
         {
-          if (!TryFillPrimitiveProperty(arguments, currentPropertyInfo, value))
+          if (!TryFillPrimitiveProperty(arguments, currentPropertyInfo, propertyValue))
           {
             if (!currentPropertyInfo.PropertyType.IsEnum
-              || !TryFillEnum(arguments, currentPropertyInfo, value))
+              || !TryFillEnum(arguments, currentPropertyInfo, propertyValue))
             {
               // TODO Set other types
             }
