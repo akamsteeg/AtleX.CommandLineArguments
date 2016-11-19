@@ -112,7 +112,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// <returns>
     /// True when the property value could be set, false otherwise
     /// </returns>
-    private static bool TryFillPrimitiveProperty(T arguments, PropertyInfo property, string value)
+    private bool TryFillPrimitiveProperty(T arguments, PropertyInfo property, string value)
     {
       bool result = false;
 
@@ -121,13 +121,13 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
       // PERF Most used types first
       
       // String
-      if (propertyType == stringType)
+      if (propertyType == this.stringType)
       {
         property.SetValue(arguments, value);
         result = true;
       }
       // Bool
-      else if (propertyType == boolType)
+      else if (propertyType == this.boolType)
       {
         bool propertyValue;
         if (result = bool.TryParse(value, out propertyValue) == true)
@@ -136,7 +136,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
         }
       }
       // Int
-      else if (propertyType == intType)
+      else if (propertyType == this.intType)
       {
         int propertyValue;
         if (result = int.TryParse(value, out propertyValue) == true)
@@ -146,7 +146,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
       }
       // OTher primitive argument types
       // Byte
-      else if (propertyType == byteType)
+      else if (propertyType == this.byteType)
       {
         byte propertyValue;
         if (result = byte.TryParse(value, out propertyValue) == true)
@@ -155,7 +155,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
         }
       }
       // Short
-      else if (propertyType == shortType)
+      else if (propertyType == this.shortType)
       {
         short propertyValue;
         if (result = short.TryParse(value, out propertyValue) == true)
@@ -164,7 +164,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
         }
       }
       // Long
-      else if (propertyType == longType)
+      else if (propertyType == this.longType)
       {
         long propertyValue;
         if (result = long.TryParse(value, out propertyValue) == true)
@@ -173,7 +173,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
         }
       }
       // Float
-      else if (propertyType == floatType)
+      else if (propertyType == this.floatType)
       {
         float propertyValue;
         if (result = float.TryParse(value, out propertyValue) == true)
@@ -182,7 +182,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
         }
       }
       // Double
-      else if (propertyType == doubleType)
+      else if (propertyType == this.doubleType)
       {
         double propertyValue;
         if (result = double.TryParse(value, out propertyValue) == true)
@@ -191,7 +191,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
         }
       }
       // Decimal
-      else if (propertyType == decimalType)
+      else if (propertyType == this.decimalType)
       {
         decimal propertyValue;
         if (result = decimal.TryParse(value, out propertyValue) == true)
@@ -200,7 +200,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
         }
       }
       // Date
-      else if (propertyType == dateType)
+      else if (propertyType == this.dateType)
       {
         DateTime propertyValue;
         if (result = DateTime.TryParse(value, out propertyValue) == true)
@@ -209,7 +209,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
         }
       }
       // Char
-      else if (propertyType == charType)
+      else if (propertyType == this.charType)
       {
         char propertyValue;
         if (result = char.TryParse(value, out propertyValue) == true)
@@ -228,7 +228,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// <param name="property"></param>
     /// <param name="value"></param>
     /// <returns></returns>
-    private static bool TryFillEnum(T arguments, PropertyInfo property, string value)
+    private bool TryFillEnum(T arguments, PropertyInfo property, string value)
     {
       var result = false;
 
