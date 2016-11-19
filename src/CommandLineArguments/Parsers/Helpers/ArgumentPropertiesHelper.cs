@@ -222,12 +222,21 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     }
 
     /// <summary>
-    /// Set
+    /// Try to set the enum property for the specified <see
+    /// cref="Arguments"/> with the specified name and value
     /// </summary>
-    /// <param name="arguments"></param>
-    /// <param name="property"></param>
-    /// <param name="value"></param>
-    /// <returns></returns>
+    /// <param name="arguments">
+    /// The <see cref="Arguments"/> instance to set the property in
+    /// </param>
+    /// <param name="property">
+    /// The <see cref="PropertyInfo"/> of the property to set
+    /// </param>
+    /// <param name="value">
+    /// The value to set
+    /// </param>
+    /// <returns>
+    /// True when the property value could be set, false otherwise
+    /// </returns>
     private bool TryFillEnum(T arguments, PropertyInfo property, string value)
     {
       var result = false;
