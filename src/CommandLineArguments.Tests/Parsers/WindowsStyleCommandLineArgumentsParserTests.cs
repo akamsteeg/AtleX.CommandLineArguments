@@ -1,4 +1,5 @@
-﻿using AtleX.CommandLineArguments.Parsers;
+﻿using System;
+using AtleX.CommandLineArguments.Parsers;
 using NUnit.Framework;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers
@@ -13,14 +14,9 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
 
     }
 
-    protected override object[] CreateValidArguments()
+    protected override string CreateAppropriateKey(string keyName)
     {
-      var result = new object[]
-      {
-        "/firstKey", "firstKeyValue",
-        "/secondKey", "true",
-        "/thirdKey", "thirdKeyValue"
-      };
+      var result = "/" + keyName;
 
       return result;
     }

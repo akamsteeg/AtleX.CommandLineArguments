@@ -3,12 +3,12 @@
   public abstract class Arguments
   {
     /// <summary>
-    /// Gets whether the arguments are valid or not
+    /// Indicates whether these <see cref="Arguments"/>
+    /// are valid
     /// </summary>
-    public abstract bool AreValid
-    {
-      get;
-      protected set;
-    }
+    /// <returns>
+    /// True when all values are valid, false otherwise
+    /// </returns>
+    public abstract bool IsValid();
   }
 }
