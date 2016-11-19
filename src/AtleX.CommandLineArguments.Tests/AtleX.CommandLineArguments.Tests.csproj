@@ -65,7 +65,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CommandLineArguments\AtleX.CommandLineArguments.csproj">
+    <ProjectReference Include="..\AtleX.CommandLineArguments\AtleX.CommandLineArguments.csproj">
       <Project>{eb9149b3-71e5-4b5c-945a-8457bde1d4a2}</Project>
       <Name>AtleX.CommandLineArguments</Name>
     </ProjectReference>

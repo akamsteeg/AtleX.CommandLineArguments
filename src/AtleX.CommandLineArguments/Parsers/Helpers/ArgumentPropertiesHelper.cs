@@ -36,7 +36,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
       stringType;
 
     /// <summary>
-    /// Gets the collection of <see cref="PropertyInfo"/> for <see cref="{T}"/>
+    /// Gets the collection of <see cref="PropertyInfo"/> for the specified type
     /// </summary>
     private readonly PropertyInfo[] argumentProperties;
 
