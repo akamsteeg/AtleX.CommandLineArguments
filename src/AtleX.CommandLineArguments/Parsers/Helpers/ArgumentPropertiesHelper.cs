@@ -158,7 +158,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
           property.SetValue(arguments, propertyValue);
         }
       }
-      // OTher primitive argument types
+      // Other primitive argument types
       // Byte
       else if (propertyType == this.byteType)
       {

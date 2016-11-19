@@ -21,7 +21,7 @@
         <member name="T:AtleX.CommandLineArguments.CommandLineArguments">
             <summary>
             Represents a parser for commandline arguments
-            /// </summary>
+            </summary>
         </member>
         <member name="P:AtleX.CommandLineArguments.CommandLineArguments.Configuration">
             <summary>

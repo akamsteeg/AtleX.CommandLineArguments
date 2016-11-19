@@ -3,10 +3,9 @@ using System;
 
 namespace AtleX.CommandLineArguments
 {
-
   /// <summary>
   /// Represents a parser for commandline arguments
-  /// /// </summary>
+  /// </summary>
   public static class CommandLineArguments
   {
     /// <summary>
