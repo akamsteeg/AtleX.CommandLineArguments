@@ -9,6 +9,12 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
   /// <typeparam name="T">
   /// The <see cref="Arguments"/> type
   /// </typeparam>
+  /// <remarks>
+  /// Do not cache an instance of this object in a field or property. It's quite
+  /// big and allocates some stuff itself. By instantiating it as close to the
+  /// code that needs it and null it afterwards, the garbage collector can do
+  /// its work
+  /// </remarks>
   public class ArgumentPropertiesHelper<T>
       where T : Arguments, new()
   {
@@ -138,7 +144,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
         var propertyValue = false;
         if (value != null)
         {
-          result = bool.TryParse(value, out propertyValue);          
+          result = bool.TryParse(value, out propertyValue);
         }
         else // Just a toggle (argument without value)
         {
