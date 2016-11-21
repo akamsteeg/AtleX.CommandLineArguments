@@ -27,7 +27,7 @@ namespace AtleX.CommandLineArguments.Parsers
     /// <returns>
     /// The arguments, parsed to the specified type
     /// </returns>
-    public override T Parse<T>(object[] arguments)
+    public override T Parse<T>(string[] arguments)
     {
       if (arguments == null)
         throw new ArgumentNullException(nameof(arguments));
@@ -41,14 +41,14 @@ namespace AtleX.CommandLineArguments.Parsers
 
       for (var i = 0; i < arguments.Length; i++)
       {
-        var currentItem = arguments[i].ToString();
+        var currentItem = arguments[i];
         if (ArgumentIsKey(currentItem))
         {
           key = currentItem.Substring(1);
 
           if (i + 1 != arguments.Length)
           {
-            var possibleValue = arguments[i + 1].ToString();
+            var possibleValue = arguments[i + 1];
             if (!ArgumentIsKey(possibleValue))
             {
               value = possibleValue;

@@ -37,7 +37,7 @@ namespace AtleX.CommandLineArguments
     /// <returns>
     /// The arguments, parsed to the specified type
     /// </returns>
-    public static T Parse<T>(object[] arguments)
+    public static T Parse<T>(string[] arguments)
       where T : Arguments, new()
     {
       if (arguments == null)

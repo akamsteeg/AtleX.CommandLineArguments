@@ -25,7 +25,7 @@
     /// <returns>
     /// The arguments, parsed to the specified type
     /// </returns>
-    public abstract T Parse<T>(object[] arguments)
+    public abstract T Parse<T>(string[] arguments)
       where T : Arguments, new();
   }
 }
