@@ -72,6 +72,6 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
     /// <returns>
     /// The valid commandline arguments
     /// </returns>
-    protected abstract object[] CreateValidArguments();
+    protected abstract string[] CreateValidArguments();
   }
 }

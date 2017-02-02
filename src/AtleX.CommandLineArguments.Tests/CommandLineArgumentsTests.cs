@@ -18,7 +18,7 @@ namespace AtleX.CommandLineArguments.Tests
     {
       CommandLineArguments.Configuration = null;
 
-      Assert.Throws<InvalidOperationException>(() => CommandLineArguments.Parse<TestArguments>(new object[0]));
+      Assert.Throws<InvalidOperationException>(() => CommandLineArguments.Parse<TestArguments>(new string[0]));
     }
 
     [Test]
@@ -26,7 +26,7 @@ namespace AtleX.CommandLineArguments.Tests
     {
       CommandLineArguments.Configuration = new TestCommandLineArgumentsConfiguration(null);
 
-      Assert.Throws<InvalidOperationException>(() => CommandLineArguments.Parse<TestArguments>(new object[0]));
+      Assert.Throws<InvalidOperationException>(() => CommandLineArguments.Parse<TestArguments>(new string[0]));
     }
   }
 }

@@ -14,9 +14,9 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
 
     }
 
-    protected override object[] CreateValidArguments()
+    protected override string[] CreateValidArguments()
     {
-      var result = new object[]
+      var result = new string[]
       {
         "/Byte", PrimitiveTypeTestValues.Byte.ToString(),
         "/Short", PrimitiveTypeTestValues.Short.ToString(),
