@@ -3,6 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.5</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>Alex Kamsteeg (https://atlex.nl/)</Authors>
+    <Company />
+    <PackageProjectUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments</PackageProjectUrl>
+    <Description>AtleX.CommandLineArguments is a helper library to facilitate command line arguments into an object.</Description>
+    <Copyright>© Alex Kamsteeg</Copyright>
+    <PackageLicenseUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
