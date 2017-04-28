@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace AtleX.CommandLineArguments.Parsers.Helpers
@@ -44,14 +45,14 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// <summary>
     /// Gets the collection of <see cref="PropertyInfo"/> for the specified type
     /// </summary>
-    private readonly PropertyInfo[] argumentProperties;
+    private readonly IEnumerable<PropertyInfo> argumentProperties;
 
     /// <summary>
     /// Initializes a new instance of <see cref="ArgumentPropertiesHelper{T}"/>
     /// </summary>
     public ArgumentPropertiesHelper()
     {
-      this.argumentProperties = typeof(T).GetProperties();
+      this.argumentProperties = typeof(T).GetTypeInfo().DeclaredProperties;
 
       // Cache the primitive types
       byteType = typeof(byte);
@@ -98,7 +99,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
         {
           if (!TryFillPrimitiveProperty(arguments, currentPropertyInfo, propertyValue))
           {
-            if (!currentPropertyInfo.PropertyType.IsEnum
+            if (!currentPropertyInfo.DeclaringType.GetTypeInfo().IsEnum
               || !TryFillEnum(arguments, currentPropertyInfo, propertyValue))
             {
               // TODO Set other types
@@ -263,7 +264,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
 
       var enumType = property.PropertyType;
 
-      if (result = enumType.IsEnumDefined(value) == true)
+      if (result = property.PropertyType.GetTypeInfo().IsEnumDefined(value) == true)
       {
         var propertyValue = Enum.Parse(property.PropertyType, value, true);
 
