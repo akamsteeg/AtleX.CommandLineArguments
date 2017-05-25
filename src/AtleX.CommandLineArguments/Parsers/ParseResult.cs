@@ -12,7 +12,7 @@ namespace AtleX.CommandLineArguments.Parsers
   /// The <see cref="Arguments"/> this <see cref="ParseResult{T}"/> is for
   /// </typeparam>
   [DebuggerDisplay("Is valid: {IsValid}")]
-  public class ParseResult<T>
+  public sealed class ParseResult<T>
     where T : Arguments, new()
   {
     /// <summary>
