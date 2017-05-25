@@ -12,6 +12,7 @@ namespace TestApp
     : Arguments
   {
     [Required(ErrorMessage = "ShowValidationErrors is required", AllowEmptyStrings = true)]
+    [Display(Description = "Show validation errors or not")]
     public bool ShowValidationErrors
     {
       get;

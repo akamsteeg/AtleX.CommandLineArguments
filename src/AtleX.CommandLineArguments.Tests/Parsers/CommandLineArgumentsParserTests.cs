@@ -43,7 +43,7 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
 
       var arguments = CreateValidArguments();
 
-      var result = CommandLineArguments.TryParse<TestArguments>(arguments, out TestArguments parsedArguments, out IEnumerable<ValidationError> vr);
+      var result = CommandLineArguments.TryParse<TestArguments>(arguments, out TestArguments parsedArguments);
       Assert.IsTrue(result);
       AssertValidArguments(parsedArguments);
     }

@@ -3,10 +3,10 @@
 namespace AtleX.CommandLineArguments.Help
 {
   /// <summary>
-  /// Represents a <see cref="HelpWriter"/> that writes the help to the console
+  /// Represents <see cref="HelpWriter"/> for key/value ("key1=value1 key2=value2 toggle") style command line arguments
   /// </summary>
-  public abstract class ConsoleHelpWriter
-    : HelpWriter
+  public class KeyValueStyleHelpWriter
+    : ConsoleHelpWriter
   {
     /// <summary>
     /// Write the help for the specified <see cref="Arguments"/> object
@@ -30,13 +30,29 @@ namespace AtleX.CommandLineArguments.Help
       {
         var requiredIndicator = currentHelpDetails.IsRequired ? "*" : string.Empty;
 
-        var helpTextForArgument = $" {currentHelpDetails.Argument}: {currentHelpDetails.Description} ({requiredIndicator})";
+        var helpTextForArgument = $" {currentHelpDetails.Argument}=<value>: {currentHelpDetails.Description} ({requiredIndicator})";
 
         Console.WriteLine(helpTextForArgument);
       }
 
       Console.WriteLine();
       Console.WriteLine("*: Required arguments");
+    }
+
+    /// <summary>
+    /// Gets the exact name of an argument how it should be used on the command
+    /// line, including prefixes
+    /// </summary>
+    /// <param name="argumentName">
+    /// The name of the argument to get the exact commandline usage for
+    /// </param>
+    /// <returns>
+    /// The exact name of an argument how it should be used on the command line,
+    /// including prefixes
+    /// </returns>
+    protected override string GetExactCommandlineNameOfArgument(string argumentName)
+    {
+      return argumentName;
     }
   }
 }

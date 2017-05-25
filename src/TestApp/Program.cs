@@ -18,6 +18,14 @@ namespace TestApp
         {
           Console.WriteLine($"* {currentValidationError.ArgumentName}: {currentValidationError.ErrorMessage} ({currentValidationError.ValidatorName})");
         }
+
+        CommandLineArguments.DisplayHelp(cliArguments);
+      }
+      if (cliArguments.IsHelpRequested)
+      {
+        Console.Write("HELP:");
+
+        CommandLineArguments.DisplayHelp(cliArguments);
       }
       else
       {

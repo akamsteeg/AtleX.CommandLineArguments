@@ -65,6 +65,8 @@ namespace AtleX.CommandLineArguments.Parsers
 
       }
 
+      argumentsObject.IsHelpRequested = this.ContainsHelpArgument(arguments);
+
       var result = new ParseResult<T>(argumentsObject, allValidationErrors);
       return result;
     }
@@ -86,5 +88,32 @@ namespace AtleX.CommandLineArguments.Parsers
     /// True when the argument with the specified name to find is found, false otherwise
     /// </returns>
     protected abstract bool TryFindRawArgumentValue(string[] allCommandLineArguments, string argumentToFind, out string value);
+
+    /// <summary>
+    /// Gets whether the specified command line arguments contain a Help argument or not
+    /// </summary>
+    /// <param name="allCommandLineArguments">
+    /// The collection of all command line arguments
+    /// </param>
+    /// <returns>
+    /// True when the collection of command line arguments contains a Help argument, false otherwise
+    /// </returns>
+    protected virtual bool ContainsHelpArgument(string[] allCommandLineArguments)
+    {
+      var result = false;
+
+      for (var i = 0; i < allCommandLineArguments.Length; i++)
+      {
+        var currentArgumentName = allCommandLineArguments[i];
+
+        if (string.Compare(currentArgumentName, "help", true) == 0)
+        {
+          result = true;
+          break;
+        }
+      }
+
+      return result;
+    }
   }
 }

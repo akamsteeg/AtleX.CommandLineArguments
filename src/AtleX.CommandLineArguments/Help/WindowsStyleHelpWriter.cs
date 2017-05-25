@@ -3,7 +3,7 @@
   /// <summary>
   /// Represents a <see cref="HelpWriter"/> for Windows style command line arguments
   /// </summary>
-  public sealed class WindowsStyleHelpWriter
+  public class WindowsStyleHelpWriter
     : ConsoleHelpWriter
   {
     /// <summary>
