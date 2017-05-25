@@ -30,37 +30,47 @@ namespace AtleX.CommandLineArguments.Validators
     }
 
     /// <summary>
-    /// Validates the argument by the specified <see cref="PropertyInfo"/>
+    /// Try Validating the argument by the specified <see cref="PropertyInfo"/>
     /// </summary>
     /// <param name="argumentPropertyInfo">
     /// The <see cref="PropertyInfo"/> of the command line argument to validate
     /// </param>
     /// <param name="isSpecified">
     /// Whether the argument is specified on the command line or not
-    /// </param>    /// 
+    /// </param>
     /// <param name="originalValue">
     /// The original value, as specified on the command line
     /// </param>
+    /// <param name="validationError">
+    /// If the validation fails, this contains the <see cref="ValidationError"/>
+    /// or null otherwise
+    /// </param>
     /// <returns>
-    /// The <see cref="ValidationResult"/> of the validation
+    /// True when the argument is valid, false otherwise
     /// </returns>
-    public override ValidationResult Validate(PropertyInfo argumentPropertyInfo, bool isSpecified, string originalValue)
+    public override bool TryValidate(PropertyInfo argumentPropertyInfo, bool isSpecified, string originalValue, out ValidationError validationError)
     {
-      var isValid = true;
+      var result = true;
       var errorMessage = string.Empty;
 
       var hasRequiredAttribute = TryGetRequiredAttribute(argumentPropertyInfo, out RequiredAttribute requiredAttribute);
-
 
       if ((hasRequiredAttribute && !isSpecified) // The argument is required but it isn't specified
         || (hasRequiredAttribute && isSpecified && !requiredAttribute.AllowEmptyStrings && string.IsNullOrWhiteSpace(originalValue)) // The argument is required and specified, but not allowed to be empty
         )
       {
         errorMessage = requiredAttribute.ErrorMessage;
-        isValid = false;
+        result = false;
       }
 
-      var result = this.CreateValidationResult(argumentPropertyInfo.Name, isValid, errorMessage);
+      if (result)
+      {
+        validationError = null;
+      }
+      else
+      {
+        validationError = this.CreateValidationError(argumentPropertyInfo.Name, errorMessage);
+      }
 
       return result;
     }
