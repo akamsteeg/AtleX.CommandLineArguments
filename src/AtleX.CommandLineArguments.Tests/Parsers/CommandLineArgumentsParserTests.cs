@@ -32,7 +32,7 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
 
       var result = parser.Parse<TestArguments>(arguments, this.validators);
 
-      AssertValidArguments(result.Arguments);
+      AssertValidArguments(result.CommandLineArguments);
     }
 
     [Test]

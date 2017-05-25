@@ -81,7 +81,7 @@ namespace AtleX.CommandLineArguments
       var parseResult = Configuration.Parser.Parse<T>(arguments, Configuration.Validators);
 
       var result = parseResult.IsValid;
-      argumentsObject = parseResult.Arguments as T;
+      argumentsObject = parseResult.CommandLineArguments as T;
       validationResults = parseResult.ValidationResults;
 
       return result;
