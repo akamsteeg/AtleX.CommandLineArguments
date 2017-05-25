@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtleX.CommandLineArguments.Tests", "AtleX.CommandLineArguments.Tests\AtleX.CommandLineArguments.Tests.csproj", "{E3598130-22DD-445B-8669-F47505D3A3CC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtleX.CommandLineArguments", "AtleX.CommandLineArguments\AtleX.CommandLineArguments.csproj", "{535D7EAE-32FA-4484-B4CE-5859500D9297}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{81825BF7-653E-4C74-B1D7-D12F834C3ECE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{535D7EAE-32FA-4484-B4CE-5859500D9297}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{535D7EAE-32FA-4484-B4CE-5859500D9297}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{535D7EAE-32FA-4484-B4CE-5859500D9297}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81825BF7-653E-4C74-B1D7-D12F834C3ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81825BF7-653E-4C74-B1D7-D12F834C3ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81825BF7-653E-4C74-B1D7-D12F834C3ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81825BF7-653E-4C74-B1D7-D12F834C3ECE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
