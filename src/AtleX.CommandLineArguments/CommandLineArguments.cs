@@ -45,7 +45,7 @@ namespace AtleX.CommandLineArguments
     public static bool TryParse<T>(string[] arguments, out T argumentsObject)
       where T : Arguments, new()
     {
-      return TryParse(arguments, out argumentsObject, out IEnumerable<ValidationResult> ignoredValidationResults);
+      return TryParse(arguments, out argumentsObject, out IEnumerable<ValidationError> ignoredValidationResults);
     }
 
     /// <summary>
@@ -61,13 +61,13 @@ namespace AtleX.CommandLineArguments
     /// The <see cref="Arguments"/> object to parse to
     /// </param>
     /// <param name="validationResults">
-    /// The <see cref="IEnumerable{T}"/> of <see cref="ValidationResult"/> as the
+    /// The <see cref="IEnumerable{T}"/> of <see cref="ValidationError"/> as the
     /// result of the validation
     /// </param>
     /// <returns>
     /// True when parsing and validation succeeded, false otherwise
     /// </returns>
-    public static bool TryParse<T>(string[] arguments, out T argumentsObject, out IEnumerable<ValidationResult> validationResults)
+    public static bool TryParse<T>(string[] arguments, out T argumentsObject, out IEnumerable<ValidationError> validationResults)
       where T : Arguments, new()
     {
       if (arguments == null)
@@ -81,7 +81,7 @@ namespace AtleX.CommandLineArguments
 
       var result = parseResult.IsValid;
       argumentsObject = parseResult.CommandLineArguments as T;
-      validationResults = parseResult.ValidationResults;
+      validationResults = parseResult.ValidationErrors;
 
       return result;
     }

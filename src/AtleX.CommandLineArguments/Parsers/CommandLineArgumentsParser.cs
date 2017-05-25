@@ -42,7 +42,7 @@ namespace AtleX.CommandLineArguments.Parsers
         throw new ArgumentNullException(nameof(validators));
 
       var argumentsObject = new T();
-      var allValidationResults = new List<ValidationResult>();
+      var allValidationErrors = new List<ValidationError>();
 
       var argumentPropertiesHelper = new ArgumentPropertiesHelper<T>();
       var validationHelper = new ValidationHelper(validators);
@@ -56,12 +56,16 @@ namespace AtleX.CommandLineArguments.Parsers
           argumentPropertiesHelper.FillProperty(argumentsObject, currentProperty.Name, argumentValue);
         }
 
-        var currentValidationResults = validationHelper.Validate(currentProperty, argumentIsSpecified, argumentValue);
+        var isValid = validationHelper.TryValidate(currentProperty, argumentIsSpecified, argumentValue, out IEnumerable<ValidationError> validationErrors);
 
-        allValidationResults.AddRange(currentValidationResults);
+        if (!isValid)
+        {
+          allValidationErrors.AddRange(validationErrors);
+        }
+
       }
 
-      var result = new ParseResult<T>(argumentsObject, allValidationResults);
+      var result = new ParseResult<T>(argumentsObject, allValidationErrors);
       return result;
     }
 

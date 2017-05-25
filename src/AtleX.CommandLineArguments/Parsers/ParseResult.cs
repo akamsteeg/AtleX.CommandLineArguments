@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using AtleX.CommandLineArguments.Validators;
 
 namespace AtleX.CommandLineArguments.Parsers
@@ -24,9 +25,9 @@ namespace AtleX.CommandLineArguments.Parsers
     }
 
     /// <summary>
-    /// Gets the <see cref="IEnumerable{T}"/> of <see cref="ValidationResult"/> with all the validation results
+    /// Gets the <see cref="IEnumerable{T}"/> of <see cref="ValidationError"/> with all the validation errors
     /// </summary>
-    public IEnumerable<ValidationResult> ValidationResults
+    public IEnumerable<ValidationError> ValidationErrors
     {
       get;
     }
@@ -38,15 +39,7 @@ namespace AtleX.CommandLineArguments.Parsers
     {
       get
       {
-        var result = true;
-        foreach (var currentValidationResult in ValidationResults)
-        {
-          if (!currentValidationResult.IsValid)
-          {
-            result = false;
-            break;
-          }
-        }
+        var result = !ValidationErrors.Any();
 
         return result;
       }
@@ -55,18 +48,18 @@ namespace AtleX.CommandLineArguments.Parsers
     /// <summary>
     /// Initializes a new instance of <see cref="ParseResult{T}"/> for the
     /// specified arguments object with the specified <see
-    /// cref="IEnumerable{T}"/> of <see cref="ValidationResult"/>
+    /// cref="IEnumerable{T}"/> of <see cref="ValidationError"/>
     /// </summary>
     /// <param name="commandLineArguments">
     /// The arguments object this <see cref="ParseResult{T}"/> is for
     /// </param>
-    /// <param name="validationResults">
-    /// The <see cref="IEnumerable{T}"/> of <see cref="ValidationResult"/> with all the validation results
+    /// <param name="validationErrors">
+    /// The <see cref="IEnumerable{T}"/> of <see cref="ValidationError"/> with all the validation errors
     /// </param>
-    public ParseResult(T commandLineArguments, IEnumerable<ValidationResult> validationResults)
+    public ParseResult(T commandLineArguments, IEnumerable<ValidationError> validationErrors)
     {
       this.CommandLineArguments = commandLineArguments ?? throw new ArgumentNullException(nameof(commandLineArguments));
-      this.ValidationResults = validationResults ?? throw new ArgumentNullException(nameof(validationResults));
+      this.ValidationErrors = validationErrors ?? throw new ArgumentNullException(nameof(validationErrors));
     }
   }
 }

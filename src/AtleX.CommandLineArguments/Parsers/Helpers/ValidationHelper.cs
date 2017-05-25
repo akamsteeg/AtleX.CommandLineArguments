@@ -28,7 +28,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     }
 
     /// <summary>
-    /// Validate the argument
+    /// Try validating the argument with all argument validators
     /// </summary>
     /// <param name="parsedPropertyToValidate">
     /// The <see cref="PropertyInfo"/> of the argument to validate
@@ -39,23 +39,35 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// <param name="originalValue">
     /// The value as originally specified on the command line, if any
     /// </param>
+    /// <param name="validationErrors">
+    /// When validation fails, the value is an <see cref="IEnumerable{T}"/> of
+    /// <see cref="ValidationError"/> with all validation errors. Otherwise, the
+    /// value is an empty <see cref="IEnumerable{T}"/> of <see cref="ValidationError"/>
+    /// </param>
     /// <returns>
-    /// An <see cref="IEnumerable{T}"/> of <see cref="ValidationResult"/> with
-    /// all validation results
+    /// True when the argument is valid, false otherwise
     /// </returns>
-    public IEnumerable<ValidationResult> Validate(PropertyInfo parsedPropertyToValidate, bool isSpecified, string originalValue)
+    public bool TryValidate(PropertyInfo parsedPropertyToValidate, bool isSpecified, string originalValue, out IEnumerable<ValidationError> validationErrors)
     {
       if (parsedPropertyToValidate == null)
         throw new ArgumentNullException(nameof(parsedPropertyToValidate));
 
-      var result =  new List<ValidationResult>();
+      var result = true;
+
+      var currentValidationErrors =  new List<ValidationError>();
 
       foreach (var currentValidator in this.argumentValidators)
       {
-        var validationResult = currentValidator.Validate(parsedPropertyToValidate, isSpecified, originalValue);
+        var isValid = currentValidator.TryValidate(parsedPropertyToValidate, isSpecified, originalValue, out ValidationError validationError);
 
-        result.Add(validationResult);
+        if (!isValid)
+        {
+          currentValidationErrors.Add(validationError);
+          result = false;
+        }
       }
+
+      validationErrors = currentValidationErrors;
 
       return result;
     }
