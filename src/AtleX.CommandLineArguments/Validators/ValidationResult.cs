@@ -6,7 +6,7 @@ namespace AtleX.CommandLineArguments.Validators
   /// <summary>
   /// Represents a validation result for a single argument
   /// </summary>
-  [DebuggerDisplay("Is valid: {IsValid}")]
+  [DebuggerDisplay("{ValidatorName}, Result: {IsValid}")]
   public sealed class ValidationResult
   {
     /// <summary>
