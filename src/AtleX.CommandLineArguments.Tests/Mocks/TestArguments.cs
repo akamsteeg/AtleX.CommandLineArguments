@@ -94,6 +94,13 @@ namespace AtleX.CommandLineArguments.Tests.Mocks
       get;
       set;
     }
+
+    [Required(AllowEmptyStrings = false)]
+    public string RequiredString
+    {
+      get;
+      set;
+    }
     #endregion
   }
 }

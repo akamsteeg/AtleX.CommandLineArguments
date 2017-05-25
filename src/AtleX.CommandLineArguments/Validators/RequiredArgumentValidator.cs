@@ -16,11 +16,17 @@ namespace AtleX.CommandLineArguments.Validators
     private readonly Type requiredAttributeType;
 
     /// <summary>
+    /// Gets the cached <see cref="Type"/> of <see cref="bool"/>
+    /// </summary>
+    private readonly Type booleanType;
+
+    /// <summary>
     /// Initializes a new instance of <see cref="RequiredArgumentValidator"/>
     /// </summary>
     public RequiredArgumentValidator()
     {
       this.requiredAttributeType = typeof(RequiredAttribute);
+      this.booleanType = typeof(bool);
     }
 
     /// <summary>

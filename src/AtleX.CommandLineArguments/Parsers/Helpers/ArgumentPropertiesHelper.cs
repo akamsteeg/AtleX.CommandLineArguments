@@ -113,7 +113,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
             if (!currentPropertyInfo.DeclaringType.GetTypeInfo().IsEnum
               || !TryFillEnum(arguments, currentPropertyInfo, propertyValue))
             {
-              throw new NotSupportedException($"A command line argument of type '{currentPropertyInfo.DeclaringType.Name}' is not supported");
+              // Silently discard not supported values and typesra
             }
           }
         }
