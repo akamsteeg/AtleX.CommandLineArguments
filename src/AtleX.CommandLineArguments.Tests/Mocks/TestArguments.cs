@@ -78,5 +78,15 @@ namespace AtleX.CommandLineArguments.Tests.Mocks
       set;
     }
     #endregion
+
+
+    #region Required
+    [Required(ErrorMessage = "IsRequired needs a value")]
+    public bool Required
+    {
+      get;
+      set;
+    }
+    #endregion
   }
 }

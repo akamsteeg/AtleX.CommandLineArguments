@@ -38,6 +38,8 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
         "/String", PrimitiveTypeTestValues.String.ToString(),
 
         "/Toggle" /* No value after this one! */,
+
+        "/Required", PrimitiveTypeTestValues.Bool.ToString()
       };
 
       return result;
