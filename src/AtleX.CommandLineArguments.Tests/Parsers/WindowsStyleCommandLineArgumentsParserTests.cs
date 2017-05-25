@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using AtleX.CommandLineArguments.Parsers;
+using AtleX.CommandLineArguments.Validators;
 using NUnit.Framework;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers
@@ -9,7 +11,7 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
     : CommandLineArgumentsParserTests
   {
     public WindowsStyleCommandLineArgumentsParserTests()
-      : base(new WindowsStyleCommandLineArgumentsParser())
+      : base(new WindowsStyleCommandLineArgumentsParser(), Enumerable.Empty<ArgumentValidator>())
     {
 
     }

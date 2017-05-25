@@ -41,6 +41,7 @@
       <HintPath>..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,8 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArgumentsTests.cs" />
     <Compile Include="CommandLineArgumentsTests.cs" />
     <Compile Include="Mocks\TestArguments.cs" />
+    <Compile Include="Mocks\TestArgumentsWithRequired.cs" />
     <Compile Include="Mocks\TestCommandLineArgumentsConfiguration.cs" />
     <Compile Include="Parsers\CommandLineArgumentsParserTests.cs" />
     <Compile Include="Parsers\KeyValueCommandLineArgumentsParserTests.cs" />

@@ -1,5 +1,8 @@
 ﻿using AtleX.CommandLineArguments.Parsers.Helpers;
 using System;
+using System.Collections.Generic;
+using AtleX.CommandLineArguments.Validators;
+using System.Linq;
 
 namespace AtleX.CommandLineArguments.Parsers
 {
@@ -10,44 +13,48 @@ namespace AtleX.CommandLineArguments.Parsers
     : CommandLineArgumentsParser
   {
     /// <summary>
-    /// Parse the specified arguments to the specified type
+    /// Try to find an argument with the specified name in the specified
+    /// collection of all command line arguments
     /// </summary>
-    /// <typeparam name="T">
-    /// The <see cref="Arguments"/> to parse to
-    /// </typeparam>
-    /// <param name="arguments">
-    /// The arguments to parse
+    /// <param name="allCommandLineArguments">
+    /// The collection of all command line arguments
+    /// </param>
+    /// <param name="argumentToFind">
+    /// The name of the argument to find
+    /// </param>
+    /// <param name="value">
+    /// The value of the argument, if found
     /// </param>
     /// <returns>
-    /// The arguments, parsed to the specified type
+    /// True when the argument with the specified name to find is found, false otherwise
     /// </returns>
-    public override T Parse<T>(string[] arguments)
+    protected override bool TryFindRawArgumentValue(string[] allCommandLineArguments, string argumentToFind, out string value)
     {
-      if (arguments == null)
-        throw new ArgumentNullException(nameof(arguments));
-
-      var result = new T();
-
-      var argumentPropertiesHelper = new ArgumentPropertiesHelper<T>();
+      var result = false;
+      value = null;
 
       string key;
-      string value;
-      for (var i = 0; i < arguments.Length; i++)
+
+      for (var i = 0; i < allCommandLineArguments.Length; i++)
       {
-        var argumentParts = arguments[i].Split('=');
+        var argumentParts = allCommandLineArguments[i].Split('=');
 
         key = argumentParts[0];
 
-        if (argumentParts.Length == 2)
+        if (string.Compare(key, argumentToFind) == 0)
         {
-          value = argumentParts[1];
-        }
-        else
-        {
-          value = null;
-        }
+          if (argumentParts.Length == 2)
+          {
+            value = argumentParts[1];
+          }
+          else
+          {
+            value = null;
+          }
 
-        argumentPropertiesHelper.FillProperty(result, key, value);
+          result = true;
+          break;
+        }
       }
 
       return result;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AtleX.CommandLineArguments.Tests.Mocks
 {
@@ -77,10 +78,5 @@ namespace AtleX.CommandLineArguments.Tests.Mocks
       set;
     }
     #endregion
-
-    public override bool IsValid()
-    {
-      throw new NotImplementedException();
-    }
   }
 }

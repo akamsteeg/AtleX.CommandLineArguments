@@ -1,7 +1,4 @@
-﻿using AtleX.CommandLineArguments.Parsers.Helpers;
-using System;
-
-namespace AtleX.CommandLineArguments.Parsers
+﻿namespace AtleX.CommandLineArguments.Parsers
 {
   /// <summary>
   /// Represents a Microsoft Windows CLI style ("/key value /key2 value2
@@ -16,55 +13,58 @@ namespace AtleX.CommandLineArguments.Parsers
     private const string keyIndicatorCharacter = "/";
 
     /// <summary>
-    /// Parse the specified arguments to the specified type
+    /// Try to find an argument with the specified name in the specified
+    /// collection of all command line arguments
     /// </summary>
-    /// <typeparam name="T">
-    /// The <see cref="Arguments"/> to parse to
-    /// </typeparam>
-    /// <param name="arguments">
-    /// The arguments to parse
+    /// <param name="allCommandLineArguments">
+    /// The collection of all command line arguments
+    /// </param>
+    /// <param name="argumentToFind">
+    /// The name of the argument to find
+    /// </param>
+    /// <param name="value">
+    /// The value of the argument, if found
     /// </param>
     /// <returns>
-    /// The arguments, parsed to the specified type
+    /// True when the argument with the specified name to find is found, false otherwise
     /// </returns>
-    public override T Parse<T>(string[] arguments)
+    protected override bool TryFindRawArgumentValue(string[] allCommandLineArguments, string argumentToFind, out string value)
     {
-      if (arguments == null)
-        throw new ArgumentNullException(nameof(arguments));
-
-      var result = new T();
-
-      var argumentPropertiesHelper = new ArgumentPropertiesHelper<T>();
-
+      var result = false;
       string key;
-      string value;
+      value = null;
 
-      for (var i = 0; i < arguments.Length; i++)
+      for (var i = 0; i < allCommandLineArguments.Length; i++)
       {
-        var currentItem = arguments[i];
+        var currentItem = allCommandLineArguments[i];
         if (ArgumentIsKey(currentItem))
         {
           key = currentItem.Substring(1);
 
-          if (i + 1 != arguments.Length)
+          if (string.Compare(key, argumentToFind) == 0)
           {
-            var possibleValue = arguments[i + 1];
-            if (!ArgumentIsKey(possibleValue))
+            // Look ahead for the next argument, because they're separated by a space
+            if (i + 1 != allCommandLineArguments.Length)
             {
-              value = possibleValue;
-              i++;
+              var possibleValue = allCommandLineArguments[i + 1];
+              if (!ArgumentIsKey(possibleValue))
+              {
+                value = possibleValue;
+                i++;
+              }
+              else
+              {
+                value = null;
+              }
             }
             else
             {
               value = null;
             }
-          }
-          else
-          {
-            value = null;
-          }
 
-          argumentPropertiesHelper.FillProperty(result, key, value);
+            result = true;
+            break; // We found everything we need
+          }
         }
       }
 
@@ -86,5 +86,7 @@ namespace AtleX.CommandLineArguments.Parsers
 
       return result;
     }
+
+    
   }
 }

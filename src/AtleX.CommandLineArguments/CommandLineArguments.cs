@@ -1,5 +1,8 @@
 ﻿using AtleX.CommandLineArguments.Configuration;
 using System;
+using System.Collections.Generic;
+using AtleX.CommandLineArguments.Validators;
+using System.Reflection;
 
 namespace AtleX.CommandLineArguments
 {
@@ -34,10 +37,38 @@ namespace AtleX.CommandLineArguments
     /// <param name="arguments">
     /// The arguments to parse
     /// </param>
+    /// <param name="argumentsObject">
+    /// The <see cref="Arguments"/> object to parse to
+    /// </param>
     /// <returns>
-    /// The arguments, parsed to the specified type
+    /// True when parsing and validation succeeded, false otherwise
     /// </returns>
-    public static T Parse<T>(string[] arguments)
+    public static bool TryParse<T>(string[] arguments, out T argumentsObject)
+      where T : Arguments, new()
+    {
+      return TryParse(arguments, out argumentsObject, out IEnumerable<ValidationResult> ignoredValidationResults);
+    }
+
+    /// <summary>
+    /// Parse the specified arguments to the specified type
+    /// </summary>
+    /// <typeparam name="T">
+    /// The <see cref="Arguments"/> to parse to
+    /// </typeparam>
+    /// <param name="arguments">
+    /// The arguments to parse
+    /// </param>
+    /// <param name="argumentsObject">
+    /// The <see cref="Arguments"/> object to parse to
+    /// </param>
+    /// <param name="validationResults">
+    /// The <see cref="IEnumerable{T}"/> of <see cref="ValidationResult"/> as the
+    /// result of the validation
+    /// </param>
+    /// <returns>
+    /// True when parsing and validation succeeded, false otherwise
+    /// </returns>
+    public static bool TryParse<T>(string[] arguments, out T argumentsObject, out IEnumerable<ValidationResult> validationResults)
       where T : Arguments, new()
     {
       if (arguments == null)
@@ -47,7 +78,11 @@ namespace AtleX.CommandLineArguments
       if (Configuration.Parser == null)
         throw new InvalidOperationException("Cannot parse without a parser");
 
-      var result = Configuration.Parser.Parse<T>(arguments);
+      var parseResult = Configuration.Parser.Parse<T>(arguments, Configuration.Validators);
+
+      var result = parseResult.IsValid;
+      argumentsObject = parseResult.Arguments as T;
+      validationResults = parseResult.ValidationResults;
 
       return result;
     }
