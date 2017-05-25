@@ -27,6 +27,8 @@ public class Program
 		if (!CommandLineArguments.TryParse<MyArgumentsClass>(args, out cliArguments))
 		{
 			// Something wrong, exit or display help?
+			CommandLineArguments.DisplayHelp(cliArguments);
+			return;
 		}
 
 		if (cliArguments.Argument1)
