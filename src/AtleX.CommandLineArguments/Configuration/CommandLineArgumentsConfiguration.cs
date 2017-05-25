@@ -1,4 +1,5 @@
-﻿using AtleX.CommandLineArguments.Parsers;
+﻿using System;
+using AtleX.CommandLineArguments.Parsers;
 
 namespace AtleX.CommandLineArguments.Configuration
 {
@@ -8,12 +9,23 @@ namespace AtleX.CommandLineArguments.Configuration
   public class CommandLineArgumentsConfiguration
   {
     /// <summary>
-    /// Gets or sets the <see cref="CommandLineArgumentsParser"/> for this <see cref="CommandLineArgumentsConfiguration"/>
+    /// Gets the <see cref="CommandLineArgumentsParser"/> for this <see cref="CommandLineArgumentsConfiguration"/>
     /// </summary>
     public CommandLineArgumentsParser Parser
     {
       get;
-      set;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of <see
+    /// cref="CommandLineArgumentsConfiguration"/> with the specified <see cref="CommandLineArgumentsParser"/>
+    /// </summary>
+    /// <param name="parser">
+    /// The <see cref="CommandLineArgumentsParser"/> to use
+    /// </param>
+    public CommandLineArgumentsConfiguration(CommandLineArgumentsParser parser)
+    {
+      this.Parser = parser ?? throw new ArgumentNullException(nameof(parser));
     }
   }
 }

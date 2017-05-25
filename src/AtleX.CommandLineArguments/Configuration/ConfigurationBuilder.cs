@@ -32,8 +32,8 @@ namespace AtleX.CommandLineArguments.Configuration
     /// The <see cref="CommandLineArgumentsParser"/> to use
     /// </param>
     private ConfigurationBuilder(CommandLineArgumentsParser parser)
+      : base(parser)
     {
-      this.Parser = parser ?? throw new ArgumentNullException(nameof(parser));
     }
   }
 }
