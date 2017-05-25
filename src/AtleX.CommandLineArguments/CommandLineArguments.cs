@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using AtleX.CommandLineArguments.Validators;
-using System.Reflection;
 
 namespace AtleX.CommandLineArguments
 {

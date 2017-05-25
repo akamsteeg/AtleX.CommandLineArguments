@@ -1,10 +1,4 @@
-﻿using AtleX.CommandLineArguments.Parsers.Helpers;
-using System;
-using System.Collections.Generic;
-using AtleX.CommandLineArguments.Validators;
-using System.Linq;
-
-namespace AtleX.CommandLineArguments.Parsers
+﻿namespace AtleX.CommandLineArguments.Parsers
 {
   /// <summary>
   /// Represents a key/value ("key1=value1 key2=value2 toggle") command line arguments parser
