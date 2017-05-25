@@ -37,13 +37,7 @@ namespace AtleX.CommandLineArguments.Configuration
     public CommandLineArgumentsConfiguration(CommandLineArgumentsParser parser)
     {
       this.Parser = parser ?? throw new ArgumentNullException(nameof(parser));
-    }
 
-    /// <summary>
-    /// Initializes a new instance of <see cref="CommandLineArgumentsConfiguration"/>
-    /// </summary>
-    public CommandLineArgumentsConfiguration()
-    {
       this.Validators = new List<ArgumentValidator>();
     }
   }

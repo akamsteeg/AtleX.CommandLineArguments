@@ -1,5 +1,6 @@
 ﻿using System;
 using AtleX.CommandLineArguments.Parsers;
+using AtleX.CommandLineArguments.Validators;
 
 namespace AtleX.CommandLineArguments.Configuration
 {
@@ -34,6 +35,25 @@ namespace AtleX.CommandLineArguments.Configuration
     private ConfigurationBuilder(CommandLineArgumentsParser parser)
       : base(parser)
     {
+    }
+
+    /// <summary>
+    /// Add a <see cref="ArgumentValidator"/> to the <see cref="ConfigurationBuilder"/>
+    /// </summary>
+    /// <param name="argumentValidator">
+    /// The <see cref="ArgumentValidator"/> to add to the <see cref="ConfigurationBuilder"/>
+    /// </param>
+    /// <returns>
+    /// The <see cref="ConfigurationBuilder"/>
+    /// </returns>
+    public ConfigurationBuilder With(ArgumentValidator argumentValidator)
+    {
+      if (argumentValidator == null)
+        throw new ArgumentNullException(nameof(argumentValidator));
+
+      this.Validators.Add(argumentValidator);
+
+      return this;
     }
   }
 }
