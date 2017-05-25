@@ -2,6 +2,7 @@
 using AtleX.CommandLineArguments.Parsers;
 using AtleX.CommandLineArguments.Validators;
 ﻿using System;
+using AtleX.CommandLineArguments.Help;
 
 namespace AtleX.CommandLineArguments.Configuration
 {
@@ -25,6 +26,16 @@ namespace AtleX.CommandLineArguments.Configuration
     public CommandLineArgumentsParser Parser
     {
       get;
+      protected set;
+    }
+
+    /// <summary>
+    /// Gets the <see cref="HelpWriter"/> for this <see cref="CommandLineArgumentsConfiguration"/>
+    /// </summary>
+    public HelpWriter HelpWriter
+    {
+      get;
+      protected set;
     }
 
     /// <summary>
