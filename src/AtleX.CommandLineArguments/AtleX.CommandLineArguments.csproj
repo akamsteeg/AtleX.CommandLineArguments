@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard1.5;net45;net46</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <IncludeSymbols>True</IncludeSymbols>
     <Authors>Alex Kamsteeg (https://atlex.nl/)</Authors>
     <Company />
     <PackageProjectUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments</PackageProjectUrl>
