@@ -11,8 +11,8 @@ namespace TestApp
   internal sealed class CliArguments
     : Arguments
   {
-    [Required(ErrorMessage = "ShowValidationResult is required")]
-    public bool ShowValidationResult
+    [Required(ErrorMessage = "ShowValidationErrors is required", AllowEmptyStrings = true)]
+    public bool ShowValidationErrors
     {
       get;
       set;

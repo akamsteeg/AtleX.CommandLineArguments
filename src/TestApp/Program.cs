@@ -10,16 +10,21 @@ namespace TestApp
     static void Main(string[] args)
     {
 
-      if (!CommandLineArguments.TryParse(args, out CliArguments cliArguments, out IEnumerable<ValidationResult> validationResults))
+      if (!CommandLineArguments.TryParse(args, out CliArguments cliArguments, out IEnumerable<ValidationError> validationErrors) || cliArguments.ShowValidationErrors)
       {
         Console.WriteLine("Validation results;");
 
-        foreach (var currentValidationResults in validationResults)
+        foreach (var currentValidationError in validationErrors)
         {
-          Console.WriteLine($"* {currentValidationResults.ArgumentName}: {currentValidationResults.ValidationMessage} ({currentValidationResults.IsValid})");
+          Console.WriteLine($"* {currentValidationError.ArgumentName}: {currentValidationError.ErrorMessage} ({currentValidationError.ValidatorName})");
         }
       }
+      else
+      {
+        Console.WriteLine("All arguments are okay");
+      }
 
+      Console.WriteLine("(Press a key to exit)");
       Console.ReadKey();
     }
   }
