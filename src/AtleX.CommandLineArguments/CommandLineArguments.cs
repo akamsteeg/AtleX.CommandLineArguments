@@ -24,7 +24,7 @@ namespace AtleX.CommandLineArguments
     /// </summary>
     static CommandLineArguments()
     {
-      Configuration = new DefaultCommandLineArgumentsConfiguration();
+      Configuration = CommandLineArgumentsConfiguration.Default;
     }
 
     /// <summary>
