@@ -81,8 +81,15 @@ namespace AtleX.CommandLineArguments.Tests.Mocks
 
 
     #region Required
-    [Required(ErrorMessage = "IsRequired needs a value")]
+    [Required(ErrorMessage = "Required needs a value")]
     public bool Required
+    {
+      get;
+      set;
+    }
+
+    [Required(ErrorMessage = "RequiredToggle needs a value", AllowEmptyStrings =true)]
+    public bool RequiredToggle
     {
       get;
       set;

@@ -43,9 +43,14 @@ namespace AtleX.CommandLineArguments.Validators
       var isValid = true;
       var errorMessage = string.Empty;
 
-      // When the argument is not specified or the original value is empty but the property has a [Required] attribute, fail validation
-      if ((!isSpecified || string.IsNullOrWhiteSpace(originalValue)) && TryIsPropertyValueRequired(argumentPropertyInfo, out errorMessage))
+      var hasRequiredAttribute = TryGetRequiredAttribute(argumentPropertyInfo, out RequiredAttribute requiredAttribute);
+
+
+      if ((hasRequiredAttribute && !isSpecified) // The argument is required but it isn't specified
+        || (hasRequiredAttribute && isSpecified && !requiredAttribute.AllowEmptyStrings && string.IsNullOrWhiteSpace(originalValue)) // The argument is required and specified, but not allowed to be empty
+        )
       {
+        errorMessage = requiredAttribute.ErrorMessage;
         isValid = false;
       }
 
@@ -55,21 +60,22 @@ namespace AtleX.CommandLineArguments.Validators
     }
 
     /// <summary>
-    /// Determines whether the specified <see cref="PropertyInfo"/> has a <see
-    /// cref="RequiredAttribute"/> or not
+    /// Try getting the <see cref="RequiredAttribute"/>, if any, from the
+    /// specified <see cref="PropertyInfo"/>
     /// </summary>
     /// <param name="propertyInfo">
     /// The <see cref="PropertyInfo"/> to check for having a <see
     /// cref="RequiredAttribute"/> or not
     /// </param>
-    /// <param name="errorMessage">
-    /// The error message from the <see cref="RequiredAttribute"/>, if any
+    /// <param name="attribute">
+    /// When a <see cref="RequiredAttribute"/> is found, this contains the
+    /// attribute. Null otherwise
     /// </param>
     /// <returns>
     /// True when the specified <see cref="PropertyInfo"/> has a <see
     /// cref="RequiredAttribute"/>, false otherwise
     /// </returns>
-    private bool TryIsPropertyValueRequired(PropertyInfo propertyInfo, out string errorMessage)
+    private bool TryGetRequiredAttribute(PropertyInfo propertyInfo, out RequiredAttribute attribute)
     {
       var result = false;
 
@@ -78,11 +84,11 @@ namespace AtleX.CommandLineArguments.Validators
       if (requiredAttribute != null)
       {
         result = true;
-        errorMessage = requiredAttribute.ErrorMessage;
+        attribute = requiredAttribute;
       }
       else
       {
-        errorMessage = string.Empty;
+        attribute = null;
       }
 
       return result;
