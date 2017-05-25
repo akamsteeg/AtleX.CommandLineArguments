@@ -1,5 +1,7 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using AtleX.CommandLineArguments.Parsers;
+using AtleX.CommandLineArguments.Validators;
+﻿using System;
 
 namespace AtleX.CommandLineArguments.Configuration
 {
@@ -8,6 +10,15 @@ namespace AtleX.CommandLineArguments.Configuration
   /// </summary>
   public class CommandLineArgumentsConfiguration
   {
+    /// <summary>
+    /// Gets the <see cref="List{T}"/> of <see cref="ArgumentValidator"/> to
+    /// validate the command line arguments with
+    /// </summary>
+    public List<ArgumentValidator> Validators
+    {
+      get;
+    }
+
     /// <summary>
     /// Gets the <see cref="CommandLineArgumentsParser"/> for this <see cref="CommandLineArgumentsConfiguration"/>
     /// </summary>
@@ -26,6 +37,8 @@ namespace AtleX.CommandLineArguments.Configuration
     public CommandLineArgumentsConfiguration(CommandLineArgumentsParser parser)
     {
       this.Parser = parser ?? throw new ArgumentNullException(nameof(parser));
+
+      this.Validators = new List<ArgumentValidator>();
     }
   }
 }

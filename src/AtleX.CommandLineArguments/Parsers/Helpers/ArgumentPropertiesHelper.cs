@@ -74,6 +74,17 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     }
 
     /// <summary>
+    /// Get the <see cref="IEnumerable{T}"/> of <see cref="PropertyInfo"/> of the currently managed <see cref="Arguments"/>
+    /// </summary>
+    /// <returns>
+    /// The <see cref="IEnumerable{T}"/> of <see cref="PropertyInfo"/> of the currently managed <see cref="Arguments"/>
+    /// </returns>
+    public IEnumerable<PropertyInfo> GetProperties()
+    {
+      return this.argumentProperties;
+    }
+
+    /// <summary>
     /// Set the value of the property with the specified name in the <see
     /// cref="Arguments"/> to the specified value
     /// </summary>
@@ -102,7 +113,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
             if (!currentPropertyInfo.DeclaringType.GetTypeInfo().IsEnum
               || !TryFillEnum(arguments, currentPropertyInfo, propertyValue))
             {
-              // TODO Set other types
+              // Silently discard not supported values and typesra
             }
           }
         }

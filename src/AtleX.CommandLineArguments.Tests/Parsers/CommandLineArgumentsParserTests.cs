@@ -2,6 +2,8 @@
 using AtleX.CommandLineArguments.Tests.Mocks;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+using AtleX.CommandLineArguments.Validators;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers
 {
@@ -9,37 +11,41 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
   {
     protected readonly CommandLineArgumentsParser parser;
 
-    public CommandLineArgumentsParserTests(CommandLineArgumentsParser parser)
+    protected readonly IEnumerable<ArgumentValidator> validators;
+
+    public CommandLineArgumentsParserTests(CommandLineArgumentsParser parser, IEnumerable<ArgumentValidator> validators)
     {
       this.parser = parser;
+      this.validators = validators;
     }
 
     [Test]
-    public void Parse_ArgumentsNull_Throws()
+    public void TryParse_ArgumentsNull_Throws()
     {
-      Assert.Throws<ArgumentNullException>(() => parser.Parse<TestArguments>(null));
+      Assert.Throws<ArgumentNullException>(() => parser.Parse<TestArguments>(null, this.validators));
     }
 
     [Test]
-    public void Parse_ValidArguments()
+    public void TryParse_ValidArguments()
     {
       var arguments = CreateValidArguments();
 
-      var result = parser.Parse<TestArguments>(arguments);
+      var result = parser.Parse<TestArguments>(arguments, this.validators);
 
-      AssertValidArguments(result);
+      AssertValidArguments(result.CommandLineArguments);
     }
 
     [Test]
-    public void CommandLineArgumentsParse_ValidArguments()
+    public void CommandLineArgumentsTryParse_ValidArguments()
     {
       var configuration = new TestCommandLineArgumentsConfiguration(parser);
       CommandLineArguments.Configuration = configuration;
 
       var arguments = CreateValidArguments();
 
-      var result = CommandLineArguments.Parse<TestArguments>(arguments);
-      AssertValidArguments(result);
+      var result = CommandLineArguments.TryParse<TestArguments>(arguments, out TestArguments parsedArguments, out IEnumerable<ValidationResult> vr);
+      Assert.IsTrue(result);
+      AssertValidArguments(parsedArguments);
     }
 
     private static void AssertValidArguments(TestArguments arguments)

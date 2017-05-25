@@ -1,4 +1,5 @@
 ﻿using AtleX.CommandLineArguments.Parsers;
+using AtleX.CommandLineArguments.Validators;
 
 namespace AtleX.CommandLineArguments.Configuration
 {
@@ -14,6 +15,8 @@ namespace AtleX.CommandLineArguments.Configuration
     public DefaultCommandLineArgumentsConfiguration()
       : base(new WindowsStyleCommandLineArgumentsParser())
     {
+      this.Validators.Add(new RequiredArgumentValidator())
+;
     }
   }
 }

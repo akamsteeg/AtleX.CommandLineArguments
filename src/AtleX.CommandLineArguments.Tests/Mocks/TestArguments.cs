@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AtleX.CommandLineArguments.Tests.Mocks
 {
@@ -78,9 +79,28 @@ namespace AtleX.CommandLineArguments.Tests.Mocks
     }
     #endregion
 
-    public override bool IsValid()
+
+    #region Required
+    [Required(ErrorMessage = "Required needs a value")]
+    public bool Required
     {
-      throw new NotImplementedException();
+      get;
+      set;
     }
+
+    [Required(ErrorMessage = "RequiredToggle needs a value", AllowEmptyStrings =true)]
+    public bool RequiredToggle
+    {
+      get;
+      set;
+    }
+
+    [Required(AllowEmptyStrings = false)]
+    public string RequiredString
+    {
+      get;
+      set;
+    }
+    #endregion
   }
 }
