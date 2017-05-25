@@ -4,10 +4,10 @@ using System.Diagnostics;
 namespace AtleX.CommandLineArguments.Validators
 {
   /// <summary>
-  /// Represents a validation result for a single argument
+  /// Represents a validation error for a single argument and a single <see cref="ArgumentValidator"/>
   /// </summary>
   [DebuggerDisplay("{ValidatorName}, Result: {IsValid}")]
-  public sealed class ValidationResult
+  public sealed class ValidationError
   {
     /// <summary>
     /// Gets the name of the command line argument
@@ -18,15 +18,7 @@ namespace AtleX.CommandLineArguments.Validators
     }
 
     /// <summary>
-    /// Gets whether validation succeeded
-    /// </summary>
-    public bool IsValid
-    {
-      get;
-    }
-
-    /// <summary>
-    /// Gets the name of the validator this <see cref="ValidationResult"/> is from
+    /// Gets the name of the validator this <see cref="ValidationError"/> is from
     /// </summary>
     public string ValidatorName
     {
@@ -34,30 +26,27 @@ namespace AtleX.CommandLineArguments.Validators
     }
 
     /// <summary>
-    /// Gets the validation message, if any
+    /// Gets the validation error message, if any
     /// </summary>
-    public string ValidationMessage
+    public string ErrorMessage
     {
       get;
     }
 
     /// <summary>
-    /// Initializes a new instance of <see cref="ValidationResult"/> with the
-    /// specified argument name, validation result and validation message
+    /// Initializes a new instance of <see cref="ValidationError"/> with the
+    /// specified argument name, validation result and validation error message
     /// </summary>
     /// <param name="argumentName">
     /// The name of the command line argument
     /// </param>
-    /// <param name="isValid">
-    /// True when the value of the argument is valid, false otherwise
-    /// </param>
     /// <param name="validatorName">
-    /// The name of the validator this <see cref="ValidationResult"/> is from
+    /// The name of the validator this <see cref="ValidationError"/> is from
     /// </param>
-    /// <param name="validationMessage">
-    /// The validation result message, if any
+    /// <param name="validationErrorMessage">
+    /// The validation error message, if any
     /// </param>
-    public ValidationResult(string argumentName, bool isValid, string validatorName, string validationMessage)
+    public ValidationError(string argumentName, string validatorName, string validationErrorMessage)
     {
       if (string.IsNullOrWhiteSpace(argumentName))
         throw new ArgumentNullException(nameof(argumentName));
@@ -65,9 +54,8 @@ namespace AtleX.CommandLineArguments.Validators
         throw new ArgumentNullException(nameof(validatorName));
 
       this.ArgumentName = argumentName;
-      this.IsValid = isValid;
       this.ValidatorName = validatorName;
-      this.ValidationMessage = validationMessage;
+      this.ErrorMessage = validationErrorMessage;
     }
   }
 }
