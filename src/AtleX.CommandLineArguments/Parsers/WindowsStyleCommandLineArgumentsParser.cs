@@ -1,4 +1,6 @@
-﻿namespace AtleX.CommandLineArguments.Parsers
+﻿using System;
+
+namespace AtleX.CommandLineArguments.Parsers
 {
   /// <summary>
   /// Represents a Microsoft Windows CLI style ("/key value /key2 value2
@@ -64,6 +66,36 @@
 
             result = true;
             break; // We found everything we need
+          }
+        }
+      }
+
+      return result;
+    }
+
+    /// <summary>
+    /// Gets whether the specified command line arguments contain a Help argument or not
+    /// </summary>
+    /// <param name="allCommandLineArguments">
+    /// The collection of all command line arguments
+    /// </param>
+    /// <returns>
+    /// True when the collection of command line arguments contains a Help argument, false otherwise
+    /// </returns>
+    protected override bool ContainsHelpArgument(string[] allCommandLineArguments)
+    {
+      var result = base.ContainsHelpArgument(allCommandLineArguments);
+
+      if (!result)
+      {
+        for (var i = 0; i < allCommandLineArguments.Length; i++)
+        {
+          var currentArgumentName = allCommandLineArguments[i];
+
+          if (currentArgumentName == "?")
+          {
+            result = true;
+            break;
           }
         }
       }

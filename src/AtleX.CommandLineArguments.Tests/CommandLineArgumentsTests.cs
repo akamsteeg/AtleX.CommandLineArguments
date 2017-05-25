@@ -12,7 +12,7 @@ namespace AtleX.CommandLineArguments.Tests
     [Test]
     public void TryParse_ArgumentsNull_Throws()
     {
-      Assert.Throws<ArgumentNullException>(() => CommandLineArguments.TryParse<TestArguments>(null, out TestArguments a, out IEnumerable<ValidationError> vr));
+      Assert.Throws<ArgumentNullException>(() => CommandLineArguments.TryParse<TestArguments>(null, out TestArguments a));
     }
 
     [Test]
@@ -20,7 +20,7 @@ namespace AtleX.CommandLineArguments.Tests
     {
       CommandLineArguments.Configuration = null;
 
-      Assert.Throws<InvalidOperationException>(() => CommandLineArguments.TryParse<TestArguments>(new string[0], out TestArguments a, out IEnumerable<ValidationError> vr));
+      Assert.Throws<InvalidOperationException>(() => CommandLineArguments.TryParse<TestArguments>(new string[0], out TestArguments a));
     }
   }
 }

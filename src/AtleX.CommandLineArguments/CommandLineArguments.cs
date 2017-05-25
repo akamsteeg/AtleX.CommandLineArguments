@@ -52,7 +52,7 @@ namespace AtleX.CommandLineArguments
     /// Parse the specified arguments to the specified type
     /// </summary>
     /// <typeparam name="T">
-    /// The <see cref="Arguments"/> to parse to
+    /// The type of <see cref="Arguments"/> to parse to
     /// </typeparam>
     /// <param name="arguments">
     /// The arguments to parse
@@ -75,7 +75,7 @@ namespace AtleX.CommandLineArguments
       if (Configuration == null)
         throw new InvalidOperationException("Cannot parse without a configuration");
       if (Configuration.Parser == null)
-        throw new InvalidOperationException("Cannot parse without a parser");
+        throw new InvalidOperationException("Cannot parse without a parser configured");
 
       var parseResult = Configuration.Parser.Parse<T>(arguments, Configuration.Validators);
 
@@ -84,6 +84,26 @@ namespace AtleX.CommandLineArguments
       validationResults = parseResult.ValidationErrors;
 
       return result;
+    }
+
+    /// <summary>
+    /// Display help for the specified <see cref="Arguments"/> object
+    /// </summary>
+    /// <typeparam name="T">
+    /// The type of <see cref="Arguments"/> to parse to
+    /// </typeparam>
+    /// <param name="argumentsObject">
+    /// The <see cref="Arguments"/> object to display help for
+    /// </param>
+    public static void DisplayHelp<T>(T argumentsObject)
+      where T : Arguments, new()
+    {
+      if (Configuration == null)
+        throw new InvalidOperationException("Cannot display help without a configuration");
+      if (Configuration.HelpWriter == null)
+        throw new InvalidOperationException("Cannot display help without a help writer configured");
+
+      Configuration.HelpWriter.Write(argumentsObject);
     }
   }
 }
