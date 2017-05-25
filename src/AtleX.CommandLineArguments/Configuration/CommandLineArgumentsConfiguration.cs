@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using AtleX.CommandLineArguments.Parsers;
 using AtleX.CommandLineArguments.Validators;
-﻿using System;
 using AtleX.CommandLineArguments.Help;
 
 namespace AtleX.CommandLineArguments.Configuration
@@ -39,17 +38,26 @@ namespace AtleX.CommandLineArguments.Configuration
     }
 
     /// <summary>
-    /// Initializes a new instance of <see
-    /// cref="CommandLineArgumentsConfiguration"/> with the specified <see cref="CommandLineArgumentsParser"/>
+    /// Initializes a new instance of <see cref="CommandLineArgumentsConfiguration"/>
     /// </summary>
-    /// <param name="parser">
-    /// The <see cref="CommandLineArgumentsParser"/> to use
-    /// </param>
-    public CommandLineArgumentsConfiguration(CommandLineArgumentsParser parser)
+    public CommandLineArgumentsConfiguration()
     {
-      this.Parser = parser ?? throw new ArgumentNullException(nameof(parser));
-
       this.Validators = new List<ArgumentValidator>();
+    }
+
+    /// <summary>
+    /// Gets the default <see cref="CommandLineArgumentsConfiguration"/>
+    /// </summary>
+    public static CommandLineArgumentsConfiguration Default
+    {
+      get
+      {
+        var result = ConfigurationBuilder.For(new WindowsStyleCommandLineArgumentsParser())
+          .With(new WindowsStyleHelpWriter())
+          .With(new RequiredArgumentValidator());
+
+        return result;
+      }
     }
   }
 }

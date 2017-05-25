@@ -1,4 +1,5 @@
 ﻿using System;
+using AtleX.CommandLineArguments.Help;
 using AtleX.CommandLineArguments.Parsers;
 using AtleX.CommandLineArguments.Validators;
 
@@ -33,8 +34,8 @@ namespace AtleX.CommandLineArguments.Configuration
     /// The <see cref="CommandLineArgumentsParser"/> to use
     /// </param>
     private ConfigurationBuilder(CommandLineArgumentsParser parser)
-      : base(parser)
     {
+      this.Parser = parser ?? throw new ArgumentNullException(nameof(parser));
     }
 
     /// <summary>
@@ -52,6 +53,22 @@ namespace AtleX.CommandLineArguments.Configuration
         throw new ArgumentNullException(nameof(argumentValidator));
 
       this.Validators.Add(argumentValidator);
+
+      return this;
+    }
+
+    /// <summary>
+    /// Set the <see cref="HelpWriter"/> for the <see cref="ConfigurationBuilder"/>
+    /// </summary>
+    /// <param name="helpWriter">
+    /// The <see cref="HelpWriter"/> to set
+    /// </param>
+    /// <returns>
+    /// The <see cref="ConfigurationBuilder"/>
+    /// </returns>
+    public ConfigurationBuilder With(HelpWriter helpWriter)
+    {
+      this.HelpWriter = helpWriter ?? throw new ArgumentNullException(nameof(helpWriter));
 
       return this;
     }
