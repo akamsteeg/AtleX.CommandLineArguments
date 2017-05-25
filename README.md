@@ -7,6 +7,15 @@ Supported .NET frameworks:
 * .NET 4.6
 * NETSTANDARD 1.5
 
+# Installation
+
+AtleX.CommandLineArguments is available [as NuGet package](https://www.nuget.org/packages/AtleX.CommandLineArguments/):
+
+```
+install-package AtleX.CommandLineArguments -Pre
+```
+
+
 # Example
 
 ```csharp
@@ -27,6 +36,8 @@ public class Program
 		if (!CommandLineArguments.TryParse<MyArgumentsClass>(args, out cliArguments))
 		{
 			// Something wrong, exit or display help?
+			CommandLineArguments.DisplayHelp(cliArguments);
+			return;
 		}
 
 		if (cliArguments.Argument1)
