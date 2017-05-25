@@ -1,18 +1,20 @@
 # AtleX.CommandLineArguments
 
-AtleX.CommandLineArguments is a helper library to facilitate command line arguments into an object.
+AtleX.CommandLineArguments is a helper library to facilitate parsing command line arguments into an object.
 
 Supported .NET frameworks:
-* .NET 4.5 or higher
+* .NET 4.5
+* .NET 4.6
+* NETSTANDARD 1.5
 
 # Example
 
 ```csharp
 public class Program
 {
-	private class MyArgumentsClass
+	private class MyArgumentsClass : Arguments
 	{
-		public bool HasArgument1
+		public bool Argument1
 		{
 			get;
 			set;
@@ -21,11 +23,15 @@ public class Program
 	
 	static void Main(string[] args)
 	{
-		var arguments = CommandLineArguments.Parse<MyArgumentsClass>(args);
-		
-		if (arguments.HasArgument1)
+		MyArgumentsClass cliArguments;
+		if (!CommandLineArguments.TryParse<MyArgumentsClass>(args, out cliArguments))
 		{
-			// ...
+			// Something wrong, exit or display help?
+		}
+
+		if (cliArguments.Argument1)
+		{
+		
 		}
 	}
 }
