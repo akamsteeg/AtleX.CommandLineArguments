@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="ArgumentsTests.cs" />
     <Compile Include="CommandLineArgumentsTests.cs" />
+    <Compile Include="Configuration\ConfigurationBuilderTests.cs" />
     <Compile Include="Mocks\TestArguments.cs" />
     <Compile Include="Mocks\TestArgumentsWithRequired.cs" />
     <Compile Include="Mocks\TestCommandLineArgumentsConfiguration.cs" />

@@ -13,10 +13,10 @@ namespace AtleX.CommandLineArguments.Configuration
     /// Initializes a new <see cref="DefaultCommandLineArgumentsConfiguration"/>
     /// </summary>
     public DefaultCommandLineArgumentsConfiguration()
+      : base(new WindowsStyleCommandLineArgumentsParser())
     {
-      this.Parser = new WindowsStyleCommandLineArgumentsParser();
-
       this.Validators.Add(new RequiredArgumentValidator())
-;    }
+;
+    }
   }
 }

@@ -22,13 +22,5 @@ namespace AtleX.CommandLineArguments.Tests
 
       Assert.Throws<InvalidOperationException>(() => CommandLineArguments.TryParse<TestArguments>(new string[0], out TestArguments a, out IEnumerable<ValidationResult> vr));
     }
-
-    [Test]
-    public void TryParse_WithoutParser_Throws()
-    {
-      CommandLineArguments.Configuration = new TestCommandLineArgumentsConfiguration(null);
-
-      Assert.Throws<InvalidOperationException>(() => CommandLineArguments.TryParse<TestArguments>(new string[0], out TestArguments a, out IEnumerable<ValidationResult> vr));
-    }
   }
 }

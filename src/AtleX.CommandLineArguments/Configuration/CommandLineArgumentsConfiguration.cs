@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using AtleX.CommandLineArguments.Parsers;
 using AtleX.CommandLineArguments.Validators;
+﻿using System;
 
 namespace AtleX.CommandLineArguments.Configuration
 {
   /// <summary>
   /// Represents the configuration for <see cref="AtleX.CommandLineArguments.CommandLineArguments"/>
   /// </summary>
-  public abstract class CommandLineArgumentsConfiguration
+  public class CommandLineArgumentsConfiguration
   {
     /// <summary>
     /// Gets the <see cref="List{T}"/> of <see cref="ArgumentValidator"/> to
@@ -16,7 +17,6 @@ namespace AtleX.CommandLineArguments.Configuration
     public List<ArgumentValidator> Validators
     {
       get;
-      set;
     }
 
     /// <summary>
@@ -25,7 +25,18 @@ namespace AtleX.CommandLineArguments.Configuration
     public CommandLineArgumentsParser Parser
     {
       get;
-      protected set;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of <see
+    /// cref="CommandLineArgumentsConfiguration"/> with the specified <see cref="CommandLineArgumentsParser"/>
+    /// </summary>
+    /// <param name="parser">
+    /// The <see cref="CommandLineArgumentsParser"/> to use
+    /// </param>
+    public CommandLineArgumentsConfiguration(CommandLineArgumentsParser parser)
+    {
+      this.Parser = parser ?? throw new ArgumentNullException(nameof(parser));
     }
 
     /// <summary>
