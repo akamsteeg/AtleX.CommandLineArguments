@@ -5,15 +5,15 @@ namespace AtleX.CommandLineArguments.Configuration
   /// <summary>
   /// Represents the configuration for <see cref="AtleX.CommandLineArguments.CommandLineArguments"/>
   /// </summary>
-  public abstract class CommandLineArgumentsConfiguration
+  public class CommandLineArgumentsConfiguration
   {
     /// <summary>
-    /// Gets the <see cref="CommandLineArgumentsParser"/> for this <see cref="CommandLineArgumentsConfiguration"/>
+    /// Gets or sets the <see cref="CommandLineArgumentsParser"/> for this <see cref="CommandLineArgumentsConfiguration"/>
     /// </summary>
     public CommandLineArgumentsParser Parser
     {
       get;
-      protected set;
+      set;
     }
   }
 }

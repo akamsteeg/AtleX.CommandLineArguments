@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLineArgumentsTests.cs" />
+    <Compile Include="Configuration\ConfigurationBuilderTests.cs" />
     <Compile Include="Mocks\TestArguments.cs" />
     <Compile Include="Mocks\TestCommandLineArgumentsConfiguration.cs" />
     <Compile Include="Parsers\CommandLineArgumentsParserTests.cs" />
