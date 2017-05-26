@@ -17,15 +17,7 @@ namespace AtleX.CommandLineArguments
     {
       get;
       set;
-    }
-
-    /// <summary>
-    /// Initializes <see cref="CommandLineArguments"/>
-    /// </summary>
-    static CommandLineArguments()
-    {
-      Configuration = CommandLineArgumentsConfiguration.Default;
-    }
+    } = CommandLineArgumentsConfiguration.Default;
 
     /// <summary>
     /// Parse the specified arguments to the specified type
