@@ -43,7 +43,7 @@ namespace AtleX.CommandLineArguments.Parsers
         {
           key = currentItem.Substring(1);
 
-          if (string.Compare(key, argumentToFind) == 0)
+          if (string.Compare(key, argumentToFind, ignoreCase: true) == 0)
           {
             // Look ahead for the next argument, because they're separated by a space
             if (i + 1 != allCommandLineArguments.Length)
