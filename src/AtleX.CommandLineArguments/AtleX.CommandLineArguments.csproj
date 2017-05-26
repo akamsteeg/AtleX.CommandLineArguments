@@ -10,7 +10,7 @@
     <Description>AtleX.CommandLineArguments is a helper library to facilitate command line arguments into an object.</Description>
     <Copyright>© Alex Kamsteeg</Copyright>
     <PackageLicenseUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments/blob/master/LICENSE</PackageLicenseUrl>
-    <Version>1.0.0-beta1</Version>
+    <Version>1.0.0-beta2</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
