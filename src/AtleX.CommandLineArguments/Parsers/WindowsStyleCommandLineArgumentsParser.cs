@@ -84,19 +84,16 @@ namespace AtleX.CommandLineArguments.Parsers
     /// </returns>
     protected override bool ContainsHelpArgument(string[] allCommandLineArguments)
     {
-      var result = base.ContainsHelpArgument(allCommandLineArguments);
-
-      if (!result)
+      var result = false;
+      for (var i = 0; i < allCommandLineArguments.Length; i++)
       {
-        for (var i = 0; i < allCommandLineArguments.Length; i++)
-        {
-          var currentArgumentName = allCommandLineArguments[i];
+        var currentArgumentName = allCommandLineArguments[i];
 
-          if (currentArgumentName == "?")
-          {
-            result = true;
-            break;
-          }
+        // Accept /? and /help as help arguments
+        if (currentArgumentName == "/?" || currentArgumentName.Equals("/help", StringComparison.OrdinalIgnoreCase))
+        {
+          result = true;
+          break;
         }
       }
 

@@ -1,4 +1,6 @@
-﻿namespace AtleX.CommandLineArguments.Parsers
+﻿using System;
+
+namespace AtleX.CommandLineArguments.Parsers
 {
   /// <summary>
   /// Represents a key/value ("key1=value1 key2=value2 toggle") command line arguments parser
@@ -46,6 +48,33 @@
             value = null;
           }
 
+          result = true;
+          break;
+        }
+      }
+
+      return result;
+    }
+
+    /// <summary>
+    /// Gets whether the specified command line arguments contain a Help argument or not
+    /// </summary>
+    /// <param name="allCommandLineArguments">
+    /// The collection of all command line arguments
+    /// </param>
+    /// <returns>
+    /// True when the collection of command line arguments contains a Help argument, false otherwise
+    /// </returns>
+    protected override bool ContainsHelpArgument(string[] allCommandLineArguments)
+    {
+      var result = false;
+      for (var i = 0; i < allCommandLineArguments.Length; i++)
+      {
+        var currentArgumentName = allCommandLineArguments[i];
+
+        // Accept "?" and "help" as help arguments
+        if (currentArgumentName == "?" || currentArgumentName.Equals("help", StringComparison.OrdinalIgnoreCase))
+        {
           result = true;
           break;
         }
