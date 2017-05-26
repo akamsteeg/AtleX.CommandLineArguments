@@ -98,22 +98,6 @@ namespace AtleX.CommandLineArguments.Parsers
     /// <returns>
     /// True when the collection of command line arguments contains a Help argument, false otherwise
     /// </returns>
-    protected virtual bool ContainsHelpArgument(string[] allCommandLineArguments)
-    {
-      var result = false;
-
-      for (var i = 0; i < allCommandLineArguments.Length; i++)
-      {
-        var currentArgumentName = allCommandLineArguments[i];
-
-        if (string.Compare(currentArgumentName, "help", true) == 0)
-        {
-          result = true;
-          break;
-        }
-      }
-
-      return result;
-    }
+    protected abstract bool ContainsHelpArgument(string[] allCommandLineArguments);
   }
 }
