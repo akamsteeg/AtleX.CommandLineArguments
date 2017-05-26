@@ -16,7 +16,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
   /// code that needs it and null it afterwards, the garbage collector can do
   /// its work
   /// </remarks>
-  public class ArgumentPropertiesHelper<T>
+  internal class ArgumentPropertiesHelper<T>
       where T : Arguments, new()
   {
     /// <summary>
