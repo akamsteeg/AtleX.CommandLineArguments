@@ -24,7 +24,16 @@ public class Program
 {
 	private class MyArgumentsClass : Arguments
 	{
+		[Required]
+		[Display(Description = "This text will be displayed in the help, when requested")]
 		public bool Argument1
+		{
+			get;
+			set;
+		}
+
+		[Display(Description = "This text will be displayed in the help, when requested")]
+		public string Name // Not required
 		{
 			get;
 			set;
