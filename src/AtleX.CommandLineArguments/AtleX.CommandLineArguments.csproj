@@ -17,9 +17,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard1.5\AtleX.CommandLineArguments.xml</DocumentationFile>
+    <DocumentationFile>docs\AtleX.CommandLineArguments.xml</DocumentationFile>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <TreatSpecificWarningsAsErrors />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>docs\AtleX.CommandLineArguments.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
