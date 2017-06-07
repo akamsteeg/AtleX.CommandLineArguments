@@ -16,6 +16,10 @@ AtleX.CommandLineArguments is available [as NuGet package](https://www.nuget.org
 install-package AtleX.CommandLineArguments -Pre
 ```
 
+# Documentation
+
+See [the Wiki](https://github.com/akamsteeg/AtleX.CommandLineArguments/wiki) for documentation. Use 
+[Getting started](https://github.com/akamsteeg/AtleX.CommandLineArguments/wiki/Getting-started) to get going.
 
 # Example
 
