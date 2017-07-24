@@ -110,10 +110,10 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
         {
           if (!TryFillPrimitiveProperty(arguments, currentPropertyInfo, propertyValue))
           {
-            if (!currentPropertyInfo.DeclaringType.GetTypeInfo().IsEnum
+            if (!currentPropertyInfo.PropertyType.GetTypeInfo().IsEnum
               || !TryFillEnum(arguments, currentPropertyInfo, propertyValue))
             {
-              // Silently discard not supported values and typesra
+              // Silently discard not supported values and types
             }
           }
         }
