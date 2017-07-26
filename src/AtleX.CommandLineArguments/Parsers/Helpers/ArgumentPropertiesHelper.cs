@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using AtleX.CommandLineArguments.Parsers.TypeParsers;
 
 namespace AtleX.CommandLineArguments.Parsers.Helpers
 {
@@ -19,28 +20,64 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
   internal class ArgumentPropertiesHelper<T>
       where T : Arguments, new()
   {
-    /// <summary>
-    /// Gets the cached <see cref="Type"/>
-    /// </summary>
-    /// <remarks>
-    /// https://msdn.microsoft.com/en-us/library/aa711900(v=vs.71).aspx
-    /// </remarks>
     // PERF: By caching these, we avoid allocating them over and over again
-    private readonly Type byteType,
-      shortType,
-      intType,
-      longType,
+    
+    // TODO: Make these Lazy<T> to reduce memory usage?
 
-      floatType,
-      doubleType,
+    /// <summary>
+    /// Gets the <see cref="TypeParser{T}"/> for <see cref="byte"/>
+    /// </summary>
+    private readonly TypeParser<byte> byteParser;
 
-      decimalType,
+    /// <summary>
+    /// Gets the <see cref="TypeParser{T}"/> for <see cref="short"/>
+    /// </summary>
+    private readonly TypeParser<short> shortParser;
 
-      boolType,
-      dateType,
+    /// <summary>
+    /// Gets the <see cref="TypeParser{T}"/> for <see cref="int"/>
+    /// </summary>
+    private readonly TypeParser<int> intParser;
 
-      charType,
-      stringType;
+    /// <summary>
+    /// Gets the <see cref="TypeParser{T}"/> for <see cref="long"/>
+    /// </summary>
+    private readonly TypeParser<long> longParser;
+
+    /// <summary>
+    /// Gets the <see cref="TypeParser{T}"/> for <see cref="float"/>
+    /// </summary>
+    private readonly TypeParser<float> floatParser;
+
+    /// <summary>
+    /// Gets the <see cref="TypeParser{T}"/> for <see cref="double"/>
+    /// </summary>
+    private readonly TypeParser<double> doubleParser;
+
+    /// <summary>
+    /// Gets the <see cref="TypeParser{T}"/> for <see cref="decimal"/>
+    /// </summary>
+    private readonly TypeParser<decimal> decimalParser;
+
+    /// <summary>
+    /// Gets the <see cref="TypeParser{T}"/> for <see cref="bool"/>
+    /// </summary>
+    private readonly TypeParser<bool> boolParser;
+
+    /// <summary>
+    /// Gets the <see cref="TypeParser{T}"/> for <see cref="DateTime"/>
+    /// </summary>
+    private readonly TypeParser<DateTime> dateTimeParser;
+
+    /// <summary>
+    /// Gets the <see cref="TypeParser{T}"/> for <see cref="char"/>
+    /// </summary>
+    private readonly TypeParser<char> charParser;
+
+    /// <summary>
+    /// Gets the <see cref="TypeParser{T}"/> for <see cref="string"/>
+    /// </summary>
+    private readonly TypeParser<string> stringParser;
 
     /// <summary>
     /// Gets the collection of <see cref="PropertyInfo"/> for the specified type
@@ -54,23 +91,23 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     {
       this.argumentProperties = typeof(T).GetTypeInfo().DeclaredProperties;
 
-      // Cache the primitive types
-      byteType = typeof(byte);
-      shortType = typeof(short);
-      intType = typeof(int);
-      longType = typeof(long);
+      // Cache the primitive type parsers
+      this.byteParser = new ByteTypeParser();
+      this.shortParser = new ShortTypeParser();
+      this.intParser = new IntTypeParser();
+      this.longParser = new LongTypeParser();
 
-      floatType = typeof(float);
-      doubleType = typeof(double);
+      this.floatParser = new FloatTypeParser();
+      this.doubleParser = new DoubleTypeParser();
 
-      decimalType = typeof(decimal);
+      this.decimalParser = new DecimalTypeParser();
 
-      boolType = typeof(bool);
+      this.boolParser = new BoolTypeParser();
 
-      dateType = typeof(DateTime);
+      this.dateTimeParser = new DateTimeTypeParser();
 
-      charType = typeof(char);
-      stringType = typeof(string);
+      this.charParser = new CharTypeParser();
+      this.stringParser = new StringTypeParser();
     }
 
     /// <summary>
@@ -103,7 +140,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
         throw new ArgumentNullException(nameof(arguments));
       if (string.IsNullOrWhiteSpace(propertyName))
         throw new ArgumentNullException(nameof(propertyName));
-      
+
       foreach (var currentPropertyInfo in this.argumentProperties)
       {
         if (currentPropertyInfo.Name.Equals(propertyName, StringComparison.OrdinalIgnoreCase))
@@ -138,107 +175,71 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// </returns>
     private bool TryFillPrimitiveProperty(T arguments, PropertyInfo property, string value)
     {
-      bool result = false;
+      var result = true;
 
       var propertyType = property.PropertyType;
 
       // PERF Most used types first
-      
+
       // String
-      if (propertyType == this.stringType)
+      if (propertyType == this.stringParser.Type && this.stringParser.TryParse(value, out var stringValue))
       {
-        property.SetValue(arguments, value);
-        result = true;
+        property.SetValue(arguments, stringValue);
       }
       // Bool
-      else if (propertyType == this.boolType)
+      else if (propertyType == this.boolParser.Type && this.boolParser.TryParse(value, out var boolValue))
       {
-        var propertyValue = false;
-        if (value != null)
-        {
-          result = bool.TryParse(value, out propertyValue);
-        }
-        else // Just a toggle (argument without value)
-        {
-          propertyValue = true;
-          result = true;
-        }
-
-        property.SetValue(arguments, propertyValue);
-
+        property.SetValue(arguments, boolValue);
       }
       // Int
-      else if (propertyType == this.intType)
+      else if (propertyType == this.intParser.Type && this.intParser.TryParse(value, out var intValue))
       {
-        if (result = int.TryParse(value, out int propertyValue) == true)
-        {
-          property.SetValue(arguments, propertyValue);
-        }
+        property.SetValue(arguments, intValue);
       }
       // Other primitive argument types
       // Byte
-      else if (propertyType == this.byteType)
+      else if (propertyType == this.byteParser.Type && this.byteParser.TryParse(value, out var byteValue))
       {
-        if (result = byte.TryParse(value, out byte propertyValue) == true)
-        {
-          property.SetValue(arguments, propertyValue);
-        }
+        property.SetValue(arguments, byteValue);
       }
       // Short
-      else if (propertyType == this.shortType)
+      else if (propertyType == this.shortParser.Type && this.shortParser.TryParse(value, out var shortValue))
       {
-        if (result = short.TryParse(value, out short propertyValue) == true)
-        {
-          property.SetValue(arguments, propertyValue);
-        }
+        property.SetValue(arguments, shortValue);
       }
       // Long
-      else if (propertyType == this.longType)
+      else if (propertyType == this.longParser.Type && this.longParser.TryParse(value, out var longValue))
       {
-        if (result = long.TryParse(value, out long propertyValue) == true)
-        {
-          property.SetValue(arguments, propertyValue);
-        }
+        property.SetValue(arguments, longValue);
       }
       // Float
-      else if (propertyType == this.floatType)
+      else if (propertyType == this.floatParser.Type && this.floatParser.TryParse(value, out var floatValue))
       {
-        if (result = float.TryParse(value, out float propertyValue) == true)
-        {
-          property.SetValue(arguments, propertyValue);
-        }
+        property.SetValue(arguments, floatValue);
       }
       // Double
-      else if (propertyType == this.doubleType)
+      else if (propertyType == this.doubleParser.Type && this.doubleParser.TryParse(value, out var doubleValue))
       {
-        if (result = double.TryParse(value, out double propertyValue) == true)
-        {
-          property.SetValue(arguments, propertyValue);
-        }
+        property.SetValue(arguments, doubleValue);
       }
       // Decimal
-      else if (propertyType == this.decimalType)
+      else if (propertyType == this.decimalParser.Type && this.decimalParser.TryParse(value, out var decimalValue))
       {
-        if (result = decimal.TryParse(value, out decimal propertyValue) == true)
-        {
-          property.SetValue(arguments, propertyValue);
-        }
+        property.SetValue(arguments, decimalValue);
       }
       // Date
-      else if (propertyType == this.dateType)
+      else if (propertyType == this.dateTimeParser.Type && this.dateTimeParser.TryParse(value, out var dateTimeValue))
       {
-        if (result = DateTime.TryParse(value, out DateTime propertyValue) == true)
-        {
-          property.SetValue(arguments, propertyValue);
-        }
+        property.SetValue(arguments, dateTimeValue);
       }
       // Char
-      else if (propertyType == this.charType)
+      else if (propertyType == this.charParser.Type && this.charParser.TryParse(value, out var charValue))
       {
-        if (result = char.TryParse(value, out char propertyValue) == true)
-        {
-          property.SetValue(arguments, propertyValue);
-        }
+        property.SetValue(arguments, charValue);
+      }
+      else
+      {
+        result = false;
       }
 
       return result;
