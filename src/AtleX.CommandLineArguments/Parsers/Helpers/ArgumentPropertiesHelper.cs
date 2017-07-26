@@ -170,8 +170,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
       // Int
       else if (propertyType == this.intType)
       {
-        int propertyValue;
-        if (result = int.TryParse(value, out propertyValue) == true)
+        if (result = int.TryParse(value, out int propertyValue) == true)
         {
           property.SetValue(arguments, propertyValue);
         }
@@ -180,8 +179,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
       // Byte
       else if (propertyType == this.byteType)
       {
-        byte propertyValue;
-        if (result = byte.TryParse(value, out propertyValue) == true)
+        if (result = byte.TryParse(value, out byte propertyValue) == true)
         {
           property.SetValue(arguments, propertyValue);
         }
@@ -189,8 +187,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
       // Short
       else if (propertyType == this.shortType)
       {
-        short propertyValue;
-        if (result = short.TryParse(value, out propertyValue) == true)
+        if (result = short.TryParse(value, out short propertyValue) == true)
         {
           property.SetValue(arguments, propertyValue);
         }
@@ -198,8 +195,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
       // Long
       else if (propertyType == this.longType)
       {
-        long propertyValue;
-        if (result = long.TryParse(value, out propertyValue) == true)
+        if (result = long.TryParse(value, out long propertyValue) == true)
         {
           property.SetValue(arguments, propertyValue);
         }
@@ -207,8 +203,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
       // Float
       else if (propertyType == this.floatType)
       {
-        float propertyValue;
-        if (result = float.TryParse(value, out propertyValue) == true)
+        if (result = float.TryParse(value, out float propertyValue) == true)
         {
           property.SetValue(arguments, propertyValue);
         }
@@ -216,8 +211,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
       // Double
       else if (propertyType == this.doubleType)
       {
-        double propertyValue;
-        if (result = double.TryParse(value, out propertyValue) == true)
+        if (result = double.TryParse(value, out double propertyValue) == true)
         {
           property.SetValue(arguments, propertyValue);
         }
@@ -225,8 +219,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
       // Decimal
       else if (propertyType == this.decimalType)
       {
-        decimal propertyValue;
-        if (result = decimal.TryParse(value, out propertyValue) == true)
+        if (result = decimal.TryParse(value, out decimal propertyValue) == true)
         {
           property.SetValue(arguments, propertyValue);
         }
@@ -234,8 +227,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
       // Date
       else if (propertyType == this.dateType)
       {
-        DateTime propertyValue;
-        if (result = DateTime.TryParse(value, out propertyValue) == true)
+        if (result = DateTime.TryParse(value, out DateTime propertyValue) == true)
         {
           property.SetValue(arguments, propertyValue);
         }
@@ -243,8 +235,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
       // Char
       else if (propertyType == this.charType)
       {
-        char propertyValue;
-        if (result = char.TryParse(value, out propertyValue) == true)
+        if (result = char.TryParse(value, out char propertyValue) == true)
         {
           property.SetValue(arguments, propertyValue);
         }
