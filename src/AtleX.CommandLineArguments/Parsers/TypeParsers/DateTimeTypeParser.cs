@@ -24,10 +24,18 @@ namespace AtleX.CommandLineArguments.Parsers.TypeParsers
     /// </returns>
     public override bool TryParse(string value, out DateTime parseResult)
     {
-      if (string.IsNullOrEmpty(value))
-        throw new ArgumentNullException(nameof(value));
+      bool result;
 
-      var result = DateTime.TryParse(value, out parseResult);
+      if (!string.IsNullOrEmpty(value))
+      {
+        result = DateTime.TryParse(value, out parseResult);
+      }
+      else
+      {
+        parseResult = default(DateTime);
+        result = false;
+      }
+
       return result;
     }
   }

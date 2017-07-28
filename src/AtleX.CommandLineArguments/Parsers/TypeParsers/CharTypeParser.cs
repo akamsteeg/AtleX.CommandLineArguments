@@ -24,10 +24,7 @@ namespace AtleX.CommandLineArguments.Parsers.TypeParsers
     /// </returns>
     public override bool TryParse(string value, out char parseResult)
     {
-      if (string.IsNullOrEmpty(value))
-        throw new ArgumentNullException(nameof(value));
-
-      var result = (value.Length == 1);
+      var result = (!string.IsNullOrEmpty(value) && value.Length == 1);
 
       if (result)
       {

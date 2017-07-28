@@ -22,10 +22,18 @@ namespace AtleX.CommandLineArguments.Parsers.TypeParsers
     /// </returns>
     public override bool TryParse(string value, out decimal parseResult)
     {
-      if (string.IsNullOrEmpty(value))
-        throw new ArgumentNullException(nameof(value));
+      bool result;
 
-      var result = decimal.TryParse(value, out parseResult);
+      if (!string.IsNullOrEmpty(value))
+      {
+        result = decimal.TryParse(value, out parseResult);
+      }
+      else
+      {
+        parseResult = default(decimal);
+        result = false;
+      }
+
       return result;
     }
   }

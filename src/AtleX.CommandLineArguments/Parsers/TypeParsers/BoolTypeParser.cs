@@ -22,11 +22,12 @@ namespace AtleX.CommandLineArguments.Parsers.TypeParsers
     /// </returns>
     public override bool TryParse(string value, out bool parseResult)
     {
-      var result = true;
+      bool result;
 
       if (string.IsNullOrEmpty(value))
       {
         parseResult = true;
+        result = true;
       }
       else
       {
