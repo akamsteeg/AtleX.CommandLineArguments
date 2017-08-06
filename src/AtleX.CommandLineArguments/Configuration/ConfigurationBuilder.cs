@@ -1,6 +1,7 @@
 ﻿using System;
 using AtleX.CommandLineArguments.Help;
 using AtleX.CommandLineArguments.Parsers;
+using AtleX.CommandLineArguments.Parsers.TypeParsers;
 using AtleX.CommandLineArguments.Validators;
 
 namespace AtleX.CommandLineArguments.Configuration
@@ -53,6 +54,21 @@ namespace AtleX.CommandLineArguments.Configuration
         throw new ArgumentNullException(nameof(argumentValidator));
 
       this.Validators.Add(argumentValidator);
+
+      return this;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="typeParser"></param>
+    /// <returns></returns>
+    public ConfigurationBuilder With(TypeParser typeParser)
+    {
+      if (typeParser == null)
+        throw new ArgumentNullException(nameof(typeParser));
+
+      this.TypeParsers.Add(typeParser);
 
       return this;
     }

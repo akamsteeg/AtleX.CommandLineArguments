@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AtleX.CommandLineArguments.Parsers.Helpers;
+using AtleX.CommandLineArguments.Parsers.TypeParsers;
 using AtleX.CommandLineArguments.Validators;
 
 namespace AtleX.CommandLineArguments.Parsers
@@ -30,21 +32,26 @@ namespace AtleX.CommandLineArguments.Parsers
     /// <param name="validators">
     /// The <see cref="IEnumerable{T}"/> of <see cref="ArgumentValidator"/> to validate the arguments with
     /// </param>
+    /// <param name="typeParsers">
+    /// The <see cref="IEnumerable{T}"/> of <see cref="TypeParser"/> to parse the argument values with
+    /// </param>
     /// <returns>
     /// The <see cref="ParseResult{T}"/>
     /// </returns>
-    public ParseResult<T> Parse<T>(string[] arguments, IEnumerable<ArgumentValidator> validators)
+    public ParseResult<T> Parse<T>(string[] arguments, IEnumerable<ArgumentValidator> validators, IEnumerable<TypeParser> typeParsers)
       where T : Arguments, new()
     {
       if (arguments == null)
         throw new ArgumentNullException(nameof(arguments));
       if (validators == null)
         throw new ArgumentNullException(nameof(validators));
+      if (typeParsers == null)
+        throw new ArgumentNullException(nameof(typeParsers));
 
       var argumentsObject = new T();
       var allValidationErrors = new List<ValidationError>();
 
-      var argumentPropertiesHelper = new ArgumentPropertiesHelper<T>();
+      var argumentPropertiesHelper = new ArgumentPropertiesHelper<T>(typeParsers);
       var validationHelper = new ValidationHelper(validators);
 
       foreach (var currentProperty in argumentPropertiesHelper.GetProperties())
