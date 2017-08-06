@@ -4,6 +4,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using AtleX.CommandLineArguments.Validators;
+using AtleX.CommandLineArguments.Parsers.TypeParsers;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers
 {
@@ -13,16 +14,32 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
 
     protected readonly IEnumerable<ArgumentValidator> validators;
 
+    protected readonly IEnumerable<TypeParser> typeParsers;
+
     public CommandLineArgumentsParserTests(CommandLineArgumentsParser parser, IEnumerable<ArgumentValidator> validators)
     {
       this.parser = parser;
       this.validators = validators;
+      this.typeParsers = new List<TypeParser>()
+      {
+        new BoolTypeParser(),
+        new ByteTypeParser(),
+        new CharTypeParser(),
+        new DateTimeTypeParser(),
+        new DecimalTypeParser(),
+        new DoubleTypeParser(),
+        new FloatTypeParser(),
+        new IntTypeParser(),
+        new LongTypeParser(),
+        new ShortTypeParser(),
+        new StringTypeParser(),
+      };
     }
 
     [Test]
     public void TryParse_ArgumentsNull_Throws()
     {
-      Assert.Throws<ArgumentNullException>(() => parser.Parse<TestArguments>(null, this.validators));
+      Assert.Throws<ArgumentNullException>(() => parser.Parse<TestArguments>(null, this.validators, this.typeParsers));
     }
 
     [Test]
@@ -30,7 +47,7 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
     {
       var arguments = CreateValidArguments();
 
-      var result = parser.Parse<TestArguments>(arguments, this.validators);
+      var result = parser.Parse<TestArguments>(arguments, this.validators, this.typeParsers);
 
       AssertValidArguments(result.CommandLineArguments);
     }

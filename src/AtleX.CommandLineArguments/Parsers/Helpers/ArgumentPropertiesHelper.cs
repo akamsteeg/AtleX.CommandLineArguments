@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using AtleX.CommandLineArguments.Parsers.TypeParsers;
 
 namespace AtleX.CommandLineArguments.Parsers.Helpers
 {
@@ -18,59 +19,28 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
   /// </remarks>
   internal class ArgumentPropertiesHelper<T>
       where T : Arguments, new()
-  {
-    /// <summary>
-    /// Gets the cached <see cref="Type"/>
-    /// </summary>
-    /// <remarks>
-    /// https://msdn.microsoft.com/en-us/library/aa711900(v=vs.71).aspx
-    /// </remarks>
-    // PERF: By caching these, we avoid allocating them over and over again
-    private readonly Type byteType,
-      shortType,
-      intType,
-      longType,
-
-      floatType,
-      doubleType,
-
-      decimalType,
-
-      boolType,
-      dateType,
-
-      charType,
-      stringType;
-
+  { 
     /// <summary>
     /// Gets the collection of <see cref="PropertyInfo"/> for the specified type
     /// </summary>
     private readonly IEnumerable<PropertyInfo> argumentProperties;
 
     /// <summary>
+    /// Gets the collection of <see cref="TypeParser"/> to parse the argument values with
+    /// </summary>
+    private readonly IEnumerable<TypeParser> typeParsers;
+
+    /// <summary>
     /// Initializes a new instance of <see cref="ArgumentPropertiesHelper{T}"/>
     /// </summary>
-    public ArgumentPropertiesHelper()
+    /// <param name="typeParsers">
+    /// The <see cref="IEnumerable{T}"/> of <see cref="TypeParser"/> to parse the argument values with
+    /// </param>
+    public ArgumentPropertiesHelper(IEnumerable<TypeParser> typeParsers)
     {
       this.argumentProperties = typeof(T).GetTypeInfo().DeclaredProperties;
 
-      // Cache the primitive types
-      byteType = typeof(byte);
-      shortType = typeof(short);
-      intType = typeof(int);
-      longType = typeof(long);
-
-      floatType = typeof(float);
-      doubleType = typeof(double);
-
-      decimalType = typeof(decimal);
-
-      boolType = typeof(bool);
-
-      dateType = typeof(DateTime);
-
-      charType = typeof(char);
-      stringType = typeof(string);
+      this.typeParsers = typeParsers ?? throw new ArgumentNullException(nameof(typeParsers));
     }
 
     /// <summary>
@@ -103,145 +73,21 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
         throw new ArgumentNullException(nameof(arguments));
       if (string.IsNullOrWhiteSpace(propertyName))
         throw new ArgumentNullException(nameof(propertyName));
-      
+
       foreach (var currentPropertyInfo in this.argumentProperties)
       {
         if (currentPropertyInfo.Name.Equals(propertyName, StringComparison.OrdinalIgnoreCase))
         {
-          if (!TryFillPrimitiveProperty(arguments, currentPropertyInfo, propertyValue))
+          if (!this.TryFillCustomType(arguments, currentPropertyInfo, propertyValue))
           {
             if (!currentPropertyInfo.PropertyType.GetTypeInfo().IsEnum
               || !TryFillEnum(arguments, currentPropertyInfo, propertyValue))
             {
-              // Silently discard not supported values and types
+              // No correct type parser configured, ignore the value
             }
           }
         }
       }
-    }
-
-    /// <summary>
-    /// Try to set the primitive property for the specified <see
-    /// cref="Arguments"/> with the specified name and value
-    /// </summary>
-    /// <param name="arguments">
-    /// The <see cref="Arguments"/> instance to set the property in
-    /// </param>
-    /// <param name="property">
-    /// The <see cref="PropertyInfo"/> of the property to set
-    /// </param>
-    /// <param name="value">
-    /// The value to set
-    /// </param>
-    /// <returns>
-    /// True when the property value could be set, false otherwise
-    /// </returns>
-    private bool TryFillPrimitiveProperty(T arguments, PropertyInfo property, string value)
-    {
-      bool result = false;
-
-      var propertyType = property.PropertyType;
-
-      // PERF Most used types first
-      
-      // String
-      if (propertyType == this.stringType)
-      {
-        property.SetValue(arguments, value);
-        result = true;
-      }
-      // Bool
-      else if (propertyType == this.boolType)
-      {
-        var propertyValue = false;
-        if (value != null)
-        {
-          result = bool.TryParse(value, out propertyValue);
-        }
-        else // Just a toggle (argument without value)
-        {
-          propertyValue = true;
-          result = true;
-        }
-
-        property.SetValue(arguments, propertyValue);
-
-      }
-      // Int
-      else if (propertyType == this.intType)
-      {
-        if (result = int.TryParse(value, out int propertyValue) == true)
-        {
-          property.SetValue(arguments, propertyValue);
-        }
-      }
-      // Other primitive argument types
-      // Byte
-      else if (propertyType == this.byteType)
-      {
-        if (result = byte.TryParse(value, out byte propertyValue) == true)
-        {
-          property.SetValue(arguments, propertyValue);
-        }
-      }
-      // Short
-      else if (propertyType == this.shortType)
-      {
-        if (result = short.TryParse(value, out short propertyValue) == true)
-        {
-          property.SetValue(arguments, propertyValue);
-        }
-      }
-      // Long
-      else if (propertyType == this.longType)
-      {
-        if (result = long.TryParse(value, out long propertyValue) == true)
-        {
-          property.SetValue(arguments, propertyValue);
-        }
-      }
-      // Float
-      else if (propertyType == this.floatType)
-      {
-        if (result = float.TryParse(value, out float propertyValue) == true)
-        {
-          property.SetValue(arguments, propertyValue);
-        }
-      }
-      // Double
-      else if (propertyType == this.doubleType)
-      {
-        if (result = double.TryParse(value, out double propertyValue) == true)
-        {
-          property.SetValue(arguments, propertyValue);
-        }
-      }
-      // Decimal
-      else if (propertyType == this.decimalType)
-      {
-        if (result = decimal.TryParse(value, out decimal propertyValue) == true)
-        {
-          property.SetValue(arguments, propertyValue);
-        }
-      }
-      // Date
-      else if (propertyType == this.dateType)
-      {
-        if (result = DateTime.TryParse(value, out DateTime propertyValue) == true)
-        {
-          property.SetValue(arguments, propertyValue);
-        }
-      }
-      // Char
-      else if (propertyType == this.charType)
-      {
-        if (result = char.TryParse(value, out char propertyValue) == true)
-        {
-          property.SetValue(arguments, propertyValue);
-        }
-      }
-
-      return result;
     }
 
     /// <summary>
@@ -271,6 +117,43 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
         var propertyValue = Enum.Parse(property.PropertyType, value, true);
 
         property.SetValue(arguments, propertyValue);
+      }
+
+      return result;
+    }
+
+    /// <summary>
+    /// Try to set the value for in the specified <see cref="Arguments"/> on the
+    /// specified <see cref="PropertyInfo"/>
+    /// </summary>
+    /// <param name="arguments">
+    /// The <see cref="Arguments"/> instance to set the property in
+    /// </param>
+    /// <param name="property">
+    /// The <see cref="PropertyInfo"/> of the property to set
+    /// </param>
+    /// <param name="value">
+    /// The value to set
+    /// </param>
+    /// <returns>
+    /// True when the property value could be set, false otherwise
+    /// </returns>
+    private bool TryFillCustomType(T arguments, PropertyInfo property, string value)
+    {
+      var result = false;
+
+      foreach (var currentTypeParser in this.typeParsers)
+      {
+        if (currentTypeParser.Type == property.PropertyType)
+        {
+          result = currentTypeParser.TryParse(value, out var parseResult);
+
+          if (result)
+          {
+            property.SetValue(arguments, parseResult);
+            break;
+          }
+        }
       }
 
       return result;

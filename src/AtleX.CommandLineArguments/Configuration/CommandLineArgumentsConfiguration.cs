@@ -2,6 +2,7 @@
 using AtleX.CommandLineArguments.Parsers;
 using AtleX.CommandLineArguments.Validators;
 using AtleX.CommandLineArguments.Help;
+using AtleX.CommandLineArguments.Parsers.TypeParsers;
 
 namespace AtleX.CommandLineArguments.Configuration
 {
@@ -15,6 +16,14 @@ namespace AtleX.CommandLineArguments.Configuration
     /// validate the command line arguments with
     /// </summary>
     public List<ArgumentValidator> Validators
+    {
+      get;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public List<TypeParser> TypeParsers
     {
       get;
     }
@@ -43,6 +52,7 @@ namespace AtleX.CommandLineArguments.Configuration
     public CommandLineArgumentsConfiguration()
     {
       this.Validators = new List<ArgumentValidator>();
+      this.TypeParsers = new List<TypeParser>();
     }
 
     /// <summary>
@@ -54,7 +64,18 @@ namespace AtleX.CommandLineArguments.Configuration
       {
         var result = ConfigurationBuilder.For(new WindowsStyleCommandLineArgumentsParser())
           .With(new WindowsStyleHelpWriter())
-          .With(new RequiredArgumentValidator());
+          .With(new RequiredArgumentValidator())
+          .With(new BoolTypeParser())
+          .With(new ByteTypeParser())
+          .With(new CharTypeParser())
+          .With(new DateTimeTypeParser())
+          .With(new DecimalTypeParser())
+          .With(new DoubleTypeParser())
+          .With(new FloatTypeParser())
+          .With(new IntTypeParser())
+          .With(new LongTypeParser())
+          .With(new ShortTypeParser())
+          .With(new StringTypeParser());
 
         return result;
       }

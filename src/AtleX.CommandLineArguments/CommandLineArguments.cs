@@ -69,7 +69,7 @@ namespace AtleX.CommandLineArguments
       if (Configuration.Parser == null)
         throw new InvalidOperationException("Cannot parse without a parser configured");
 
-      var parseResult = Configuration.Parser.Parse<T>(arguments, Configuration.Validators);
+      var parseResult = Configuration.Parser.Parse<T>(arguments, Configuration.Validators, Configuration.TypeParsers);
 
       var result = parseResult.IsValid;
       argumentsObject = parseResult.CommandLineArguments as T;
