@@ -44,17 +44,17 @@ namespace AtleX.CommandLineArguments.Help
     /// <param name="description">
     /// The description text of the argument
     /// </param>
-    /// <param name="IsRequired">
+    /// <param name="isRequired">
     /// True when the argument is required, false otherwise
     /// </param>
-    public ArgumentHelpDetails(string argumentName, string description, bool IsRequired)
+    public ArgumentHelpDetails(string argumentName, string description, bool isRequired)
     {
       if (string.IsNullOrWhiteSpace(argumentName))
         throw new ArgumentNullException(nameof(argumentName));
 
       this.Argument = argumentName;
       this.Description = description ?? throw new ArgumentNullException(nameof(description));
-      this.IsRequired = IsRequired;
+      this.IsRequired = isRequired;
     }
   }
 }
