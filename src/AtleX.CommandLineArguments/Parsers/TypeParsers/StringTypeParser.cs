@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AtleX.CommandLineArguments.Parsers.TypeParsers
+﻿namespace AtleX.CommandLineArguments.Parsers.TypeParsers
 {
   /// <summary>
   /// Represents a <see cref="TypeParser{T}"/> for <see cref="string"/>
@@ -22,17 +20,15 @@ namespace AtleX.CommandLineArguments.Parsers.TypeParsers
     /// </returns>
     public override bool TryParse(string value, out string parseResult)
     {
-      bool result;
+      bool result = true; // Everything is valid, even empty strings
 
       if (!string.IsNullOrEmpty(value))
       {
         parseResult = value; // Yeah, this is silly
-        result = true;
       }
       else
       {
-        parseResult = null;
-        result = false;
+        parseResult = string.Empty;
       }
 
       return result;

@@ -58,6 +58,20 @@
     <Compile Include="Parsers\CommandLineArgumentsParserTests.cs" />
     <Compile Include="Parsers\KeyValueCommandLineArgumentsParserTests.cs" />
     <Compile Include="Parsers\PrimitiveTypeTestValues.cs" />
+    <Compile Include="Parsers\TypeParsers\BoolTypeParserTests.cs" />
+    <Compile Include="Parsers\TypeParsers\ByteTypeParserTests.cs" />
+    <Compile Include="Parsers\TypeParsers\CharTypeParserTests.cs" />
+    <Compile Include="Parsers\TypeParsers\DateTimeTypeParserTests.cs" />
+    <Compile Include="Parsers\TypeParsers\DecimalTypeParserTests.cs" />
+    <Compile Include="Parsers\TypeParsers\DoubleTypeParserTests.cs" />
+    <Compile Include="Parsers\TypeParsers\FloatTypeParserTests.cs" />
+    <Compile Include="Parsers\TypeParsers\IntTypeParserTests.cs" />
+    <Compile Include="Parsers\TypeParsers\LongTypeParserTests.cs" />
+    <Compile Include="Parsers\TypeParsers\NonToggleTypeParserTests.cs" />
+    <Compile Include="Parsers\TypeParsers\ShortTypeParserTests.cs" />
+    <Compile Include="Parsers\TypeParsers\StringTypeParserTests.cs" />
+    <Compile Include="Parsers\TypeParsers\ToggleTypeParserTests.cs" />
+    <Compile Include="Parsers\TypeParsers\TypeParserTests.cs" />
     <Compile Include="Parsers\WindowsStyleCommandLineArgumentsParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
