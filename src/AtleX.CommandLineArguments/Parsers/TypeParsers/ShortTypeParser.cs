@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AtleX.CommandLineArguments.Parsers.TypeParsers
+﻿namespace AtleX.CommandLineArguments.Parsers.TypeParsers
 {
   /// <summary>
   /// Represents a <see cref="TypeParser{T}"/> for <see cref="short"/>
