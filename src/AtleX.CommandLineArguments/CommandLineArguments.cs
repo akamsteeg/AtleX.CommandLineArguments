@@ -37,7 +37,7 @@ namespace AtleX.CommandLineArguments
     public static bool TryParse<T>(string[] arguments, out T argumentsObject)
       where T : Arguments, new()
     {
-      return TryParse(arguments, out argumentsObject, out IEnumerable<ValidationError> ignoredValidationResults);
+      return TryParse(arguments, out argumentsObject, out _);
     }
 
     /// <summary>
