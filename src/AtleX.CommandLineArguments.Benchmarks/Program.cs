@@ -39,6 +39,7 @@ namespace AtleX.CommandLineArguments.Benchmarks
 
       config.Add(MemoryDiagnoser.Default);
 
+      config.Add(Job.Core);
       config.Add(Job.Clr);
 
       return config;
