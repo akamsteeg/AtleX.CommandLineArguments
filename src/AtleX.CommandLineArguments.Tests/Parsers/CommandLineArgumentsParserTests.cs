@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using AtleX.CommandLineArguments.Validators;
 using AtleX.CommandLineArguments.Parsers.TypeParsers;
+using System.Linq;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers
 {
@@ -60,8 +61,10 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
 
       var arguments = CreateValidArguments();
 
-      var result = CommandLineArguments.TryParse<TestArguments>(arguments, out TestArguments parsedArguments);
+      var result = CommandLineArguments.TryParse<TestArguments>(arguments, out var parsedArguments, out var validationErrors);
+
       Assert.IsTrue(result);
+      Assert.IsFalse(validationErrors.Any());
       AssertValidArguments(parsedArguments);
     }
 
