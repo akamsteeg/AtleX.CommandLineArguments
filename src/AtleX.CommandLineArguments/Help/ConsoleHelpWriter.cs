@@ -28,9 +28,9 @@ namespace AtleX.CommandLineArguments.Help
       Console.WriteLine();
       foreach (var currentHelpDetails in helpDetails)
       {
-        var requiredIndicator = currentHelpDetails.IsRequired ? "*" : string.Empty;
+        var requiredIndicator = currentHelpDetails.IsRequired ? "(*)" : string.Empty;
 
-        var helpTextForArgument = $" {currentHelpDetails.Argument}: {currentHelpDetails.Description} ({requiredIndicator})";
+        var helpTextForArgument = $" {currentHelpDetails.Argument}: {currentHelpDetails.Description} {requiredIndicator}";
 
         Console.WriteLine(helpTextForArgument);
       }
