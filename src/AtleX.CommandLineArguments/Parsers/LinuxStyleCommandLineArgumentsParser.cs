@@ -3,20 +3,23 @@
 namespace AtleX.CommandLineArguments.Parsers
 {
   /// <summary>
-  /// Represents a Microsoft Windows CLI style ("/key value /key2 value2
-  /// /toggle") command line arguments parser
+  /// Represents a Linux CLI style ("--key value --key2 value2
+  /// --toggle") command line arguments parser
   /// </summary>
-  public sealed class WindowsStyleCommandLineArgumentsParser
+  public sealed class LinuxStyleCommandLineArgumentsParser
     : PrefixedKeyCommandLineArgumentsParser
   {
+    private const string KeyPrefix = "--";
+
     /// <summary>
-    /// Initializes a new instance of <see cref="WindowsStyleCommandLineArgumentsParser"/>
+    /// Initializes a new instance of <see
+    /// cref="LinuxStyleCommandLineArgumentsParser"/>
     /// </summary>
-    public WindowsStyleCommandLineArgumentsParser()
-      : base("/")
+    public LinuxStyleCommandLineArgumentsParser()
+      : base(KeyPrefix)
     {
     }
-
+    
     /// <summary>
     /// Gets whether the specified command line arguments contain a Help argument or not
     /// </summary>
@@ -29,12 +32,14 @@ namespace AtleX.CommandLineArguments.Parsers
     protected override bool ContainsHelpArgument(string[] allCommandLineArguments)
     {
       var result = false;
+
+      var helpArgument = KeyPrefix + "help";
+
       for (var i = 0; i < allCommandLineArguments.Length; i++)
       {
         var currentArgumentName = allCommandLineArguments[i];
-
-        // Accept /? and /help as help arguments
-        if (currentArgumentName == "/?" || currentArgumentName.Equals("/help", StringComparison.OrdinalIgnoreCase))
+        
+        if (currentArgumentName == helpArgument)
         {
           result = true;
           break;
