@@ -58,6 +58,7 @@
     <Compile Include="Mocks\TestCommandLineArgumentsConfiguration.cs" />
     <Compile Include="Parsers\CommandLineArgumentsParserTests.cs" />
     <Compile Include="Parsers\KeyValueCommandLineArgumentsParserTests.cs" />
+    <Compile Include="Parsers\LinuxStyleCommandLineArgumentsParserTests.cs" />
     <Compile Include="Parsers\PrimitiveTypeTestValues.cs" />
     <Compile Include="Parsers\TypeParsers\BoolTypeParserTests.cs" />
     <Compile Include="Parsers\TypeParsers\ByteTypeParserTests.cs" />
