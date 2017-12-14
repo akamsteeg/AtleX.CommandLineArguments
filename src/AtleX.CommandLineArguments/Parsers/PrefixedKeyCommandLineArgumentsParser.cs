@@ -63,7 +63,7 @@ namespace AtleX.CommandLineArguments.Parsers
         var currentItem = allCommandLineArguments[i];
         if (ArgumentIsKey(currentItem))
         {
-          key = currentItem.Substring(1);
+          key = currentItem.Substring(this._keyPrefixLength);
 
           if (string.Compare(key, argumentToFind, ignoreCase: true) == 0)
           {
