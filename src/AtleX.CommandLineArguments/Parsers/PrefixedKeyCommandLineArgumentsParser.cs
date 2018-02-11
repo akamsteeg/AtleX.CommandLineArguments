@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace AtleX.CommandLineArguments.Parsers
 {
   /// <summary>
-  /// Represents a <see cref="CommandLineArgumentsParser"/> for key value pairs with the key indicated by a certain prefix string
+  /// Represents a <see cref="ICommandLineArgumentsParser"/> for key value pairs with the key indicated by a certain prefix string
   /// </summary>
   public abstract class PrefixedKeyCommandLineArgumentsParser
     : CommandLineArgumentsParser

@@ -11,13 +11,13 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
 {
   public abstract class CommandLineArgumentsParserTests
   {
-    protected readonly CommandLineArgumentsParser parser;
+    protected readonly ICommandLineArgumentsParser parser;
 
     protected readonly IEnumerable<ArgumentValidator> validators;
 
     protected readonly IEnumerable<TypeParser> typeParsers;
 
-    public CommandLineArgumentsParserTests(CommandLineArgumentsParser parser, IEnumerable<ArgumentValidator> validators)
+    public CommandLineArgumentsParserTests(ICommandLineArgumentsParser parser, IEnumerable<ArgumentValidator> validators)
     {
       this.parser = parser;
       this.validators = validators;
@@ -93,7 +93,7 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
     }
 
     /// <summary>
-    /// When overridden, create valid arguments for the <see cref="CommandLineArgumentsParser"/>
+    /// When overridden, create valid arguments for the <see cref="ICommandLineArgumentsParser"/>
     /// </summary>
     /// <returns>
     /// The valid commandline arguments
