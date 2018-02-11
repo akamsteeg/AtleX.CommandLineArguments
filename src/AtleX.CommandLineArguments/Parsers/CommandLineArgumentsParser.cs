@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using AtleX.CommandLineArguments.Parsers.Helpers;
 using AtleX.CommandLineArguments.Parsers.TypeParsers;
 using AtleX.CommandLineArguments.Validators;
@@ -8,9 +7,10 @@ using AtleX.CommandLineArguments.Validators;
 namespace AtleX.CommandLineArguments.Parsers
 {
   /// <summary>
-  /// Represents a commandline arguments parser
+  /// Represents a base commandline arguments parser with reflection
   /// </summary>
   public abstract class CommandLineArgumentsParser
+    : ICommandLineArgumentsParser
   {
     /// <summary>
     /// Initializes a new instance of <see cref="CommandLineArgumentsParser"/>

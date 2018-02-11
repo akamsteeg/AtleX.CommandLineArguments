@@ -29,9 +29,9 @@ namespace AtleX.CommandLineArguments.Configuration
     }
 
     /// <summary>
-    /// Gets the <see cref="CommandLineArgumentsParser"/> for this <see cref="CommandLineArgumentsConfiguration"/>
+    /// Gets the <see cref="ICommandLineArgumentsParser"/> for this <see cref="CommandLineArgumentsConfiguration"/>
     /// </summary>
-    public CommandLineArgumentsParser Parser
+    public ICommandLineArgumentsParser Parser
     {
       get;
       protected set;

@@ -13,15 +13,15 @@ namespace AtleX.CommandLineArguments.Configuration
     : CommandLineArgumentsConfiguration
   {
     /// <summary>
-    /// Create a <see cref="ConfigurationBuilder"/> with the specified <see cref="CommandLineArgumentsParser"/>
+    /// Create a <see cref="ConfigurationBuilder"/> with the specified <see cref="ICommandLineArgumentsParser"/>
     /// </summary>
     /// <param name="parser">
-    /// The <see cref="CommandLineArgumentsParser"/> to use
+    /// The <see cref="ICommandLineArgumentsParser"/> to use
     /// </param>
     /// <returns>
-    /// The <see cref="ConfigurationBuilder"/> for the specified <see cref="CommandLineArgumentsParser"/>
+    /// The <see cref="ConfigurationBuilder"/> for the specified <see cref="ICommandLineArgumentsParser"/>
     /// </returns>
-    public static ConfigurationBuilder For(CommandLineArgumentsParser parser)
+    public static ConfigurationBuilder For(ICommandLineArgumentsParser parser)
     {
       var result = new ConfigurationBuilder(parser);
       return result;
@@ -29,12 +29,12 @@ namespace AtleX.CommandLineArguments.Configuration
 
     /// <summary>
     /// Initializes a new instance of <see cref="ConfigurationBuilder"/> with the
-    /// specified <see cref="CommandLineArgumentsParser"/>
+    /// specified <see cref="ICommandLineArgumentsParser"/>
     /// </summary>
     /// <param name="parser">
-    /// The <see cref="CommandLineArgumentsParser"/> to use
+    /// The <see cref="ICommandLineArgumentsParser"/> to use
     /// </param>
-    private ConfigurationBuilder(CommandLineArgumentsParser parser)
+    private ConfigurationBuilder(ICommandLineArgumentsParser parser)
     {
       this.Parser = parser ?? throw new ArgumentNullException(nameof(parser));
     }

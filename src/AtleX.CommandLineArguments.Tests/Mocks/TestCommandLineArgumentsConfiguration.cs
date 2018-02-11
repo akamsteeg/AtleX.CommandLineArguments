@@ -10,7 +10,7 @@ namespace AtleX.CommandLineArguments.Tests.Mocks
   public class TestCommandLineArgumentsConfiguration
     : CommandLineArgumentsConfiguration
   {
-    public TestCommandLineArgumentsConfiguration(CommandLineArgumentsParser parser)
+    public TestCommandLineArgumentsConfiguration(ICommandLineArgumentsParser parser)
     {
       this.Parser = parser;
       this.Validators.Add(new RequiredArgumentValidator());
