@@ -4,6 +4,9 @@
 # Visual studio files
 .vs/
 
+# BenchmarkDotNet
+BenchmarkDotNet.Artifacts/
+
 # Generated documentation
 docs/
 
