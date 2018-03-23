@@ -10,7 +10,7 @@ namespace TestApp
     static void Main(string[] args)
     {
 
-      if (!CommandLineArguments.TryParse(args, out CliArguments cliArguments, out IEnumerable<ValidationError> validationErrors) || cliArguments.ShowValidationErrors)
+      if (!CommandLineArguments.TryParse(args, out CliArguments cliArguments, out IEnumerable<ValidationError> validationErrors) || cliArguments.ShowValidationErrors == YesNo.Yes)
       {
         Console.WriteLine("Validation results;");
 

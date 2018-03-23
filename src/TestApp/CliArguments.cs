@@ -13,10 +13,16 @@ namespace TestApp
   {
     [Required(ErrorMessage = "ShowValidationErrors is required", AllowEmptyStrings = true)]
     [Display(Description = "Show validation errors or not")]
-    public bool ShowValidationErrors
+    public YesNo ShowValidationErrors
     {
       get;
       set;
     }
+  }
+
+  internal enum YesNo
+  {
+    No,
+    Yes,
   }
 }
