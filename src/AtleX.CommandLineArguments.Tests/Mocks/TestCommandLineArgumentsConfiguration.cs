@@ -1,8 +1,6 @@
 ﻿using AtleX.CommandLineArguments.Configuration;
 using AtleX.CommandLineArguments.Parsers;
-using System;
 using AtleX.CommandLineArguments.Validators;
-using System.Collections.Generic;
 using AtleX.CommandLineArguments.Parsers.TypeParsers;
 
 namespace AtleX.CommandLineArguments.Tests.Mocks
@@ -14,20 +12,17 @@ namespace AtleX.CommandLineArguments.Tests.Mocks
     {
       this.Parser = parser;
       this.Validators.Add(new RequiredArgumentValidator());
-      this.TypeParsers.AddRange(new List<TypeParser>()
-      {
-        new BoolTypeParser(),
-        new ByteTypeParser(),
-        new CharTypeParser(),
-        new DateTimeTypeParser(),
-        new DecimalTypeParser(),
-        new DoubleTypeParser(),
-        new FloatTypeParser(),
-        new IntTypeParser(),
-        new LongTypeParser(),
-        new ShortTypeParser(),
-        new StringTypeParser(),
-      });
+      this.TypeParsers.Add(new BoolTypeParser());
+      this.TypeParsers.Add(new ByteTypeParser());
+      this.TypeParsers.Add(new CharTypeParser());
+      this.TypeParsers.Add(new DateTimeTypeParser());
+      this.TypeParsers.Add(new DecimalTypeParser());
+      this.TypeParsers.Add(new DoubleTypeParser());
+      this.TypeParsers.Add(new FloatTypeParser());
+      this.TypeParsers.Add(new IntTypeParser());
+      this.TypeParsers.Add(new LongTypeParser());
+      this.TypeParsers.Add(new ShortTypeParser());
+      this.TypeParsers.Add(new StringTypeParser());
     }
   }
 }
