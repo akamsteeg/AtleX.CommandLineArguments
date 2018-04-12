@@ -28,7 +28,7 @@
       }
       else
       {
-        parseResult = default(long);
+        parseResult = default;
         result = false;
       }
 

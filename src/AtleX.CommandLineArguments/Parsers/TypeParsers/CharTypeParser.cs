@@ -28,7 +28,7 @@
       }
       else
       {
-        parseResult = default(char);
+        parseResult = default;
       }
 
       return result;

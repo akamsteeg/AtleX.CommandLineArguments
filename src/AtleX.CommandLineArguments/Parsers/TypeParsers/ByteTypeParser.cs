@@ -28,7 +28,7 @@
       }
       else
       {
-        parseResult = default(byte);
+        parseResult = default;
         result = false;
       }
 

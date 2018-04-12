@@ -30,7 +30,7 @@ namespace AtleX.CommandLineArguments.Parsers.TypeParsers
       }
       else
       {
-        parseResult = default(DateTime);
+        parseResult = default;
         result = false;
       }
 

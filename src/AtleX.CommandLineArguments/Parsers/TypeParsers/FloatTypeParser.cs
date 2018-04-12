@@ -28,7 +28,7 @@
       }
       else
       {
-        parseResult = default(float);
+        parseResult = default;
         result = false;
       }
 
