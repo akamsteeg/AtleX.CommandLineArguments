@@ -41,12 +41,9 @@ namespace AtleX.CommandLineArguments.Parsers
     public ParseResult<T> Parse<T>(string[] arguments, IEnumerable<ArgumentValidator> validators, IEnumerable<TypeParser> typeParsers)
       where T : Arguments, new()
     {
-      if (arguments == null)
-        throw new ArgumentNullException(nameof(arguments));
-      if (validators == null)
-        throw new ArgumentNullException(nameof(validators));
-      if (typeParsers == null)
-        throw new ArgumentNullException(nameof(typeParsers));
+      _ = arguments ?? throw new ArgumentNullException(nameof(arguments));
+      _ = validators ?? throw new ArgumentNullException(nameof(validators));
+      _ = typeParsers ?? throw new ArgumentNullException(nameof(typeParsers));
 
       var argumentsObject = new T();
       var allValidationErrors = new List<ValidationError>();

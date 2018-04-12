@@ -63,8 +63,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// </param>
     public void FillProperty(T arguments, string propertyName, string propertyValue)
     {
-      if (arguments == null)
-        throw new ArgumentNullException(nameof(arguments));
+      _ = arguments ?? throw new ArgumentNullException(nameof(arguments));
       if (string.IsNullOrWhiteSpace(propertyName))
         throw new ArgumentNullException(nameof(propertyName));
 

@@ -49,8 +49,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// </returns>
     public bool TryValidate(PropertyInfo parsedPropertyToValidate, bool isSpecified, string originalValue, out IEnumerable<ValidationError> validationErrors)
     {
-      if (parsedPropertyToValidate == null)
-        throw new ArgumentNullException(nameof(parsedPropertyToValidate));
+      _ = parsedPropertyToValidate ?? throw new ArgumentNullException(nameof(parsedPropertyToValidate));
 
       var result = true;
 

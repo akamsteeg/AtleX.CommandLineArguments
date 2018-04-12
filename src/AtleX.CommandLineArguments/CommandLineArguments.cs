@@ -62,12 +62,9 @@ namespace AtleX.CommandLineArguments
     public static bool TryParse<T>(string[] arguments, out T argumentsObject, out IEnumerable<ValidationError> validationResults)
       where T : Arguments, new()
     {
-      if (arguments == null)
-        throw new ArgumentNullException(nameof(arguments));
-      if (Configuration == null)
-        throw new InvalidOperationException("Cannot parse without a configuration");
-      if (Configuration.Parser == null)
-        throw new InvalidOperationException("Cannot parse without a parser configured");
+      _ = arguments ?? throw new ArgumentNullException(nameof(arguments));
+      _ = Configuration ?? throw new InvalidOperationException("Cannot parse without a configuration");
+      _ = Configuration.Parser ?? throw new InvalidOperationException("Cannot parse without a parser configured");
 
       var parseResult = Configuration.Parser.Parse<T>(arguments, Configuration.Validators, Configuration.TypeParsers);
 
@@ -90,10 +87,8 @@ namespace AtleX.CommandLineArguments
     public static void DisplayHelp<T>(T argumentsObject)
       where T : Arguments, new()
     {
-      if (Configuration == null)
-        throw new InvalidOperationException("Cannot display help without a configuration");
-      if (Configuration.HelpWriter == null)
-        throw new InvalidOperationException("Cannot display help without a help writer configured");
+      _ = Configuration ?? throw new InvalidOperationException("Cannot display help without a configuration");
+      _ = Configuration.HelpWriter ?? throw new InvalidOperationException("Cannot display help without a help writer configured");
 
       Configuration.HelpWriter.Write(argumentsObject);
     }

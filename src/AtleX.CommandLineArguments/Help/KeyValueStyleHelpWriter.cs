@@ -19,8 +19,7 @@ namespace AtleX.CommandLineArguments.Help
     /// </param>
     public override void Write<T>(T argumentsToWriteHelpFor)
     {
-      if (argumentsToWriteHelpFor == null)
-        throw new ArgumentNullException(nameof(argumentsToWriteHelpFor));
+      _= argumentsToWriteHelpFor ?? throw new ArgumentNullException(nameof(argumentsToWriteHelpFor));
 
       var helpDetails = this.GetHelpDetails(argumentsToWriteHelpFor);
 

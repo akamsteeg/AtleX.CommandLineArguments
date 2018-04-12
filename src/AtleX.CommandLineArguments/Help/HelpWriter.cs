@@ -59,8 +59,7 @@ namespace AtleX.CommandLineArguments.Help
     protected IEnumerable<ArgumentHelpDetails> GetHelpDetails<T>(T argumentsObject)
       where T: Arguments, new()
     {
-      if (argumentsObject == null)
-        throw new ArgumentNullException(nameof(argumentsObject));
+      _ = argumentsObject ?? throw new ArgumentNullException(nameof(argumentsObject));
 
       var result = new List<ArgumentHelpDetails>();
 

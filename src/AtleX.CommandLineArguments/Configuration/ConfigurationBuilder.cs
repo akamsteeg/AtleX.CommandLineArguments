@@ -50,8 +50,7 @@ namespace AtleX.CommandLineArguments.Configuration
     /// </returns>
     public ConfigurationBuilder With(ArgumentValidator argumentValidator)
     {
-      if (argumentValidator == null)
-        throw new ArgumentNullException(nameof(argumentValidator));
+      _ = argumentValidator ?? throw new ArgumentNullException(nameof(argumentValidator));
 
       this.Validators.Add(argumentValidator);
 
@@ -65,8 +64,7 @@ namespace AtleX.CommandLineArguments.Configuration
     /// <returns></returns>
     public ConfigurationBuilder With(TypeParser typeParser)
     {
-      if (typeParser == null)
-        throw new ArgumentNullException(nameof(typeParser));
+      _ = typeParser ?? throw new ArgumentNullException(nameof(typeParser));
 
       this.TypeParsers.Add(typeParser);
 
