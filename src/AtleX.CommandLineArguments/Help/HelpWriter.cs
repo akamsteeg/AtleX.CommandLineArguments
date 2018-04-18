@@ -9,6 +9,7 @@ namespace AtleX.CommandLineArguments.Help
   /// Represents a writer for help information for the arguments
   /// </summary>
   public abstract class HelpWriter
+    : IHelpWriter
   {
     /// <summary>
     /// Gets the cached <see cref="Type"/> of <see cref="DisplayAttribute"/>

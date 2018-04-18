@@ -59,9 +59,9 @@ namespace AtleX.CommandLineArguments.Configuration
     }
 
     /// <summary>
-    /// Gets the <see cref="HelpWriter"/> for this <see cref="CommandLineArgumentsConfiguration"/>
+    /// Gets the <see cref="IHelpWriter"/> for this <see cref="CommandLineArgumentsConfiguration"/>
     /// </summary>
-    public HelpWriter HelpWriter
+    public IHelpWriter HelpWriter
     {
       get;
       set;
