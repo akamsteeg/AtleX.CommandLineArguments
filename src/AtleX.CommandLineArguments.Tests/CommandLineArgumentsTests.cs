@@ -24,19 +24,5 @@ namespace AtleX.CommandLineArguments.Tests
 
       CommandLineArguments.Configuration = oldConfig; // The beauty of static, we need to restore the configuration
     }
-
-    [Test]
-    public void TryParse_WithEmptyArgumentsAndDefaultConfiguration_Succeeds()
-    {
-      Assert.DoesNotThrow(() => CommandLineArguments.TryParse<TestArguments>(new string[0], out _));
-    }
-
-    [Test]
-    public void TryParse_WithUnknownArgumentsAndDefaultConfiguration_Succeeds()
-    {
-      var cliArgs = new string[] { "lorem", "ipsum" };
-
-      Assert.DoesNotThrow(() => CommandLineArguments.TryParse<TestArguments>(cliArgs, out _));
-    }
   }
 }

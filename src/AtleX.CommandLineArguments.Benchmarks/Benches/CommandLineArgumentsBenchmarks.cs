@@ -11,7 +11,11 @@ namespace AtleX.CommandLineArguments.Benchmarks.Benches
     [Benchmark(Baseline = true)]
     public bool CommandLineArgumentsTryParse_DefaultConfiguration_SuccessFul()
     {
-      CommandLineArguments.Configuration = CommandLineArgumentsConfiguration.Default;
+      CommandLineArguments.Configuration = new CommandLineArgumentsConfiguration()
+      {
+        HelpWriter = new WindowsStyleHelpWriter(),
+        Parser = new WindowsStyleCommandLineArgumentsParser(),
+      };
 
       bool result = ParseCommandLineArguments();
 
@@ -21,20 +25,11 @@ namespace AtleX.CommandLineArguments.Benchmarks.Benches
     [Benchmark]
     public bool CommandLineArgumentsTryParse_WindowsStyleParsersWithoutValidationAndHelpWriter_SuccessFul()
     {
-      CommandLineArguments.Configuration = ConfigurationBuilder
-        .For(new WindowsStyleCommandLineArgumentsParser());
-
-      bool result = ParseCommandLineArguments();
-
-      return result;
-    }
-
-    [Benchmark]
-    public bool CommandLineArgumentsTryParse_WindowsStyleParsersWithoutValidationAndWithHelpWriter_SuccessFul()
-    {
-      CommandLineArguments.Configuration = ConfigurationBuilder
-        .For(new WindowsStyleCommandLineArgumentsParser())
-        .With(new WindowsStyleHelpWriter());
+      CommandLineArguments.Configuration = new CommandLineArgumentsConfiguration()
+      {
+        HelpWriter = new WindowsStyleHelpWriter(),
+        Parser = new WindowsStyleCommandLineArgumentsParser(),
+      };
 
       bool result = ParseCommandLineArguments();
 

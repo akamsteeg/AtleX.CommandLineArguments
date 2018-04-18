@@ -3,6 +3,7 @@ using AtleX.CommandLineArguments.Parsers;
 using AtleX.CommandLineArguments.Validators;
 using AtleX.CommandLineArguments.Help;
 using AtleX.CommandLineArguments.Parsers.TypeParsers;
+using System;
 
 namespace AtleX.CommandLineArguments.Configuration
 {
@@ -12,29 +13,49 @@ namespace AtleX.CommandLineArguments.Configuration
   public class CommandLineArgumentsConfiguration
   {
     /// <summary>
+    /// Gets the <see cref="IEnumerable{T}"/> of <see cref="ArgumentValidator"/>
+    /// to validate the command line arguments with
+    /// </summary>
+    public IEnumerable<ArgumentValidator> Validators
+    {
+      get
+      {
+        return this._validators;
+      }
+    }
+
+    /// <summary>
+    /// Gets the <see cref="IEnumerable{T}"/> of <see cref="TypeParser"/> to
+    /// parse the command line arguments with
+    /// </summary>
+    public IEnumerable<TypeParser> TypeParsers
+    {
+      get
+      {
+        return this._typeParsers;
+      }
+    }
+
+    /// <summary>
     /// Gets the <see cref="List{T}"/> of <see cref="ArgumentValidator"/> to
     /// validate the command line arguments with
     /// </summary>
-    public List<ArgumentValidator> Validators
-    {
-      get;
-    }
+    private readonly List<ArgumentValidator> _validators;
 
     /// <summary>
-    /// 
+    /// Gets the <see cref="List{T}"/> of <see cref="TypeParser"/> to
+    /// parse the command line arguments with
     /// </summary>
-    public List<TypeParser> TypeParsers
-    {
-      get;
-    }
+    private readonly List<TypeParser> _typeParsers;
 
     /// <summary>
-    /// Gets the <see cref="ICommandLineArgumentsParser"/> for this <see cref="CommandLineArgumentsConfiguration"/>
+    /// Gets the <see cref="ICommandLineArgumentsParser"/> to parse the command
+    /// line arguments with
     /// </summary>
     public ICommandLineArgumentsParser Parser
     {
       get;
-      protected set;
+      set;
     }
 
     /// <summary>
@@ -43,7 +64,7 @@ namespace AtleX.CommandLineArguments.Configuration
     public HelpWriter HelpWriter
     {
       get;
-      protected set;
+      set;
     }
 
     /// <summary>
@@ -51,34 +72,53 @@ namespace AtleX.CommandLineArguments.Configuration
     /// </summary>
     public CommandLineArgumentsConfiguration()
     {
-      this.Validators = new List<ArgumentValidator>();
-      this.TypeParsers = new List<TypeParser>();
+      this._validators = new List<ArgumentValidator>()
+      {
+          new RequiredArgumentValidator(),
+      };
+
+      this._typeParsers = new List<TypeParser>()
+      {
+          new BoolTypeParser(),
+          new ByteTypeParser(),
+          new CharTypeParser(),
+          new DateTimeTypeParser(),
+          new DecimalTypeParser(),
+          new DoubleTypeParser(),
+          new FloatTypeParser(),
+          new IntTypeParser(),
+          new LongTypeParser(),
+          new ShortTypeParser(),
+          new StringTypeParser(),
+      };
     }
 
     /// <summary>
-    /// Gets the default <see cref="CommandLineArgumentsConfiguration"/>
+    /// Add the specified <see cref="ArgumentValidator"/> to the validators to
+    /// use for validating the commandline arguments
     /// </summary>
-    public static CommandLineArgumentsConfiguration Default
+    /// <param name="validator">
+    /// The <see cref="ArgumentValidator"/> to add
+    /// </param>
+    public void Add(ArgumentValidator validator)
     {
-      get
-      {
-        var result = ConfigurationBuilder.For(new WindowsStyleCommandLineArgumentsParser())
-          .With(new WindowsStyleHelpWriter())
-          .With(new RequiredArgumentValidator())
-          .With(new BoolTypeParser())
-          .With(new ByteTypeParser())
-          .With(new CharTypeParser())
-          .With(new DateTimeTypeParser())
-          .With(new DecimalTypeParser())
-          .With(new DoubleTypeParser())
-          .With(new FloatTypeParser())
-          .With(new IntTypeParser())
-          .With(new LongTypeParser())
-          .With(new ShortTypeParser())
-          .With(new StringTypeParser());
+      _ = validator ?? throw new ArgumentNullException(nameof(validator));
 
-        return result;
-      }
+      this._validators.Add(validator);
+    }
+
+    /// <summary>
+    /// Add the specified <see cref="TypeParser"/> to the type parsers to
+    /// use for parsing the commandline arguments
+    /// </summary>
+    /// <param name="typeParser">
+    /// The <see cref="TypeParser"/> to add
+    /// </param>
+    public void Add(TypeParser typeParser)
+    {
+      _ = typeParser ?? throw new ArgumentNullException(nameof(typeParser));
+
+      this._typeParsers.Add(typeParser);
     }
   }
 }

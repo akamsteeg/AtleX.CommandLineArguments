@@ -17,7 +17,7 @@ namespace AtleX.CommandLineArguments
     {
       get;
       set;
-    } = CommandLineArgumentsConfiguration.Default;
+    }
 
     /// <summary>
     /// Parse the specified arguments to the specified type
