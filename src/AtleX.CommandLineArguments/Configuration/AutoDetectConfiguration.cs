@@ -18,7 +18,7 @@ namespace AtleX.CommandLineArguments.Configuration
     /// </summary>
     public AutoDetectConfiguration()
     {
-#if NETSTANDARD
+#if NETSTANDARD1_5
       if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 #else
       if (Environment.OSVersion.Platform != PlatformID.Unix && Environment.OSVersion.Platform != PlatformID.MacOSX)
