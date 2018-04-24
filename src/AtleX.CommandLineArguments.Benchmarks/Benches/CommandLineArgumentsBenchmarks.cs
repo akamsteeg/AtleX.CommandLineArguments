@@ -14,7 +14,7 @@ namespace AtleX.CommandLineArguments.Benchmarks.Benches
       CommandLineArguments.Configuration = new CommandLineArgumentsConfiguration()
       {
         HelpWriter = new WindowsStyleHelpWriter(),
-        Parser = new WindowsStyleCommandLineArgumentsParser(),
+        Parser = new WindowsStyleParser(),
       };
 
       bool result = ParseCommandLineArguments();
@@ -28,7 +28,7 @@ namespace AtleX.CommandLineArguments.Benchmarks.Benches
       CommandLineArguments.Configuration = new CommandLineArgumentsConfiguration()
       {
         HelpWriter = new WindowsStyleHelpWriter(),
-        Parser = new WindowsStyleCommandLineArgumentsParser(),
+        Parser = new WindowsStyleParser(),
       };
 
       bool result = ParseCommandLineArguments();

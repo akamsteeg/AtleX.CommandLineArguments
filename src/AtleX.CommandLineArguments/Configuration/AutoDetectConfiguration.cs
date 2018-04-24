@@ -24,12 +24,12 @@ namespace AtleX.CommandLineArguments.Configuration
       if (Environment.OSVersion.Platform != PlatformID.Unix && Environment.OSVersion.Platform != PlatformID.MacOSX)
 #endif
       {
-        this.Parser = new WindowsStyleCommandLineArgumentsParser();
+        this.Parser = new WindowsStyleParser();
         this.HelpWriter = new WindowsStyleHelpWriter();
       }
       else
       {
-        this.Parser = new LinuxStyleCommandLineArgumentsParser();
+        this.Parser = new LinuxStyleParser();
         this.HelpWriter = new LinuxStyleHelpWriter();
       }
 

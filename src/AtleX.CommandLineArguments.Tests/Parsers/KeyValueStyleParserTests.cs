@@ -6,11 +6,11 @@ using AtleX.CommandLineArguments.Validators;
 namespace AtleX.CommandLineArguments.Tests.Parsers
 {
   [TestFixture]
-  public class KeyValueCommandLineArgumentsParserTests
+  public class KeyValueStyleParserTests
     : CommandLineArgumentsParserTests
   {
-    public KeyValueCommandLineArgumentsParserTests()
-      : base(new KeyValueCommandLineArgumentsParser(), Enumerable.Empty<ArgumentValidator>())
+    public KeyValueStyleParserTests()
+      : base(new KeyValueStyleParser(), Enumerable.Empty<ArgumentValidator>())
     {
     }
 
