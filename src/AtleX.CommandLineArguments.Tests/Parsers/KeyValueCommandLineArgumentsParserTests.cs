@@ -10,7 +10,7 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
     : CommandLineArgumentsParserTests
   {
     public KeyValueCommandLineArgumentsParserTests()
-      : base(new KeyValueCommandLineArgumentsParser(), Enumerable.Empty<ArgumentValidator>())
+      : base(new KeyValueStyleParser(), Enumerable.Empty<ArgumentValidator>())
     {
     }
 
