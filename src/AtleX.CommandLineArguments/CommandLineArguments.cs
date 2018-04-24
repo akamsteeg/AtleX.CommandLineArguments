@@ -11,13 +11,13 @@ namespace AtleX.CommandLineArguments
   public static class CommandLineArguments
   {
     /// <summary>
-    /// Gets or sets the <see cref="CommandLineArgumentsConfiguration"/> foor this <see cref="CommandLineArguments"/>
+    /// Gets or set the <see cref="CommandLineArgumentsConfiguration"/> to parse with
     /// </summary>
     public static CommandLineArgumentsConfiguration Configuration
     {
       get;
       set;
-    }
+    } = new AutoDetectConfiguration();
 
     /// <summary>
     /// Parse the specified arguments to the specified type
@@ -63,7 +63,7 @@ namespace AtleX.CommandLineArguments
       where T : Arguments, new()
     {
       _ = arguments ?? throw new ArgumentNullException(nameof(arguments));
-      _ = Configuration ?? throw new InvalidOperationException("Cannot parse without a configuration");
+      _ = Configuration ?? throw new InvalidOperationException("Cannot display help without a configuration");
       _ = Configuration.Parser ?? throw new InvalidOperationException("Cannot parse without a parser configured");
 
       var parseResult = Configuration.Parser.Parse<T>(arguments, Configuration.Validators, Configuration.TypeParsers);
