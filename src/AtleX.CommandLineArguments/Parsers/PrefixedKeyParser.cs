@@ -6,7 +6,7 @@ namespace AtleX.CommandLineArguments.Parsers
   /// <summary>
   /// Represents a <see cref="ICommandLineArgumentsParser"/> for key value pairs with the key indicated by a certain prefix string
   /// </summary>
-  public abstract class PrefixedKeyCommandLineArgumentsParser
+  public abstract class PrefixedKeyParser
     : CommandLineArgumentsParser
   {
     /// <summary>
@@ -21,12 +21,12 @@ namespace AtleX.CommandLineArguments.Parsers
 
     /// <summary>
     /// Initializes a new instance of <see
-    /// cref="PrefixedKeyCommandLineArgumentsParser"/> with the specified key indicator
+    /// cref="PrefixedKeyParser"/> with the specified key indicator
     /// </summary>
     /// <param name="keyIndicator">
     /// The prefix string that indicates the value is a key
     /// </param>
-    public PrefixedKeyCommandLineArgumentsParser(string keyIndicator)
+    public PrefixedKeyParser(string keyIndicator)
     {
       if (string.IsNullOrWhiteSpace(keyIndicator))
         throw new ArgumentNullException(nameof(keyIndicator));

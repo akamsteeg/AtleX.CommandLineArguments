@@ -7,7 +7,7 @@ namespace AtleX.CommandLineArguments.Parsers
   /// --toggle") command line arguments parser
   /// </summary>
   public sealed class LinuxStyleParser
-    : PrefixedKeyCommandLineArgumentsParser
+    : PrefixedKeyParser
   {
     private const string KeyPrefix = "--";
 

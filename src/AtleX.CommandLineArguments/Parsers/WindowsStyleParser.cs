@@ -7,7 +7,7 @@ namespace AtleX.CommandLineArguments.Parsers
   /// /toggle") command line arguments parser
   /// </summary>
   public sealed class WindowsStyleParser
-    : PrefixedKeyCommandLineArgumentsParser
+    : PrefixedKeyParser
   {
     /// <summary>
     /// Initializes a new instance of <see cref="WindowsStyleParser"/>
