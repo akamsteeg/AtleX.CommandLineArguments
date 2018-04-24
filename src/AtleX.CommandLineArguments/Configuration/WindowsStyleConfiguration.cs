@@ -15,7 +15,7 @@ namespace AtleX.CommandLineArguments.Configuration
     /// </summary>
     public WindowsStyleConfiguration()
     {
-      this.Parser = new WindowsStyleCommandLineArgumentsParser();
+      this.Parser = new WindowsStyleParser();
       this.HelpWriter = new WindowsStyleHelpWriter();
     }
   }

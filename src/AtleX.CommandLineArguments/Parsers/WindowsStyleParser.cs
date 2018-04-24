@@ -6,13 +6,13 @@ namespace AtleX.CommandLineArguments.Parsers
   /// Represents a Microsoft Windows CLI style ("/key value /key2 value2
   /// /toggle") command line arguments parser
   /// </summary>
-  public sealed class WindowsStyleCommandLineArgumentsParser
+  public sealed class WindowsStyleParser
     : PrefixedKeyCommandLineArgumentsParser
   {
     /// <summary>
-    /// Initializes a new instance of <see cref="WindowsStyleCommandLineArgumentsParser"/>
+    /// Initializes a new instance of <see cref="WindowsStyleParser"/>
     /// </summary>
-    public WindowsStyleCommandLineArgumentsParser()
+    public WindowsStyleParser()
       : base("/")
     {
     }

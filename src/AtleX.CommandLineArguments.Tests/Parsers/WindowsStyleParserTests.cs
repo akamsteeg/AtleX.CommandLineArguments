@@ -7,11 +7,11 @@ using NUnit.Framework;
 namespace AtleX.CommandLineArguments.Tests.Parsers
 {
   [TestFixture]
-  public class WindowsStyleCommandLineArgumentsParserTests
+  public class WindowsStyleParserTests
     : CommandLineArgumentsParserTests
   {
-    public WindowsStyleCommandLineArgumentsParserTests()
-      : base(new WindowsStyleCommandLineArgumentsParser(), Enumerable.Empty<ArgumentValidator>())
+    public WindowsStyleParserTests()
+      : base(new WindowsStyleParser(), Enumerable.Empty<ArgumentValidator>())
     {
 
     }
