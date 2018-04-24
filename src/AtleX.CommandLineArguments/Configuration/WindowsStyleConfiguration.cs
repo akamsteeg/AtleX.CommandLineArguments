@@ -4,16 +4,16 @@ using AtleX.CommandLineArguments.Parsers;
 namespace AtleX.CommandLineArguments.Configuration
 {
   /// <summary>
-  /// Represents the <see cref="WindowsStyleCommandLineArgumentsConfiguration"/> for
+  /// Represents the <see cref="WindowsStyleConfiguration"/> for
   /// Windows-style (/key value) command line arguments
   /// </summary>
-  public class WindowsStyleCommandLineArgumentsConfiguration
+  public class WindowsStyleConfiguration
     : CommandLineArgumentsConfiguration
   {
     /// <summary>
-    /// Initializes a new instance of <see cref="WindowsStyleCommandLineArgumentsConfiguration"/>
+    /// Initializes a new instance of <see cref="WindowsStyleConfiguration"/>
     /// </summary>
-    public WindowsStyleCommandLineArgumentsConfiguration()
+    public WindowsStyleConfiguration()
     {
       this.Parser = new WindowsStyleCommandLineArgumentsParser();
       this.HelpWriter = new WindowsStyleHelpWriter();
