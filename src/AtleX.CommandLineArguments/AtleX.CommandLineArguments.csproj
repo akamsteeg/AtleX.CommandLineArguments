@@ -4,6 +4,8 @@
     <TargetFrameworks>netstandard1.5;net45</TargetFrameworks>
     <LangVersion>7.2</LangVersion>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <DocumentationFile>docs\AtleX.CommandLineArguments.xml</DocumentationFile>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <IncludeSymbols>True</IncludeSymbols>
     <Authors>Alex Kamsteeg (https://atlex.nl/)</Authors>
     <Company />
@@ -19,18 +21,12 @@
 -Many internal improvements (#7, #13, #14, #15, #16, #17)</PackageReleaseNotes>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>docs\AtleX.CommandLineArguments.xml</DocumentationFile>
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <TreatSpecificWarningsAsErrors />
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>docs\AtleX.CommandLineArguments.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.5'">
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
 </Project>
