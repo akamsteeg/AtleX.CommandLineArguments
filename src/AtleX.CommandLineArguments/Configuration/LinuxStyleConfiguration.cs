@@ -15,7 +15,7 @@ namespace AtleX.CommandLineArguments.Configuration
     /// </summary>
     public LinuxStyleConfiguration()
     {
-      this.Parser = new LinuxStyleCommandLineArgumentsParser();
+      this.Parser = new LinuxStyleParser();
       this.HelpWriter = new LinuxStyleHelpWriter();
     }
   }

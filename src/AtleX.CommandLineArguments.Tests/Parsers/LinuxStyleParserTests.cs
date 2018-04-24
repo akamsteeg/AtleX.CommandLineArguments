@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 namespace AtleX.CommandLineArguments.Tests.Parsers
 {
   [TestFixture]
-  class LinuxStyleCommandLineArgumentsParserTests
+  class LinuxStyleParserTests
     : CommandLineArgumentsParserTests
   {
-    public LinuxStyleCommandLineArgumentsParserTests()
-     : base(new LinuxStyleCommandLineArgumentsParser(), Enumerable.Empty<ArgumentValidator>())
+    public LinuxStyleParserTests()
+     : base(new LinuxStyleParser(), Enumerable.Empty<ArgumentValidator>())
     {
     }
 

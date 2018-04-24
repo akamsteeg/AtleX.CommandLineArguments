@@ -6,16 +6,16 @@ namespace AtleX.CommandLineArguments.Parsers
   /// Represents a Linux CLI style ("--key value --key2 value2
   /// --toggle") command line arguments parser
   /// </summary>
-  public sealed class LinuxStyleCommandLineArgumentsParser
+  public sealed class LinuxStyleParser
     : PrefixedKeyCommandLineArgumentsParser
   {
     private const string KeyPrefix = "--";
 
     /// <summary>
     /// Initializes a new instance of <see
-    /// cref="LinuxStyleCommandLineArgumentsParser"/>
+    /// cref="LinuxStyleParser"/>
     /// </summary>
-    public LinuxStyleCommandLineArgumentsParser()
+    public LinuxStyleParser()
       : base(KeyPrefix)
     {
     }

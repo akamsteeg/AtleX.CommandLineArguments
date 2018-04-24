@@ -29,7 +29,7 @@ namespace AtleX.CommandLineArguments.Configuration
       }
       else
       {
-        this.Parser = new LinuxStyleCommandLineArgumentsParser();
+        this.Parser = new LinuxStyleParser();
         this.HelpWriter = new LinuxStyleHelpWriter();
       }
 
