@@ -9,6 +9,7 @@ namespace AtleX.CommandLineArguments.Tests.Mocks
     public TestCommandLineArgumentsConfiguration(ICommandLineArgumentsParser parser)
     {
       this.Parser = parser;
+      this.HelpWriter = new MockHelpWriter();
     }
   }
 }

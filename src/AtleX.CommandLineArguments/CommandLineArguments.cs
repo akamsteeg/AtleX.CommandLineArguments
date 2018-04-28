@@ -11,13 +11,28 @@ namespace AtleX.CommandLineArguments
   public static class CommandLineArguments
   {
     /// <summary>
+    /// The backingfield for the <see cref="Configuration"/> property
+    /// </summary>
+    private static CommandLineArgumentsConfiguration _configuration = new AutoDetectConfiguration();
+
+    /// <summary>
     /// Gets or set the <see cref="CommandLineArgumentsConfiguration"/> to parse with
     /// </summary>
     public static CommandLineArgumentsConfiguration Configuration
     {
-      get;
-      set;
-    } = new AutoDetectConfiguration();
+      get
+      {
+        return _configuration;
+      }
+      set
+      {
+        _ = value ?? throw new InvalidOperationException("Cannot display help without a configuration");
+
+        ValidateConfiguration(value);
+
+        _configuration = value;
+      }
+    }
 
     /// <summary>
     /// Parse the specified arguments to the specified type
@@ -63,13 +78,11 @@ namespace AtleX.CommandLineArguments
       where T : Arguments, new()
     {
       _ = arguments ?? throw new ArgumentNullException(nameof(arguments));
-      _ = Configuration ?? throw new InvalidOperationException("Cannot display help without a configuration");
-      _ = Configuration.Parser ?? throw new InvalidOperationException("Cannot parse without a parser configured");
 
       var parseResult = Configuration.Parser.Parse<T>(arguments, Configuration.Validators, Configuration.TypeParsers);
 
       var result = parseResult.IsValid;
-      argumentsObject = parseResult.CommandLineArguments as T;
+      argumentsObject = parseResult.CommandLineArguments;
       validationResults = parseResult.ValidationErrors;
 
       return result;
@@ -87,10 +100,16 @@ namespace AtleX.CommandLineArguments
     public static void DisplayHelp<T>(T argumentsObject)
       where T : Arguments, new()
     {
-      _ = Configuration ?? throw new InvalidOperationException("Cannot display help without a configuration");
-      _ = Configuration.HelpWriter ?? throw new InvalidOperationException("Cannot display help without a help writer configured");
-
       Configuration.HelpWriter.Write(argumentsObject);
+    }
+
+    /// <summary>
+    /// Validate the specified <see cref="CommandLineArgumentsConfiguration"/>
+    /// </summary>
+    private static void ValidateConfiguration(CommandLineArgumentsConfiguration configuration)
+    {
+      _ = configuration.Parser ?? throw new InvalidOperationException("Cannot parse without a parser configured in the configuration");
+      _ = configuration.HelpWriter ?? throw new InvalidOperationException("Cannot display help without a help writer configured in the configuration");
     }
   }
 }
