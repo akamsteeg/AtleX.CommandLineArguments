@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using AtleX.CommandLineArguments.Parsers.Helpers;
 using AtleX.CommandLineArguments.Parsers.TypeParsers;
 using AtleX.CommandLineArguments.Validators;
@@ -48,10 +49,11 @@ namespace AtleX.CommandLineArguments.Parsers
       var argumentsObject = new T();
       var allValidationErrors = new List<ValidationError>();
 
-      var argumentPropertiesHelper = new ArgumentPropertiesHelper<T>(typeParsers);
+      var properties = typeof(T).GetTypeInfo().DeclaredProperties;
+      var argumentPropertiesHelper = new ArgumentPropertiesHelper(properties, typeParsers);
       var validationHelper = new ValidationHelper(validators);
 
-      foreach (var currentProperty in argumentPropertiesHelper.GetProperties())
+      foreach (var currentProperty in properties)
       {
         var argumentIsSpecified = this.TryFindRawArgumentValue(arguments, currentProperty.Name, out string argumentValue);
 
