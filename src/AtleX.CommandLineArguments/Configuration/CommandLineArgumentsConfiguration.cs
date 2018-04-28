@@ -79,17 +79,24 @@ namespace AtleX.CommandLineArguments.Configuration
 
       this._typeParsers = new List<TypeParser>()
       {
-          new BoolTypeParser(),
-          new ByteTypeParser(),
-          new CharTypeParser(),
-          new DateTimeTypeParser(),
-          new DecimalTypeParser(),
-          new DoubleTypeParser(),
-          new FloatTypeParser(),
-          new IntTypeParser(),
-          new LongTypeParser(),
-          new ShortTypeParser(),
-          new StringTypeParser(),
+        /*
+        This is ordered by most likely type parsers first so searching
+        for the correct type parser can be slightly faster for the most
+        used types
+        */
+        new StringTypeParser(),
+        new BoolTypeParser(),
+        new IntTypeParser(),
+
+        new FloatTypeParser(),
+        new DoubleTypeParser(),
+        new DateTimeTypeParser(),
+
+        new ByteTypeParser(),
+        new CharTypeParser(),
+        new DecimalTypeParser(),
+        new LongTypeParser(),
+        new ShortTypeParser(),
       };
     }
 
