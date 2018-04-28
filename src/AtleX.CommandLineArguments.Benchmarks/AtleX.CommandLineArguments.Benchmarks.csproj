@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.10.10" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.10.14" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
