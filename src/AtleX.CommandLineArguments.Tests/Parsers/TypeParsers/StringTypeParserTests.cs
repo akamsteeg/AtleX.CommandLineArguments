@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace AtleX.CommandLineArguments.Tests.Parsers.TypeParsers
 {
   [TestFixture]
-  public class StringTypeParserTests
+  internal class StringTypeParserTests
     : ToggleTypeParserTests<StringTypeParser>
   {
     [Test]

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace AtleX.CommandLineArguments.Tests.Parsers
 {
   [TestFixture]
-  class LinuxStyleParserTests
+  internal class LinuxStyleParserTests
     : CommandLineArgumentsParserTests
   {
     public LinuxStyleParserTests()

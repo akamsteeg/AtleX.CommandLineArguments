@@ -3,7 +3,7 @@
   /// <summary>
   /// Represents a <see cref="TypeParser{T}"/> for <see cref="float"/>
   /// </summary>
-  public sealed class FloatTypeParser
+  internal sealed class FloatTypeParser
   : TypeParser<float>
   {
     /// <summary>

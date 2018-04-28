@@ -3,7 +3,7 @@
   /// <summary>
   /// Represents a <see cref="TypeParser{T}"/> for <see cref="decimal"/>
   /// </summary>
-  public sealed class DecimalTypeParser
+  internal sealed class DecimalTypeParser
   : TypeParser<decimal>
   {
     /// <summary>

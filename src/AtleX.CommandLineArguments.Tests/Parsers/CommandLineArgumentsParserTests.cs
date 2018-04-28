@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers
 {
-  public abstract class CommandLineArgumentsParserTests
+  internal abstract class CommandLineArgumentsParserTests
   {
     protected readonly ICommandLineArgumentsParser parser;
 

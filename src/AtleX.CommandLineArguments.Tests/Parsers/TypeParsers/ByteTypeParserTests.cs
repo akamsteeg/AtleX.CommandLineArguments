@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace AtleX.CommandLineArguments.Tests.Parsers.TypeParsers
 {
   [TestFixture]
-  public class ByteTypeParserTests
+  internal class ByteTypeParserTests
     : NonToggleTypeParserTests<ByteTypeParser>
   {
     [Test]

@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers.TypeParsers
 {
-  public abstract class NonToggleTypeParserTests<Tparser>
+  internal abstract class NonToggleTypeParserTests<Tparser>
     : TypeParserTests<Tparser>
     where Tparser: TypeParser
   {

@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers.TypeParsers
 {
-  public abstract class TypeParserTests<Tparser>
+  internal abstract class TypeParserTests<Tparser>
     where Tparser: TypeParser
   {
     protected readonly TypeParser typeParser;

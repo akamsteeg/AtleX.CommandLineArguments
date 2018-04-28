@@ -6,7 +6,7 @@ using System;
 namespace AtleX.CommandLineArguments.Tests
 {
   [TestFixture]
-  public class CommandLineArgumentsTests
+  internal class CommandLineArgumentsTests
   {
     [Test]
     public void TryParse_ArgumentsNull_Throws()

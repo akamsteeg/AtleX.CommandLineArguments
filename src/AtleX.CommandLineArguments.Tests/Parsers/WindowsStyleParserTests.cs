@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace AtleX.CommandLineArguments.Tests.Parsers
 {
   [TestFixture]
-  public class WindowsStyleParserTests
+  internal class WindowsStyleParserTests
     : CommandLineArgumentsParserTests
   {
     public WindowsStyleParserTests()

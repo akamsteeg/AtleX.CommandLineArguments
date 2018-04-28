@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace AtleX.CommandLineArguments.Tests.Parsers.TypeParsers
 {
   [TestFixture]
-  public class BoolTypeParserTests
+  internal class BoolTypeParserTests
     : TypeParserTests<BoolTypeParser>
   {
     [Test]

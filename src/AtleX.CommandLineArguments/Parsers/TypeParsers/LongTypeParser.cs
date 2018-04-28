@@ -3,7 +3,7 @@
   /// <summary>
   /// Represents a <see cref="TypeParser{T}"/> for <see cref="long"/>
   /// </summary>
-  public sealed class LongTypeParser
+  internal sealed class LongTypeParser
   : TypeParser<long>
   {
     /// <summary>

@@ -6,7 +6,7 @@ using AtleX.CommandLineArguments.Validators;
 namespace AtleX.CommandLineArguments.Tests.Parsers
 {
   [TestFixture]
-  public class KeyValueStyleParserTests
+  internal class KeyValueStyleParserTests
     : CommandLineArgumentsParserTests
   {
     public KeyValueStyleParserTests()

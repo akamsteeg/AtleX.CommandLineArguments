@@ -7,7 +7,7 @@ namespace AtleX.CommandLineArguments.Validators
   /// <summary>
   /// Represents a <see cref="ArgumentValidator"/> for required command line arguments
   /// </summary>
-  public class RequiredArgumentValidator
+  internal sealed class RequiredArgumentValidator
   : ArgumentValidator
   {
     /// <summary>
