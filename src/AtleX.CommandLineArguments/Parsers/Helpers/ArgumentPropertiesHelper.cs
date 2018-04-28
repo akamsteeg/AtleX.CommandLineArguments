@@ -99,9 +99,9 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
 
       var enumType = property.PropertyType;
 
-      if (result = property.PropertyType.GetTypeInfo().IsEnumDefined(value) == true)
+      if (result = enumType.GetTypeInfo().IsEnumDefined(value) == true)
       {
-        var propertyValue = Enum.Parse(property.PropertyType, value, true);
+        var propertyValue = Enum.Parse(enumType, value, true);
 
         property.SetValue(arguments, propertyValue);
       }
