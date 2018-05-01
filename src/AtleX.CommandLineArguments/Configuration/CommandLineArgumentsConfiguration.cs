@@ -37,18 +37,6 @@ namespace AtleX.CommandLineArguments.Configuration
     }
 
     /// <summary>
-    /// Gets the <see cref="List{T}"/> of <see cref="ArgumentValidator"/> to
-    /// validate the command line arguments with
-    /// </summary>
-    private readonly List<ArgumentValidator> _validators;
-
-    /// <summary>
-    /// Gets the <see cref="List{T}"/> of <see cref="TypeParser"/> to
-    /// parse the command line arguments with
-    /// </summary>
-    private readonly List<TypeParser> _typeParsers;
-
-    /// <summary>
     /// Gets the <see cref="ICommandLineArgumentsParser"/> to parse the command
     /// line arguments with
     /// </summary>
@@ -66,6 +54,18 @@ namespace AtleX.CommandLineArguments.Configuration
       get;
       set;
     }
+
+    /// <summary>
+    /// Gets the <see cref="List{T}"/> of <see cref="ArgumentValidator"/> to
+    /// validate the command line arguments with
+    /// </summary>
+    private readonly List<ArgumentValidator> _validators;
+
+    /// <summary>
+    /// Gets the <see cref="List{T}"/> of <see cref="TypeParser"/> to
+    /// parse the command line arguments with
+    /// </summary>
+    private readonly List<TypeParser> _typeParsers;
 
     /// <summary>
     /// Initializes a new instance of <see cref="CommandLineArgumentsConfiguration"/>
