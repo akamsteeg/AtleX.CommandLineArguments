@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using AtleX.CommandLineArguments.Validators;
 
@@ -53,7 +54,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
 
       var result = true;
 
-      var currentValidationErrors =  new List<ValidationError>();
+      List<ValidationError> currentValidationErrors =  null; // PERF Only set the collection of validation errors when there's actually one or more
 
       foreach (var currentValidator in this.argumentValidators)
       {
@@ -61,12 +62,25 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
 
         if (!isValid)
         {
+          if (currentValidationErrors == null)
+          {
+            currentValidationErrors = new List<ValidationError>();
+          }
+
           currentValidationErrors.Add(validationError);
           result = false;
         }
       }
 
-      validationErrors = currentValidationErrors;
+      if (currentValidationErrors != null)
+      {
+        validationErrors = currentValidationErrors;
+      }
+      else
+      {
+        // Never return a null IEnumerable<T> because people want to use LINQ stuff on it
+        validationErrors = Enumerable.Empty<ValidationError>(); 
+      }
 
       return result;
     }
