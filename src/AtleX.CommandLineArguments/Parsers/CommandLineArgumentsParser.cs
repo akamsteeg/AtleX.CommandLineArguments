@@ -50,7 +50,7 @@ namespace AtleX.CommandLineArguments.Parsers
       var allValidationErrors = new List<ValidationError>();
 
       var properties = typeof(T).GetTypeInfo().DeclaredProperties;
-      var argumentPropertiesHelper = new ArgumentPropertiesHelper(properties, typeParsers);
+      var argumentPropertiesHelper = new ArgumentPropertiesHelper(typeParsers);
       var validationHelper = new ValidationHelper(validators);
 
       foreach (var currentProperty in properties)
@@ -59,7 +59,7 @@ namespace AtleX.CommandLineArguments.Parsers
 
         if (argumentIsSpecified)
         {
-          argumentPropertiesHelper.FillProperty(argumentsObject, currentProperty.Name, argumentValue);
+          argumentPropertiesHelper.FillProperty(argumentsObject, currentProperty, argumentValue);
         }
 
         var isValid = validationHelper.TryValidate(currentProperty, argumentIsSpecified, argumentValue, out IEnumerable<ValidationError> validationErrors);
