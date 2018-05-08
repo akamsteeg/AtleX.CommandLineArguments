@@ -13,7 +13,7 @@ namespace AtleX.CommandLineArguments
     /// <summary>
     /// The backingfield for the <see cref="Configuration"/> property
     /// </summary>
-    private static CommandLineArgumentsConfiguration _configuration = new AutoDetectConfiguration();
+    private static CommandLineArgumentsConfiguration _configuration;
 
     /// <summary>
     /// Gets or set the <see cref="CommandLineArgumentsConfiguration"/> to parse with
@@ -22,6 +22,16 @@ namespace AtleX.CommandLineArguments
     {
       get
       {
+        if (_configuration == null)
+        {
+          /*
+           * We only need to create the AutoDetectConfiguration when no 
+           * configuration is supplied yet by the user
+           */
+
+          _configuration = new AutoDetectConfiguration();
+        }
+
         return _configuration;
       }
       set
