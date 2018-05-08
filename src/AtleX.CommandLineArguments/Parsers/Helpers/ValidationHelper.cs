@@ -72,15 +72,8 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
         }
       }
 
-      if (currentValidationErrors != null)
-      {
-        validationErrors = currentValidationErrors;
-      }
-      else
-      {
-        // Never return a null IEnumerable<T> because people want to use LINQ stuff on it
-        validationErrors = Enumerable.Empty<ValidationError>(); 
-      }
+      // Never return a null IEnumerable<T> because people want to use LINQ stuff on it
+      validationErrors = currentValidationErrors as IEnumerable<ValidationError> ?? Enumerable.Empty<ValidationError>();
 
       return result;
     }
