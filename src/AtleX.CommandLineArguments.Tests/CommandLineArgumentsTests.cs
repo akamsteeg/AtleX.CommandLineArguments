@@ -19,7 +19,7 @@ namespace AtleX.CommandLineArguments.Tests
     {
       var oldConfig = CommandLineArguments.Configuration;
 
-      Assert.Throws<InvalidOperationException>(() => CommandLineArguments.Configuration = null);
+      Assert.Throws<ArgumentNullException>(() => CommandLineArguments.Configuration = null);
 
       CommandLineArguments.Configuration = oldConfig; // The beauty of static, we need to restore the configuration
     }
