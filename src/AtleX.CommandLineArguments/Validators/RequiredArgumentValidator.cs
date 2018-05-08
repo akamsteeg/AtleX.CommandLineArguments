@@ -42,7 +42,6 @@ namespace AtleX.CommandLineArguments.Validators
       validationError = null;
 
       var result = true;
-      var errorMessage = string.Empty;
 
       var requiredAttribute = argumentPropertyInfo.GetCustomAttribute<RequiredAttribute>(inherit: false);
 
@@ -52,7 +51,7 @@ namespace AtleX.CommandLineArguments.Validators
           || (isSpecified && !requiredAttribute.AllowEmptyStrings && string.IsNullOrWhiteSpace(originalValue)) // The argument is required and specified, but not allowed to be empty
           )
         {
-          errorMessage = requiredAttribute.ErrorMessage;
+          var errorMessage = requiredAttribute.ErrorMessage;
 
           validationError = this.CreateValidationError(argumentPropertyInfo.Name, errorMessage);
           result = false;
