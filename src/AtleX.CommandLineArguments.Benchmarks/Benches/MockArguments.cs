@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AtleX.CommandLineArguments.Benchmarks.Benches
 {
@@ -12,12 +13,28 @@ namespace AtleX.CommandLineArguments.Benchmarks.Benches
       set;
     }
 
+    [Required]
     public string String
     {
       get;
       set;
     }
 
+    [Required]
+    public int Int
+    {
+      get;
+      set;
+    }
+
+    [Required]
+    public DateTime DateTime
+    {
+      get;
+      set;
+    }
+
+    [Required]
     public ArgumentValues Enum
     {
       get;
