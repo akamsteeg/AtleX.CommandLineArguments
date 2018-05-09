@@ -192,3 +192,4 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+/src/AtleX.CommandLineArguments.Tests/coverage.json
