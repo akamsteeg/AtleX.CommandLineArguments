@@ -1,41 +1,57 @@
 ﻿using AtleX.CommandLineArguments.Parsers.TypeParsers;
-using NUnit.Framework;
+using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers.TypeParsers
 {
-  [TestFixture]
-  internal class CharTypeParserTests
-    : NonToggleTypeParserTests<CharTypeParser>
+  public class CharTypeParserTests
+    : NonToggleTypeParserTests
+
   {
-    [Test]
-    public override void ValidArgument_ReturnsTrue([Values("a", "A")] string value)
+    public CharTypeParserTests() 
+      : base(new CharTypeParser())
+    {
+    }
+
+    [Theory]
+    [InlineData("a")]
+    [InlineData("A")]
+    public override void ValidArgument_ReturnsTrue(string value)
     {
       base.ValidArgument_ReturnsTrue(value);
     }
 
-    [Test]
-    public override void InvalidArgument_ReturnsFalse([Values("aa", "AA")] string value)
+    [Theory]
+    [InlineData("aa")]
+    [InlineData("AA")]
+    public override void InvalidArgument_ReturnsFalse(string value)
     {
       base.InvalidArgument_ReturnsFalse(value);
     }
 
-    [Test]
-    public override void ValidArgument_OutArgumentIsNotNull([Values("a", "A")] string value)
+    [Theory]
+    [InlineData("a")]
+    [InlineData("A")]
+    public override void ValidArgument_OutArgumentIsNotNull(string value)
     {
       base.ValidArgument_OutArgumentIsNotNull(value);
     }
 
-    public override void ValidArgument_OutParamIsOfValidType([Values("a", "A")] string value)
+    [Theory]
+    [InlineData("a")]
+    [InlineData("A")]
+    public override void ValidArgument_OutParamIsOfValidType(string value)
     {
       base.ValidArgument_OutParamIsOfValidType(value);
     }
 
-    [Test]
-    public void ValidArgument_MatchesOutput([Values("a", "A")] string value)
+    [Theory]
+    [InlineData("a")]
+    [InlineData("A")]
+    public void ValidArgument_MatchesOutput(string value)
     {
       this.typeParser.TryParse(value, out var parseResult);
 
-      Assert.AreEqual(value[0], parseResult);
+      Assert.Equal(value[0], parseResult);
     }
   }
 }

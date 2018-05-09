@@ -1,31 +1,48 @@
 ﻿using AtleX.CommandLineArguments.Parsers.TypeParsers;
-using NUnit.Framework;
+using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers.TypeParsers
 {
-  [TestFixture]
-  internal class IntTypeParserTests
-    : NonToggleTypeParserTests<IntTypeParser>
+  public class IntTypeParserTests
+    : NonToggleTypeParserTests
   {
-    [Test]
-    public override void ValidArgument_ReturnsTrue([Values("-10", "0", "10")] string value)
+    public IntTypeParserTests()
+      : base(new IntTypeParser())
+    {
+
+    }
+
+    [Theory]
+    [InlineData("-10")]
+    [InlineData("0")]
+    [InlineData("10")]
+    public override void ValidArgument_ReturnsTrue(string value)
     {
       base.ValidArgument_ReturnsTrue(value);
     }
 
-    [Test]
-    public override void InvalidArgument_ReturnsFalse([Values("a", "0.1")] string value)
+    [Theory]
+    [InlineData("a")]
+    [InlineData("0.1")]
+    public override void InvalidArgument_ReturnsFalse(string value)
     {
       base.InvalidArgument_ReturnsFalse(value);
     }
 
-    [Test]
-    public override void ValidArgument_OutArgumentIsNotNull([Values("-10", "0", "10")] string value)
+    [Theory]
+    [InlineData("-10")]
+    [InlineData("0")]
+    [InlineData("10")]
+    public override void ValidArgument_OutArgumentIsNotNull(string value)
     {
       base.ValidArgument_OutArgumentIsNotNull(value);
     }
 
-    public override void ValidArgument_OutParamIsOfValidType([Values("-10", "0", "10")] string value)
+    [Theory]
+    [InlineData("-10")]
+    [InlineData("0")]
+    [InlineData("10")]
+    public override void ValidArgument_OutParamIsOfValidType(string value)
     {
       base.ValidArgument_OutParamIsOfValidType(value);
     }

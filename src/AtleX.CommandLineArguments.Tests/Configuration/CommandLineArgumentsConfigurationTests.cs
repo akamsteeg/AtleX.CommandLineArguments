@@ -2,14 +2,13 @@
 using AtleX.CommandLineArguments.Configuration;
 using AtleX.CommandLineArguments.Parsers.TypeParsers;
 using AtleX.CommandLineArguments.Validators;
-using NUnit.Framework;
+using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests.Configuration
 {
-  [TestFixture]
   public class CommandLineArgumentsConfigurationTests
   {
-    [Test]
+    [Fact]
     public void Add_TypeParser_WithNull_Throws()
     {
       var config = new CommandLineArgumentsConfiguration();
@@ -17,7 +16,7 @@ namespace AtleX.CommandLineArguments.Tests.Configuration
       Assert.Throws<ArgumentNullException>(() => config.Add((TypeParser)null));
     }
 
-    [Test]
+    [Fact]
     public void Add_ArgumentValidator_WithNull_Throws()
     {
       var config = new CommandLineArgumentsConfiguration();

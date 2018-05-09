@@ -1,12 +1,10 @@
-﻿using NUnit.Framework;
-using AtleX.CommandLineArguments.Parsers;
+﻿using AtleX.CommandLineArguments.Parsers;
 using System.Linq;
 using AtleX.CommandLineArguments.Validators;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers
 {
-  [TestFixture]
-  internal class KeyValueStyleParserTests
+  public class KeyValueStyleParserTests
     : CommandLineArgumentsParserTests
   {
     public KeyValueStyleParserTests()
