@@ -37,18 +37,6 @@ namespace AtleX.CommandLineArguments.Configuration
     }
 
     /// <summary>
-    /// Gets the <see cref="List{T}"/> of <see cref="ArgumentValidator"/> to
-    /// validate the command line arguments with
-    /// </summary>
-    private readonly List<ArgumentValidator> _validators;
-
-    /// <summary>
-    /// Gets the <see cref="List{T}"/> of <see cref="TypeParser"/> to
-    /// parse the command line arguments with
-    /// </summary>
-    private readonly List<TypeParser> _typeParsers;
-
-    /// <summary>
     /// Gets the <see cref="ICommandLineArgumentsParser"/> to parse the command
     /// line arguments with
     /// </summary>
@@ -68,36 +56,25 @@ namespace AtleX.CommandLineArguments.Configuration
     }
 
     /// <summary>
+    /// Gets the <see cref="List{T}"/> of <see cref="ArgumentValidator"/> to
+    /// validate the command line arguments with
+    /// </summary>
+    private readonly List<ArgumentValidator> _validators;
+
+    /// <summary>
+    /// Gets the <see cref="List{T}"/> of <see cref="TypeParser"/> to
+    /// parse the command line arguments with
+    /// </summary>
+    private readonly List<TypeParser> _typeParsers;
+
+    /// <summary>
     /// Initializes a new instance of <see cref="CommandLineArgumentsConfiguration"/>
     /// </summary>
     public CommandLineArgumentsConfiguration()
     {
-      this._validators = new List<ArgumentValidator>()
-      {
-          new RequiredArgumentValidator(),
-      };
+      this._validators = CreateBuiltInValidators();
 
-      this._typeParsers = new List<TypeParser>()
-      {
-        /*
-        This is ordered by most likely type parsers first so searching
-        for the correct type parser can be slightly faster for the most
-        used types
-        */
-        new StringTypeParser(),
-        new BoolTypeParser(),
-        new IntTypeParser(),
-
-        new FloatTypeParser(),
-        new DoubleTypeParser(),
-        new DateTimeTypeParser(),
-
-        new ByteTypeParser(),
-        new CharTypeParser(),
-        new DecimalTypeParser(),
-        new LongTypeParser(),
-        new ShortTypeParser(),
-      };
+      this._typeParsers = CreateBuiltInTypeParsers();
     }
 
     /// <summary>
@@ -126,6 +103,63 @@ namespace AtleX.CommandLineArguments.Configuration
       _ = typeParser ?? throw new ArgumentNullException(nameof(typeParser));
 
       this._typeParsers.Add(typeParser);
+    }
+
+    /// <summary>
+    /// Create a <see cref="List{T}"/> with an instance of all built-in type validators
+    /// </summary>
+    /// <returns>
+    /// A <see cref="List{T}"/> with an instance of all built-in type validators
+    /// </returns>
+    private List<ArgumentValidator> CreateBuiltInValidators()
+    {
+      var result = new List<ArgumentValidator>()
+      {
+          new RequiredArgumentValidator(),
+      };
+
+      return result;
+    }
+
+    /// <summary>
+    /// Create a <see cref="List{T}"/> with an instance of all built-in type parsers
+    /// </summary>
+    /// <returns>
+    /// A <see cref="List{T}"/> with an instance of all built-in type parsers
+    /// </returns>
+    private static List<TypeParser> CreateBuiltInTypeParsers()
+    {
+      /*
+       * PERF
+       * 
+       * A List<T> has an initial capacity of 4 and doubles when the capacity is 
+       * reached (4, 8, 16, etc.). We  want to avoid too much resizing so we
+       * set the initial capacity to the next larger power of two that's larger 
+       * than or equal to the number of built-in type parsers we add
+       */
+      var result = new List<TypeParser>(16)
+      {
+        /*
+        This is ordered by most likely type parsers first so searching
+        for the correct type parser can be slightly faster for the most
+        used types
+        */
+        new StringTypeParser(),
+        new BoolTypeParser(),
+        new IntTypeParser(),
+
+        new FloatTypeParser(),
+        new DoubleTypeParser(),
+        new DateTimeTypeParser(),
+
+        new ByteTypeParser(),
+        new CharTypeParser(),
+        new DecimalTypeParser(),
+        new LongTypeParser(),
+        new ShortTypeParser(),
+      };
+
+      return result;
     }
   }
 }

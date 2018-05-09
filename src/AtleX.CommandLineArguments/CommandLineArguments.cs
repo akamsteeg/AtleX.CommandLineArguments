@@ -13,7 +13,7 @@ namespace AtleX.CommandLineArguments
     /// <summary>
     /// The backingfield for the <see cref="Configuration"/> property
     /// </summary>
-    private static CommandLineArgumentsConfiguration _configuration = new AutoDetectConfiguration();
+    private static CommandLineArgumentsConfiguration _configuration;
 
     /// <summary>
     /// Gets or set the <see cref="CommandLineArgumentsConfiguration"/> to parse with
@@ -22,12 +22,20 @@ namespace AtleX.CommandLineArguments
     {
       get
       {
+        if (_configuration == null)
+        {
+          /*
+           * We only need to create the AutoDetectConfiguration when no 
+           * configuration is supplied yet by the user
+           */
+
+          _configuration = new AutoDetectConfiguration();
+        }
+
         return _configuration;
       }
       set
       {
-        _ = value ?? throw new InvalidOperationException("Cannot display help without a configuration");
-
         ValidateConfiguration(value);
 
         _configuration = value;
@@ -108,6 +116,7 @@ namespace AtleX.CommandLineArguments
     /// </summary>
     private static void ValidateConfiguration(CommandLineArgumentsConfiguration configuration)
     {
+      _ = configuration ?? throw new ArgumentNullException(nameof(configuration));
       _ = configuration.Parser ?? throw new InvalidOperationException("Cannot parse without a parser configured in the configuration");
       _ = configuration.HelpWriter ?? throw new InvalidOperationException("Cannot display help without a help writer configured in the configuration");
     }

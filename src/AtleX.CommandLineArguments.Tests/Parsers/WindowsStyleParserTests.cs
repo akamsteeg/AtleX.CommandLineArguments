@@ -1,9 +1,12 @@
 ﻿using System.Linq;
 using AtleX.CommandLineArguments.Parsers;
 using AtleX.CommandLineArguments.Validators;
+using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers
 {
+
+  [Collection("NotInParallel")]
   public class WindowsStyleParserTests
     : CommandLineArgumentsParserTests
   {

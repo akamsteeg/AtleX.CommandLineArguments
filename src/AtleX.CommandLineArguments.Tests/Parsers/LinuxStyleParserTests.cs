@@ -1,9 +1,12 @@
 ﻿using AtleX.CommandLineArguments.Parsers;
 using AtleX.CommandLineArguments.Validators;
 using System.Linq;
+using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers
 {
+
+  [Collection("NotInParallel")]
   public class LinuxStyleParserTests
     : CommandLineArgumentsParserTests
   {

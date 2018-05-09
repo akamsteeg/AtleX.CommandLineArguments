@@ -9,12 +9,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
   /// Represents a helper for setting property values in the <see cref="Arguments"/>
   /// </summary>
   internal sealed class ArgumentPropertiesHelper
-  { 
-    /// <summary>
-    /// Gets the collection of <see cref="PropertyInfo"/> for the specified type
-    /// </summary>
-    private readonly IEnumerable<PropertyInfo> argumentProperties;
-
+  {
     /// <summary>
     /// Gets the collection of <see cref="TypeParser"/> to parse the argument values with
     /// </summary>
@@ -23,14 +18,11 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// <summary>
     /// Initializes a new instance of <see cref="ArgumentPropertiesHelper"/>
     /// </summary>
-    /// <param name="argumentProperties"></param>
     /// <param name="typeParsers">
     /// The <see cref="IEnumerable{T}"/> of <see cref="TypeParser"/> to parse the argument values with
     /// </param>
-    public ArgumentPropertiesHelper(IEnumerable<PropertyInfo> argumentProperties, IEnumerable<TypeParser> typeParsers)
+    public ArgumentPropertiesHelper(IEnumerable<TypeParser> typeParsers)
     {
-      this.argumentProperties = argumentProperties ?? throw new ArgumentNullException(nameof(argumentProperties));
-
       this.typeParsers = typeParsers ?? throw new ArgumentNullException(nameof(typeParsers));
     }
 
@@ -44,32 +36,24 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// <param name="arguments">
     /// The <see cref="Arguments"/> instance to set the property in
     /// </param>
-    /// <param name="propertyName">
-    /// The name of the property to set
+    /// <param name="propertyInfo">
+    /// The <see cref="PropertyInfo"/> to set the value for
     /// </param>
     /// <param name="propertyValue">
     /// The value of the property to set
     /// </param>
-    public void FillProperty<T>(T arguments, string propertyName, string propertyValue)
+    public void FillProperty<T>(T arguments, PropertyInfo propertyInfo, string propertyValue)
       where T: Arguments
     {
       _ = arguments ?? throw new ArgumentNullException(nameof(arguments));
-      if (string.IsNullOrWhiteSpace(propertyName))
-        throw new ArgumentNullException(nameof(propertyName));
+      _ = propertyInfo ?? throw new ArgumentNullException(nameof(propertyInfo));
 
-      foreach (var currentPropertyInfo in this.argumentProperties)
-      {
-        if (currentPropertyInfo.Name.Equals(propertyName, StringComparison.OrdinalIgnoreCase))
-        {
-          if (
-            (this.TryFillCustomType(arguments, currentPropertyInfo, propertyValue))
+      if (
+            (this.TryFillCustomType(arguments, propertyInfo, propertyValue))
             ||
-             (currentPropertyInfo.PropertyType.GetTypeInfo().IsEnum && TryFillEnum(arguments, currentPropertyInfo, propertyValue))
+             (propertyInfo.PropertyType.GetTypeInfo().IsEnum && TryFillEnum(arguments, propertyInfo, propertyValue))
              )
-          {
-            break;
-          }
-        }
+      {
       }
     }
 
