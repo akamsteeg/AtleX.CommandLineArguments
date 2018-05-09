@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using AtleX.CommandLineArguments.Validators;
 using AtleX.CommandLineArguments.Parsers.TypeParsers;
-using System.Linq;
 using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers
@@ -44,6 +43,22 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
     }
 
     [Fact]
+    public void TryParse_ValidatorsNull_Throws()
+    {
+      var arguments = CreateValidArguments();
+
+      Assert.Throws<ArgumentNullException>(() => parser.Parse<TestArguments>(arguments, null, this.typeParsers));
+    }
+
+    [Fact]
+    public void TryParse_TypeParsersNull_Throws()
+    {
+      var arguments = CreateValidArguments();
+
+      Assert.Throws<ArgumentNullException>(() => parser.Parse<TestArguments>(arguments, this.validators, null));
+    }
+
+    [Fact]
     public void TryParse_ValidArguments()
     {
       var arguments = CreateValidArguments();
@@ -64,7 +79,7 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
       var result = CommandLineArguments.TryParse<TestArguments>(arguments, out var parsedArguments, out var validationErrors);
 
       Assert.True(result);
-      Assert.False(validationErrors.Any());
+      Assert.Empty(validationErrors);
       AssertValidArguments(parsedArguments);
     }
 
