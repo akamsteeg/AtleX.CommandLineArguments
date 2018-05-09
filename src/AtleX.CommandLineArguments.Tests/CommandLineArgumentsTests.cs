@@ -1,20 +1,20 @@
 ﻿using AtleX.CommandLineArguments.Configuration;
 using AtleX.CommandLineArguments.Tests.Mocks;
-using NUnit.Framework;
 using System;
+using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests
 {
-  [TestFixture]
-  internal class CommandLineArgumentsTests
+  [Collection("NotInParallel")]
+  public class CommandLineArgumentsTests
   {
-    [Test]
+    [Fact]
     public void TryParse_ArgumentsNull_Throws()
     {
       Assert.Throws<ArgumentNullException>(() => CommandLineArguments.TryParse<TestArguments>(null, out _));
     }
 
-    [Test]
+    [Fact]
     public void Configuration_SetNull_Throws()
     {
       var oldConfig = CommandLineArguments.Configuration;
@@ -24,7 +24,7 @@ namespace AtleX.CommandLineArguments.Tests
       CommandLineArguments.Configuration = oldConfig; // The beauty of static, we need to restore the configuration
     }
 
-    [Test]
+    [Fact]
     public void Configuration_SetConfigWithoutParser_Throws()
     {
       var oldConfig = CommandLineArguments.Configuration;
@@ -40,7 +40,7 @@ namespace AtleX.CommandLineArguments.Tests
       CommandLineArguments.Configuration = oldConfig; // The beauty of static, we need to restore the configuration
     }
 
-    [Test]
+    [Fact]
     public void Configuration_SetConfigWithoutHelpWriter_Throws()
     {
       var oldConfig = CommandLineArguments.Configuration;

@@ -1,16 +1,13 @@
 ﻿using AtleX.CommandLineArguments.Parsers;
 using AtleX.CommandLineArguments.Validators;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers
 {
-  [TestFixture]
-  internal class LinuxStyleParserTests
+
+  [Collection("NotInParallel")]
+  public class LinuxStyleParserTests
     : CommandLineArgumentsParserTests
   {
     public LinuxStyleParserTests()

@@ -1,45 +1,43 @@
 ﻿using System;
 using AtleX.CommandLineArguments.Validators;
-using NUnit.Framework;
+using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests.Validators
 {
-  [TestFixture]
   public class ValidationErrorTests
   {
-    [Test]
+    [Fact]
     public void Ctor_WithNullArgumentName_Throws()
     {
       Assert.Throws<ArgumentNullException>(() =>
         new ValidationError(null, "validatorName", ""));
     }
 
-    [Test]
+    [Fact]
     public void Ctor_WithEmptyArgumentName_Throws()
     {
       Assert.Throws<ArgumentNullException>(() =>
         new ValidationError("", "validatorName", ""));
     }
 
-    [Test]
+    [Fact]
     public void Ctor_WithNullValidatorName_Throws()
     {
       Assert.Throws<ArgumentNullException>(() =>
         new ValidationError("argumentName", null, ""));
     }
 
-    [Test]
+    [Fact]
     public void Ctor_WithEmptyValidatorName_Throws()
     {
       Assert.Throws<ArgumentNullException>(() =>
         new ValidationError("argumentName", "", ""));
     }
 
-    [Test]
+    [Fact]
     public void Ctor_WithEmptyValidatorErrorMessage_DoesNotThrow()
     {
-      Assert.DoesNotThrow(() =>
-        new ValidationError("argumentName", "validatorName", ""));
+      new ValidationError("argumentName", "validatorName", "");
     }
   }
 }
