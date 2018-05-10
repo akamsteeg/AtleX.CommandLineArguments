@@ -24,7 +24,7 @@
 - [Fix] Reduce lenght of names of commonly used classes by removing the "CommandLineArguments" cruft from it. E.g. WindowsStyleCommandLineArgumentsParser is now WindowsStyleParser (#23)
 - [Fix] Remove not-needed package reference for System.ComponentModel.Annotations from the NETFX installation (#24)
 - [Fix] Removed redundant .NET 4.6 TFM from supported frameworks. We now support .NET 4.5 and NETSTANDARD 1.5 and those are upwards compatible with newer versions of their respective runtimes (#10)
-- [Feature] Performance improvements (#29, #30, #33, #34, 
+- [Feature] Performance improvements (#29, #30, #33, #34)
 
 1.1.1:
 -Many internal improvements (#7, #13, #14, #15, #16, #17)</PackageReleaseNotes>
