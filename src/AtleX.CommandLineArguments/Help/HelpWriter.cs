@@ -111,9 +111,7 @@ namespace AtleX.CommandLineArguments.Help
     {
       var result = string.Empty;
 
-      var displayAttribute = property.GetCustomAttribute(cachedDisplayAttributeType) as DisplayAttribute;
-
-      if (displayAttribute != null)
+      if (property.GetCustomAttribute(cachedDisplayAttributeType) is DisplayAttribute displayAttribute)
       {
         result = displayAttribute.Description;
       }
@@ -136,9 +134,7 @@ namespace AtleX.CommandLineArguments.Help
     {
       var result = false;
 
-      var requiredAttribute = property.GetCustomAttribute(cachedRequiredAttributeType) as RequiredAttribute;
-
-      if (requiredAttribute != null)
+      if (property.GetCustomAttribute(cachedRequiredAttributeType) is RequiredAttribute requiredAttribute)
       {
         result = true;
       }
