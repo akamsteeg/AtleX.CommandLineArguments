@@ -1,14 +1,21 @@
 ﻿using AtleX.CommandLineArguments.Configuration;
 using AtleX.CommandLineArguments.Help;
 using AtleX.CommandLineArguments.Parsers;
-using AtleX.CommandLineArguments.Validators;
 using BenchmarkDotNet.Attributes;
 
 namespace AtleX.CommandLineArguments.Benchmarks.Benches
 {
   public class CommandLineArgumentsBenchmarks
   {
-    [Benchmark(Baseline = true)]
+    private string[] _commandLineArguments;
+
+    [GlobalSetup]
+    public void GlobalSetup()
+    {
+      this._commandLineArguments = ArgumentsFaker.GetWindowsStyleArguments();
+    }
+
+    [Benchmark]
     public bool CommandLineArgumentsTryParse_DefaultConfiguration_SuccessFul()
     {
       CommandLineArguments.Configuration = new CommandLineArgumentsConfiguration()
@@ -36,11 +43,9 @@ namespace AtleX.CommandLineArguments.Benchmarks.Benches
       return result;
     }
 
-    private static bool ParseCommandLineArguments()
+    private bool ParseCommandLineArguments()
     {
-      var cliArguments = ArgumentsFaker.GetWindowsStyleArguments();
-
-      var result = CommandLineArguments.TryParse(cliArguments, out MockArguments arguments);
+      var result = CommandLineArguments.TryParse(this._commandLineArguments, out MockArguments arguments);
       return result;
     }
   }

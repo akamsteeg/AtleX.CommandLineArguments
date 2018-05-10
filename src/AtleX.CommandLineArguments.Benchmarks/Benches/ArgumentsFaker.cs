@@ -7,15 +7,28 @@
     {
       var result = new string[]
       {
-        "/Toggle",
+        "/Byte", "1",
+        "/Short", "1",
+        "/Int", "10000000",
+        "/Long", "1000000000000000000000",
 
-        "/String", "lorem ipsum dolor sit amet",
+        "/Float", "0.1",
+        "/Double", "0.1",
 
-        "/int", "0",
+        "/Decimal", "0.1",
 
-        "/DateTime", "2038-01-19 03:14:07",
+        "/Bool", "true",
 
-        "Enum", "Maybe",
+        "/DateTime", "december 25, 2100 17:00",
+
+        "/Char", "a",
+        "/String", "aa",
+
+        "/Toggle" /* No value after this one! */,
+
+        "/Required", "true",
+        "/RequiredToggle",
+        "/RequiredString", "aa",
       };
 
       return result;
