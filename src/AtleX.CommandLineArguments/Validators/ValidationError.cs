@@ -6,7 +6,7 @@ namespace AtleX.CommandLineArguments.Validators
   /// <summary>
   /// Represents a validation error for a single argument and a single <see cref="ArgumentValidator"/>
   /// </summary>
-  [DebuggerDisplay("{ValidatorName}, Result: {IsValid}")]
+  [DebuggerDisplay("Argument: {ArgumentName}, validator: {ValidatorName}")]
   public sealed class ValidationError
   {
     /// <summary>
