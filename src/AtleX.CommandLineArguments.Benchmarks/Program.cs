@@ -4,6 +4,7 @@ using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
+using BenchmarkDotNet.Toolchains.CsProj;
 
 namespace AtleX.CommandLineArguments.Benchmarks
 {
@@ -39,8 +40,9 @@ namespace AtleX.CommandLineArguments.Benchmarks
 
       config.Add(MemoryDiagnoser.Default);
 
-      config.Add(Job.Core);
-      config.Add(Job.Clr);
+      config.Add(Job.Default.With(CsProjCoreToolchain.NetCoreApp20));
+      config.Add(Job.Default.With(CsProjCoreToolchain.NetCoreApp21));
+      config.Add(Job.Default.With(CsProjClassicNetToolchain.Net462));
 
       return config;
     }
