@@ -16,21 +16,7 @@ namespace AtleX.CommandLineArguments.Benchmarks.Benches
     }
 
     [Benchmark]
-    public bool CommandLineArgumentsTryParse_DefaultConfiguration_SuccessFul()
-    {
-      CommandLineArguments.Configuration = new CommandLineArgumentsConfiguration()
-      {
-        HelpWriter = new WindowsStyleHelpWriter(),
-        Parser = new WindowsStyleParser(),
-      };
-
-      bool result = ParseCommandLineArguments();
-
-      return result;
-    }
-
-    [Benchmark]
-    public bool CommandLineArgumentsTryParse_WindowsStyleParsersWithoutValidationAndHelpWriter_SuccessFul()
+    public bool CommandLineArgumentsTryParse_WindowsStyleConfiguration_SuccessFul()
     {
       CommandLineArguments.Configuration = new CommandLineArgumentsConfiguration()
       {
