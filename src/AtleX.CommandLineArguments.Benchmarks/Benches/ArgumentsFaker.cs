@@ -28,7 +28,7 @@
 
         "/Required", "true",
         "/RequiredToggle",
-        "/RequiredString", "aa",
+        // "/RequiredString", "aa", // We don't want this so we can include one validation error
       };
 
       return result;
