@@ -9,7 +9,15 @@ namespace AtleX.CommandLineArguments.Parsers
   public sealed class LinuxStyleParser
     : PrefixedKeyParser
   {
+    /// <summary>
+    /// Gets the prefix that indicates a key
+    /// </summary>
     private const string KeyPrefix = "--";
+    
+    /// <summary>
+    /// Gets the complete argument that indicates that the user requested help
+    /// </summary>
+    private const string HelpArgument = KeyPrefix + "help";
 
     /// <summary>
     /// Initializes a new instance of <see
@@ -33,13 +41,11 @@ namespace AtleX.CommandLineArguments.Parsers
     {
       var result = false;
 
-      var helpArgument = KeyPrefix + "help";
-
       for (var i = 0; i < allCommandLineArguments.Length; i++)
       {
         var currentArgumentName = allCommandLineArguments[i];
         
-        if (currentArgumentName == helpArgument)
+        if (currentArgumentName == HelpArgument)
         {
           result = true;
           break;
