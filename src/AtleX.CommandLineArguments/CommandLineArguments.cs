@@ -114,6 +114,9 @@ namespace AtleX.CommandLineArguments
     /// <summary>
     /// Validate the specified <see cref="CommandLineArgumentsConfiguration"/>
     /// </summary>
+    /// <param name="configuration">
+    /// The <see cref="CommandLineArgumentsConfiguration"/> to validate
+    /// </param>
     private static void ValidateConfiguration(CommandLineArgumentsConfiguration configuration)
     {
       _ = configuration ?? throw new ArgumentNullException(nameof(configuration));
