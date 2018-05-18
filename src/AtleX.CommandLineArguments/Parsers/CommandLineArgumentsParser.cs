@@ -55,20 +55,22 @@ namespace AtleX.CommandLineArguments.Parsers
 
       foreach (var currentProperty in properties)
       {
-        var argumentIsSpecified = this.TryFindRawArgumentValue(arguments, currentProperty.Name, out string argumentValue);
+        var argumentIsSpecified = this.TryFindRawArgumentValue(arguments, currentProperty.Name, out var argumentValue);
 
         if (argumentIsSpecified)
         {
           argumentPropertiesHelper.FillProperty(argumentsObject, currentProperty, argumentValue);
         }
 
-        var isValid = validationHelper.TryValidate(currentProperty, argumentIsSpecified, argumentValue, out IEnumerable<ValidationError> validationErrors);
+        var isValid = validationHelper.TryValidate(currentProperty,
+          argumentIsSpecified,
+          argumentValue,
+          out var validationErrors);
 
         if (!isValid)
         {
           allValidationErrors.AddRange(validationErrors);
         }
-
       }
 
       argumentsObject.IsHelpRequested = this.ContainsHelpArgument(arguments);
