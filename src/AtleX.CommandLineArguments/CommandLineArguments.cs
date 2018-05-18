@@ -22,17 +22,11 @@ namespace AtleX.CommandLineArguments
     {
       get
       {
-        if (_configuration == null)
-        {
-          /*
-           * We only need to create the AutoDetectConfiguration when no 
-           * configuration is supplied yet by the user
-           */
-
-          _configuration = new AutoDetectConfiguration();
-        }
-
-        return _configuration;
+        /*
+        * We only need to create the AutoDetectConfiguration when no 
+        * configuration is supplied yet by the user
+        */
+        return _configuration ?? (_configuration = new AutoDetectConfiguration());
       }
       set
       {
