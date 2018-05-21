@@ -9,6 +9,7 @@ namespace AtleX.CommandLineArguments.Configuration
   /// <summary>
   /// Represents a builder for <see cref="CommandLineArgumentsConfiguration"/>
   /// </summary>
+  [Obsolete("This class will be removed in a future version")]
   public class ConfigurationBuilder
     : CommandLineArgumentsConfiguration
   {

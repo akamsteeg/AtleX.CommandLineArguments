@@ -8,7 +8,7 @@ namespace AtleX.CommandLineArguments.Parsers.TypeParsers
   public abstract class TypeParser
   {
     /// <summary>
-    /// Gets the <see cref="Type"/> this <see cref="TypeParser{T}"/> handles
+    /// Gets the <see cref="Type"/> this <see cref="TypeParser"/> handles
     /// </summary>
     public Type Type
     {

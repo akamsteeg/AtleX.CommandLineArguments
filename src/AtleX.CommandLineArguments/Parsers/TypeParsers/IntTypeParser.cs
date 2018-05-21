@@ -1,8 +1,11 @@
-﻿namespace AtleX.CommandLineArguments.Parsers.TypeParsers
+﻿using System;
+
+namespace AtleX.CommandLineArguments.Parsers.TypeParsers
 {
   /// <summary>
   /// Represents a <see cref="TypeParser{T}"/> for <see cref="int"/>
   /// </summary>
+  [Obsolete("This class will be removed in a future version")]
   public sealed class IntTypeParser
   : TypeParser<int>
   {

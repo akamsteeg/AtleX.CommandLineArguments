@@ -3,6 +3,7 @@ using AtleX.CommandLineArguments.Parsers;
 using AtleX.CommandLineArguments.Validators;
 using AtleX.CommandLineArguments.Help;
 using AtleX.CommandLineArguments.Parsers.TypeParsers;
+using System;
 
 namespace AtleX.CommandLineArguments.Configuration
 {
@@ -58,6 +59,7 @@ namespace AtleX.CommandLineArguments.Configuration
     /// <summary>
     /// Gets the default <see cref="CommandLineArgumentsConfiguration"/>
     /// </summary>
+    [Obsolete("This property will be removed in a future version")]
     public static CommandLineArgumentsConfiguration Default
     {
       get

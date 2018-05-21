@@ -5,6 +5,7 @@ namespace AtleX.CommandLineArguments.Parsers.TypeParsers
   /// <summary>
   /// Represents a <see cref="TypeParser{T}"/> for <see cref="DateTime"/>
   /// </summary>
+  [Obsolete("This class will be removed in a future version")]
   public sealed class DateTimeTypeParser
   : TypeParser<DateTime>
   {
