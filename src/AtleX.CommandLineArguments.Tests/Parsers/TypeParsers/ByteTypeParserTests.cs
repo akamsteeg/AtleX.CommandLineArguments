@@ -1,31 +1,48 @@
 ﻿using AtleX.CommandLineArguments.Parsers.TypeParsers;
-using NUnit.Framework;
+using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers.TypeParsers
 {
-  [TestFixture]
   public class ByteTypeParserTests
-    : NonToggleTypeParserTests<ByteTypeParser>
+    : NonToggleTypeParserTests
   {
-    [Test]
-    public override void ValidArgument_ReturnsTrue([Values("0", "128", "255")] string value)
+    public ByteTypeParserTests()
+      : base(new ByteTypeParser())
+    {
+
+    }
+
+    [Theory]
+    [InlineData("0")]
+    [InlineData("128")]
+    [InlineData("255")]
+    public override void ValidArgument_ReturnsTrue(string value)
     {
       base.ValidArgument_ReturnsTrue(value);
     }
 
-    [Test]
-    public override void InvalidArgument_ReturnsFalse([Values("-256", "256")] string value)
+    [Theory]
+    [InlineData("-256")]
+    [InlineData("256")]
+    public override void InvalidArgument_ReturnsFalse(string value)
     {
       base.InvalidArgument_ReturnsFalse(value);
     }
 
-    [Test]
-    public override void ValidArgument_OutArgumentIsNotNull([Values("0", "128", "255")] string value)
+    [Theory]
+    [InlineData("0")]
+    [InlineData("128")]
+    [InlineData("255")]
+    public override void ValidArgument_OutArgumentIsNotNull(string value)
     {
       base.ValidArgument_OutArgumentIsNotNull(value);
     }
 
-    public override void ValidArgument_OutParamIsOfValidType([Values("0", "128", "255")] string value)
+    [Theory]
+    [InlineData("0")]
+    [InlineData("128")]
+    [InlineData("255")]
+    public override void ValidArgument_OutParamIsOfValidType(string value)
     {
       base.ValidArgument_OutParamIsOfValidType(value);
     }

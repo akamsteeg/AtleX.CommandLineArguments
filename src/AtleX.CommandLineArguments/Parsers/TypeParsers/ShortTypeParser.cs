@@ -3,7 +3,7 @@
   /// <summary>
   /// Represents a <see cref="TypeParser{T}"/> for <see cref="short"/>
   /// </summary>
-  public sealed class ShortTypeParser
+  internal sealed class ShortTypeParser
   : TypeParser<short>
   {
     /// <summary>
@@ -28,7 +28,7 @@
       }
       else
       {
-        parseResult = default(short);
+        parseResult = default;
         result = false;
       }
 

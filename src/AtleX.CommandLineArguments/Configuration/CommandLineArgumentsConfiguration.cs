@@ -3,6 +3,7 @@ using AtleX.CommandLineArguments.Parsers;
 using AtleX.CommandLineArguments.Validators;
 using AtleX.CommandLineArguments.Help;
 using AtleX.CommandLineArguments.Parsers.TypeParsers;
+using System;
 
 namespace AtleX.CommandLineArguments.Configuration
 {
@@ -12,73 +13,153 @@ namespace AtleX.CommandLineArguments.Configuration
   public class CommandLineArgumentsConfiguration
   {
     /// <summary>
+    /// Gets the <see cref="IEnumerable{T}"/> of <see cref="ArgumentValidator"/>
+    /// to validate the command line arguments with
+    /// </summary>
+    public IEnumerable<ArgumentValidator> Validators
+    {
+      get
+      {
+        return this._validators;
+      }
+    }
+
+    /// <summary>
+    /// Gets the <see cref="IEnumerable{T}"/> of <see cref="TypeParser"/> to
+    /// parse the command line arguments with
+    /// </summary>
+    public IEnumerable<TypeParser> TypeParsers
+    {
+      get
+      {
+        return this._typeParsers;
+      }
+    }
+
+    /// <summary>
+    /// Gets the <see cref="ICommandLineArgumentsParser"/> to parse the command
+    /// line arguments with
+    /// </summary>
+    public ICommandLineArgumentsParser Parser
+    {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// Gets the <see cref="IHelpWriter"/> for this <see cref="CommandLineArgumentsConfiguration"/>
+    /// </summary>
+    public IHelpWriter HelpWriter
+    {
+      get;
+      set;
+    }
+
+    /// <summary>
     /// Gets the <see cref="List{T}"/> of <see cref="ArgumentValidator"/> to
     /// validate the command line arguments with
     /// </summary>
-    public List<ArgumentValidator> Validators
-    {
-      get;
-    }
+    private readonly List<ArgumentValidator> _validators;
 
     /// <summary>
-    /// 
+    /// Gets the <see cref="List{T}"/> of <see cref="TypeParser"/> to
+    /// parse the command line arguments with
     /// </summary>
-    public List<TypeParser> TypeParsers
-    {
-      get;
-    }
-
-    /// <summary>
-    /// Gets the <see cref="CommandLineArgumentsParser"/> for this <see cref="CommandLineArgumentsConfiguration"/>
-    /// </summary>
-    public CommandLineArgumentsParser Parser
-    {
-      get;
-      protected set;
-    }
-
-    /// <summary>
-    /// Gets the <see cref="HelpWriter"/> for this <see cref="CommandLineArgumentsConfiguration"/>
-    /// </summary>
-    public HelpWriter HelpWriter
-    {
-      get;
-      protected set;
-    }
+    private readonly List<TypeParser> _typeParsers;
 
     /// <summary>
     /// Initializes a new instance of <see cref="CommandLineArgumentsConfiguration"/>
     /// </summary>
     public CommandLineArgumentsConfiguration()
     {
-      this.Validators = new List<ArgumentValidator>();
-      this.TypeParsers = new List<TypeParser>();
+      this._validators = CreateBuiltInValidators();
+
+      this._typeParsers = CreateBuiltInTypeParsers();
     }
 
     /// <summary>
-    /// Gets the default <see cref="CommandLineArgumentsConfiguration"/>
+    /// Add the specified <see cref="ArgumentValidator"/> to the validators to
+    /// use for validating the commandline arguments
     /// </summary>
-    public static CommandLineArgumentsConfiguration Default
+    /// <param name="validator">
+    /// The <see cref="ArgumentValidator"/> to add
+    /// </param>
+    public void Add(ArgumentValidator validator)
     {
-      get
-      {
-        var result = ConfigurationBuilder.For(new WindowsStyleCommandLineArgumentsParser())
-          .With(new WindowsStyleHelpWriter())
-          .With(new RequiredArgumentValidator())
-          .With(new BoolTypeParser())
-          .With(new ByteTypeParser())
-          .With(new CharTypeParser())
-          .With(new DateTimeTypeParser())
-          .With(new DecimalTypeParser())
-          .With(new DoubleTypeParser())
-          .With(new FloatTypeParser())
-          .With(new IntTypeParser())
-          .With(new LongTypeParser())
-          .With(new ShortTypeParser())
-          .With(new StringTypeParser());
+      _ = validator ?? throw new ArgumentNullException(nameof(validator));
 
-        return result;
-      }
+      this._validators.Add(validator);
+    }
+
+    /// <summary>
+    /// Add the specified <see cref="TypeParser"/> to the type parsers to
+    /// use for parsing the commandline arguments
+    /// </summary>
+    /// <param name="typeParser">
+    /// The <see cref="TypeParser"/> to add
+    /// </param>
+    public void Add(TypeParser typeParser)
+    {
+      _ = typeParser ?? throw new ArgumentNullException(nameof(typeParser));
+
+      this._typeParsers.Add(typeParser);
+    }
+
+    /// <summary>
+    /// Create a <see cref="List{T}"/> with an instance of all built-in type validators
+    /// </summary>
+    /// <returns>
+    /// A <see cref="List{T}"/> with an instance of all built-in type validators
+    /// </returns>
+    private List<ArgumentValidator> CreateBuiltInValidators()
+    {
+      var result = new List<ArgumentValidator>()
+      {
+          new RequiredArgumentValidator(),
+      };
+
+      return result;
+    }
+
+    /// <summary>
+    /// Create a <see cref="List{T}"/> with an instance of all built-in type parsers
+    /// </summary>
+    /// <returns>
+    /// A <see cref="List{T}"/> with an instance of all built-in type parsers
+    /// </returns>
+    private static List<TypeParser> CreateBuiltInTypeParsers()
+    {
+      /*
+       * PERF
+       * 
+       * A List<T> has an initial capacity of 4 and doubles when the capacity is 
+       * reached (4, 8, 16, etc.). We  want to avoid too much resizing so we
+       * set the initial capacity to the next larger power of two that's larger 
+       * than or equal to the number of built-in type parsers we add
+       */
+      var result = new List<TypeParser>(16)
+      {
+        /*
+        This is ordered by most likely type parsers first so searching
+        for the correct type parser can be slightly faster for the most
+        used types
+        */
+        new StringTypeParser(),
+        new BoolTypeParser(),
+        new IntTypeParser(),
+
+        new FloatTypeParser(),
+        new DoubleTypeParser(),
+        new DateTimeTypeParser(),
+
+        new ByteTypeParser(),
+        new CharTypeParser(),
+        new DecimalTypeParser(),
+        new LongTypeParser(),
+        new ShortTypeParser(),
+      };
+
+      return result;
     }
   }
 }

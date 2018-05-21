@@ -1,17 +1,17 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AtleX.CommandLineArguments.Parsers;
 using AtleX.CommandLineArguments.Validators;
-using NUnit.Framework;
+using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers
 {
-  [TestFixture]
-  public class WindowsStyleCommandLineArgumentsParserTests
+
+  [Collection("NotInParallel")]
+  public class WindowsStyleParserTests
     : CommandLineArgumentsParserTests
   {
-    public WindowsStyleCommandLineArgumentsParserTests()
-      : base(new WindowsStyleCommandLineArgumentsParser(), Enumerable.Empty<ArgumentValidator>())
+    public WindowsStyleParserTests()
+      : base(new WindowsStyleParser(), Enumerable.Empty<ArgumentValidator>())
     {
 
     }

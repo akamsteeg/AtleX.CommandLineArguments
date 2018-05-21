@@ -9,6 +9,7 @@ namespace AtleX.CommandLineArguments.Help
   /// Represents a writer for help information for the arguments
   /// </summary>
   public abstract class HelpWriter
+    : IHelpWriter
   {
     /// <summary>
     /// Gets the cached <see cref="Type"/> of <see cref="DisplayAttribute"/>
@@ -59,8 +60,7 @@ namespace AtleX.CommandLineArguments.Help
     protected IEnumerable<ArgumentHelpDetails> GetHelpDetails<T>(T argumentsObject)
       where T: Arguments, new()
     {
-      if (argumentsObject == null)
-        throw new ArgumentNullException(nameof(argumentsObject));
+      _ = argumentsObject ?? throw new ArgumentNullException(nameof(argumentsObject));
 
       var result = new List<ArgumentHelpDetails>();
 
@@ -111,9 +111,7 @@ namespace AtleX.CommandLineArguments.Help
     {
       var result = string.Empty;
 
-      var displayAttribute = property.GetCustomAttribute(cachedDisplayAttributeType) as DisplayAttribute;
-
-      if (displayAttribute != null)
+      if (property.GetCustomAttribute(cachedDisplayAttributeType) is DisplayAttribute displayAttribute)
       {
         result = displayAttribute.Description;
       }
@@ -136,9 +134,7 @@ namespace AtleX.CommandLineArguments.Help
     {
       var result = false;
 
-      var requiredAttribute = property.GetCustomAttribute(cachedRequiredAttributeType) as RequiredAttribute;
-
-      if (requiredAttribute != null)
+      if (property.GetCustomAttribute(cachedRequiredAttributeType) is RequiredAttribute requiredAttribute)
       {
         result = true;
       }

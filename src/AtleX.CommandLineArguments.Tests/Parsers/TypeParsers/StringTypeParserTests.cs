@@ -1,33 +1,45 @@
 ﻿using AtleX.CommandLineArguments.Parsers.TypeParsers;
-using NUnit.Framework;
+using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers.TypeParsers
 {
-  [TestFixture]
   public class StringTypeParserTests
-    : ToggleTypeParserTests<StringTypeParser>
+    : ToggleTypeParserTests
   {
-    [Test]
-    public override void ValidArgument_ReturnsTrue([Values("", "arguments")] string value)
+    public StringTypeParserTests()
+      : base(new StringTypeParser())
+    {
+
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("arguments")]
+    public override void ValidArgument_ReturnsTrue(string value)
     {
       base.ValidArgument_ReturnsTrue(value);
     }
 
     // It's a string, nothing is invalid. So no, I didn't forget to check for the invalid values
 
-    //[Test]
+    //[Fact]
     //public override void InvalidArgument_ReturnsFalse([Values("a")] string value)
     //{
     //  base.InvalidArgument_ReturnsFalse(value);
     //}
 
-    [Test]
-    public override void ValidArgument_OutArgumentIsNotNull([Values("", "arguments")] string value)
+    [Theory]
+    [InlineData("")]
+    [InlineData("arguments")]
+    public override void ValidArgument_OutArgumentIsNotNull(string value)
     {
       base.ValidArgument_OutArgumentIsNotNull(value);
     }
 
-    public override void ValidArgument_OutParamIsOfValidType([Values("", "arguments")] string value)
+    [Theory]
+    [InlineData("")]
+    [InlineData("arguments")]
+    public override void ValidArgument_OutParamIsOfValidType(string value)
     {
       base.ValidArgument_OutParamIsOfValidType(value);
     }

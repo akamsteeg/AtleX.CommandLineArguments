@@ -1,16 +1,17 @@
-﻿using NUnit.Framework;
-using AtleX.CommandLineArguments.Parsers;
+﻿using AtleX.CommandLineArguments.Parsers;
 using System.Linq;
 using AtleX.CommandLineArguments.Validators;
+using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers
 {
-  [TestFixture]
-  public class KeyValueCommandLineArgumentsParserTests
+
+  [Collection("NotInParallel")]
+  public class KeyValueStyleParserTests
     : CommandLineArgumentsParserTests
   {
-    public KeyValueCommandLineArgumentsParserTests()
-      : base(new KeyValueCommandLineArgumentsParser(), Enumerable.Empty<ArgumentValidator>())
+    public KeyValueStyleParserTests()
+      : base(new KeyValueStyleParser(), Enumerable.Empty<ArgumentValidator>())
     {
     }
 

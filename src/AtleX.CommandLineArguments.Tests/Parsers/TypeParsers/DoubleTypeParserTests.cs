@@ -1,31 +1,47 @@
 ﻿using AtleX.CommandLineArguments.Parsers.TypeParsers;
-using NUnit.Framework;
+using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers.TypeParsers
 {
-  [TestFixture]
   public class DoubleTypeParserTests
-    : NonToggleTypeParserTests<DoubleTypeParser>
+    : NonToggleTypeParserTests
   {
-    [Test]
-    public override void ValidArgument_ReturnsTrue([Values("0", "0.1", "10.11")] string value)
+    public DoubleTypeParserTests()
+      : base(new DoubleTypeParser())
+    {
+
+    }
+
+    [Theory]
+    [InlineData("0")]
+    [InlineData("0.1")]
+    [InlineData("10.11")]
+    public override void ValidArgument_ReturnsTrue(string value)
     {
       base.ValidArgument_ReturnsTrue(value);
     }
 
-    [Test]
-    public override void InvalidArgument_ReturnsFalse([Values("a")] string value)
+    [Theory]
+    [InlineData("a")]
+    public override void InvalidArgument_ReturnsFalse(string value)
     {
       base.InvalidArgument_ReturnsFalse(value);
     }
 
-    [Test]
-    public override void ValidArgument_OutArgumentIsNotNull([Values("0", "0.1", "10.11")] string value)
+    [Theory]
+    [InlineData("0")]
+    [InlineData("0.1")]
+    [InlineData("10.11")]
+    public override void ValidArgument_OutArgumentIsNotNull(string value)
     {
       base.ValidArgument_OutArgumentIsNotNull(value);
     }
 
-    public override void ValidArgument_OutParamIsOfValidType([Values("0", "0.1", "10.11")] string value)
+    [Theory]
+    [InlineData("0")]
+    [InlineData("0.1")]
+    [InlineData("10.11")]
+    public override void ValidArgument_OutParamIsOfValidType(string value)
     {
       base.ValidArgument_OutParamIsOfValidType(value);
     }

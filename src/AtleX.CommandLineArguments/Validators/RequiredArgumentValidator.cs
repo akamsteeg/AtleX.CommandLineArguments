@@ -7,26 +7,15 @@ namespace AtleX.CommandLineArguments.Validators
   /// <summary>
   /// Represents a <see cref="ArgumentValidator"/> for required command line arguments
   /// </summary>
-  public class RequiredArgumentValidator
+  internal sealed class RequiredArgumentValidator
   : ArgumentValidator
   {
-    /// <summary>
-    /// Gets the cached <see cref="Type"/> of <see cref="RequiredAttribute"/>
-    /// </summary>
-    private readonly Type requiredAttributeType;
-
-    /// <summary>
-    /// Gets the cached <see cref="Type"/> of <see cref="bool"/>
-    /// </summary>
-    private readonly Type booleanType;
 
     /// <summary>
     /// Initializes a new instance of <see cref="RequiredArgumentValidator"/>
     /// </summary>
     public RequiredArgumentValidator()
     {
-      this.requiredAttributeType = typeof(RequiredAttribute);
-      this.booleanType = typeof(bool);
     }
 
     /// <summary>
@@ -50,61 +39,23 @@ namespace AtleX.CommandLineArguments.Validators
     /// </returns>
     public override bool TryValidate(PropertyInfo argumentPropertyInfo, bool isSpecified, string originalValue, out ValidationError validationError)
     {
+      validationError = null;
+
       var result = true;
-      var errorMessage = string.Empty;
 
-      var hasRequiredAttribute = TryGetRequiredAttribute(argumentPropertyInfo, out RequiredAttribute requiredAttribute);
-
-      if ((hasRequiredAttribute && !isSpecified) // The argument is required but it isn't specified
-        || (hasRequiredAttribute && isSpecified && !requiredAttribute.AllowEmptyStrings && string.IsNullOrWhiteSpace(originalValue)) // The argument is required and specified, but not allowed to be empty
-        )
-      {
-        errorMessage = requiredAttribute.ErrorMessage;
-        result = false;
-      }
-
-      if (result)
-      {
-        validationError = null;
-      }
-      else
-      {
-        validationError = this.CreateValidationError(argumentPropertyInfo.Name, errorMessage);
-      }
-
-      return result;
-    }
-
-    /// <summary>
-    /// Try getting the <see cref="RequiredAttribute"/>, if any, from the
-    /// specified <see cref="PropertyInfo"/>
-    /// </summary>
-    /// <param name="propertyInfo">
-    /// The <see cref="PropertyInfo"/> to check for having a <see
-    /// cref="RequiredAttribute"/> or not
-    /// </param>
-    /// <param name="attribute">
-    /// When a <see cref="RequiredAttribute"/> is found, this contains the
-    /// attribute. Null otherwise
-    /// </param>
-    /// <returns>
-    /// True when the specified <see cref="PropertyInfo"/> has a <see
-    /// cref="RequiredAttribute"/>, false otherwise
-    /// </returns>
-    private bool TryGetRequiredAttribute(PropertyInfo propertyInfo, out RequiredAttribute attribute)
-    {
-      var result = false;
-
-      var requiredAttribute = propertyInfo.GetCustomAttribute(this.requiredAttributeType) as RequiredAttribute;
+      var requiredAttribute = argumentPropertyInfo.GetCustomAttribute<RequiredAttribute>(inherit: false);
 
       if (requiredAttribute != null)
       {
-        result = true;
-        attribute = requiredAttribute;
-      }
-      else
-      {
-        attribute = null;
+        if ((!isSpecified) // The argument is required but it isn't specified
+          || (isSpecified && !requiredAttribute.AllowEmptyStrings && string.IsNullOrWhiteSpace(originalValue)) // The argument is required and specified, but not allowed to be empty
+          )
+        {
+          var errorMessage = requiredAttribute.ErrorMessage;
+
+          validationError = this.CreateValidationError(argumentPropertyInfo.Name, errorMessage);
+          result = false;
+        }
       }
 
       return result;

@@ -5,7 +5,7 @@ namespace AtleX.CommandLineArguments.Parsers
   /// <summary>
   /// Represents a key/value ("key1=value1 key2=value2 toggle") command line arguments parser
   /// </summary>
-  public sealed class KeyValueCommandLineArgumentsParser
+  public sealed class KeyValueStyleParser
     : CommandLineArgumentsParser
   {
     /// <summary>

@@ -3,7 +3,7 @@
   /// <summary>
   /// Represents a <see cref="TypeParser{T}"/> for <see cref="double"/>
   /// </summary>
-  public sealed class DoubleTypeParser
+  internal sealed class DoubleTypeParser
   : TypeParser<double>
   {
     /// <summary>
@@ -28,7 +28,7 @@
       }
       else
       {
-        parseResult = default(double);
+        parseResult = default;
         result = false;
       }
 

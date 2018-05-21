@@ -1,18 +1,23 @@
 ﻿using AtleX.CommandLineArguments.Parsers.TypeParsers;
-using NUnit.Framework;
+using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers.TypeParsers
 {
-  public abstract class ToggleTypeParserTests<Tparser>
-    : TypeParserTests<Tparser>
-    where Tparser: TypeParser
+  public abstract class ToggleTypeParserTests
+    : TypeParserTests
   {
-    [Test]
+    public ToggleTypeParserTests(TypeParser parser)
+      : base(parser)
+    {
+
+    }
+
+    [Fact]
     public void EmptyArgument_ReturnsTrue()
     {
       var result = this.typeParser.TryParse("", out _);
 
-      Assert.IsTrue(result);
+      Assert.True(result);
     }
   }
 }

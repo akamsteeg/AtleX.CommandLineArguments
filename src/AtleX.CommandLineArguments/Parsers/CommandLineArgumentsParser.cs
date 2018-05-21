@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Reflection;
 using AtleX.CommandLineArguments.Parsers.Helpers;
 using AtleX.CommandLineArguments.Parsers.TypeParsers;
 using AtleX.CommandLineArguments.Validators;
@@ -8,9 +8,10 @@ using AtleX.CommandLineArguments.Validators;
 namespace AtleX.CommandLineArguments.Parsers
 {
   /// <summary>
-  /// Represents a commandline arguments parser
+  /// Represents a base commandline arguments parser with reflection
   /// </summary>
   public abstract class CommandLineArgumentsParser
+    : ICommandLineArgumentsParser
   {
     /// <summary>
     /// Initializes a new instance of <see cref="CommandLineArgumentsParser"/>
@@ -41,35 +42,35 @@ namespace AtleX.CommandLineArguments.Parsers
     public ParseResult<T> Parse<T>(string[] arguments, IEnumerable<ArgumentValidator> validators, IEnumerable<TypeParser> typeParsers)
       where T : Arguments, new()
     {
-      if (arguments == null)
-        throw new ArgumentNullException(nameof(arguments));
-      if (validators == null)
-        throw new ArgumentNullException(nameof(validators));
-      if (typeParsers == null)
-        throw new ArgumentNullException(nameof(typeParsers));
+      _ = arguments ?? throw new ArgumentNullException(nameof(arguments));
+      _ = validators ?? throw new ArgumentNullException(nameof(validators));
+      _ = typeParsers ?? throw new ArgumentNullException(nameof(typeParsers));
 
       var argumentsObject = new T();
       var allValidationErrors = new List<ValidationError>();
 
-      var argumentPropertiesHelper = new ArgumentPropertiesHelper<T>(typeParsers);
+      var properties = typeof(T).GetTypeInfo().DeclaredProperties;
+      var argumentPropertiesHelper = new ArgumentPropertiesHelper(typeParsers);
       var validationHelper = new ValidationHelper(validators);
 
-      foreach (var currentProperty in argumentPropertiesHelper.GetProperties())
+      foreach (var currentProperty in properties)
       {
-        var argumentIsSpecified = this.TryFindRawArgumentValue(arguments, currentProperty.Name, out string argumentValue);
+        var argumentIsSpecified = this.TryFindRawArgumentValue(arguments, currentProperty.Name, out var argumentValue);
 
         if (argumentIsSpecified)
         {
-          argumentPropertiesHelper.FillProperty(argumentsObject, currentProperty.Name, argumentValue);
+          argumentPropertiesHelper.FillProperty(argumentsObject, currentProperty, argumentValue);
         }
 
-        var isValid = validationHelper.TryValidate(currentProperty, argumentIsSpecified, argumentValue, out IEnumerable<ValidationError> validationErrors);
+        var isValid = validationHelper.TryValidate(currentProperty,
+          argumentIsSpecified,
+          argumentValue,
+          out var validationErrors);
 
         if (!isValid)
         {
           allValidationErrors.AddRange(validationErrors);
         }
-
       }
 
       argumentsObject.IsHelpRequested = this.ContainsHelpArgument(arguments);

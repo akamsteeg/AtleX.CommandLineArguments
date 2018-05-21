@@ -7,11 +7,28 @@
     {
       var result = new string[]
       {
-        "/Toggle",
+        "/Byte", "1",
+        "/Short", "1",
+        "/Int", "10000000",
+        "/Long", "1000000000000000000000",
 
-        "/String", "lorem ipsum dolor sit amet",
+        "/Float", "0.1",
+        "/Double", "0.1",
 
-        "Enum", "Maybe",
+        "/Decimal", "0.1",
+
+        "/Bool", "true",
+
+        "/DateTime", "december 25, 2100 17:00",
+
+        "/Char", "a",
+        "/String", "aa",
+
+        "/Toggle" /* No value after this one! */,
+
+        "/Required", "true",
+        "/RequiredToggle",
+        // "/RequiredString", "aa", // We don't want this so we can include one validation error
       };
 
       return result;

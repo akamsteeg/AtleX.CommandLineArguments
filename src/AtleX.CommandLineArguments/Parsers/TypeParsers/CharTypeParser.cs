@@ -3,7 +3,7 @@
   /// <summary>
   /// Represents a <see cref="TypeParser{T}"/> for <see cref="char"/>
   /// </summary>
-  public sealed class CharTypeParser
+  internal sealed class CharTypeParser
   : TypeParser<char>
   {
     /// <summary>
@@ -28,7 +28,7 @@
       }
       else
       {
-        parseResult = default(char);
+        parseResult = default;
       }
 
       return result;

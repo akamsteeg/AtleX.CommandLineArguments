@@ -11,13 +11,30 @@ namespace AtleX.CommandLineArguments
   public static class CommandLineArguments
   {
     /// <summary>
-    /// Gets or sets the <see cref="CommandLineArgumentsConfiguration"/> foor this <see cref="CommandLineArguments"/>
+    /// The backingfield for the <see cref="Configuration"/> property
+    /// </summary>
+    private static CommandLineArgumentsConfiguration _configuration;
+
+    /// <summary>
+    /// Gets or set the <see cref="CommandLineArgumentsConfiguration"/> to parse with
     /// </summary>
     public static CommandLineArgumentsConfiguration Configuration
     {
-      get;
-      set;
-    } = CommandLineArgumentsConfiguration.Default;
+      get
+      {
+        /*
+        * We only need to create the AutoDetectConfiguration when no 
+        * configuration is supplied yet by the user
+        */
+        return _configuration ?? (_configuration = new AutoDetectConfiguration());
+      }
+      set
+      {
+        ValidateConfiguration(value);
+
+        _configuration = value;
+      }
+    }
 
     /// <summary>
     /// Parse the specified arguments to the specified type
@@ -62,17 +79,12 @@ namespace AtleX.CommandLineArguments
     public static bool TryParse<T>(string[] arguments, out T argumentsObject, out IEnumerable<ValidationError> validationResults)
       where T : Arguments, new()
     {
-      if (arguments == null)
-        throw new ArgumentNullException(nameof(arguments));
-      if (Configuration == null)
-        throw new InvalidOperationException("Cannot parse without a configuration");
-      if (Configuration.Parser == null)
-        throw new InvalidOperationException("Cannot parse without a parser configured");
+      _ = arguments ?? throw new ArgumentNullException(nameof(arguments));
 
       var parseResult = Configuration.Parser.Parse<T>(arguments, Configuration.Validators, Configuration.TypeParsers);
 
       var result = parseResult.IsValid;
-      argumentsObject = parseResult.CommandLineArguments as T;
+      argumentsObject = parseResult.CommandLineArguments;
       validationResults = parseResult.ValidationErrors;
 
       return result;
@@ -90,12 +102,20 @@ namespace AtleX.CommandLineArguments
     public static void DisplayHelp<T>(T argumentsObject)
       where T : Arguments, new()
     {
-      if (Configuration == null)
-        throw new InvalidOperationException("Cannot display help without a configuration");
-      if (Configuration.HelpWriter == null)
-        throw new InvalidOperationException("Cannot display help without a help writer configured");
-
       Configuration.HelpWriter.Write(argumentsObject);
+    }
+
+    /// <summary>
+    /// Validate the specified <see cref="CommandLineArgumentsConfiguration"/>
+    /// </summary>
+    /// <param name="configuration">
+    /// The <see cref="CommandLineArgumentsConfiguration"/> to validate
+    /// </param>
+    private static void ValidateConfiguration(CommandLineArgumentsConfiguration configuration)
+    {
+      _ = configuration ?? throw new ArgumentNullException(nameof(configuration));
+      _ = configuration.Parser ?? throw new InvalidOperationException("Cannot parse without a parser configured in the configuration");
+      _ = configuration.HelpWriter ?? throw new InvalidOperationException("Cannot display help without a help writer configured in the configuration");
     }
   }
 }

@@ -1,36 +1,48 @@
 ﻿using AtleX.CommandLineArguments.Parsers.TypeParsers;
-using NUnit.Framework;
+using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers.TypeParsers
 {
-  [TestFixture]
   public class BoolTypeParserTests
-    : TypeParserTests<BoolTypeParser>
+    : TypeParserTests
   {
-    [Test]
+
+    public BoolTypeParserTests()
+      : base(new BoolTypeParser())
+    {
+
+    }
+
+    [Fact]
     public void InvalidArgument_ReturnsTrue_WithParseResultFalse()
     {
       var result = this.typeParser.TryParse("maybe", out var parseResult);
 
-      Assert.IsFalse(result);
-      Assert.IsInstanceOf<bool>(parseResult);
-      Assert.IsFalse((bool)parseResult);
+      Assert.False(result);
+      Assert.IsType<bool>(parseResult);
+      Assert.False((bool)parseResult);
     }
 
-    [Test]
-    public override void ValidArgument_ReturnsTrue([Values("true", "false")]string value)
+    [Theory]
+    [InlineData("true")]
+    [InlineData("false")]
+    public override void ValidArgument_ReturnsTrue(string value)
     {
       base.ValidArgument_ReturnsTrue(value);
     }
 
-    [Test]
-    public override void ValidArgument_OutArgumentIsNotNull([Values("true", "false")]string value)
+    [Theory]
+    [InlineData("true")]
+    [InlineData("false")]
+    public override void ValidArgument_OutArgumentIsNotNull(string value)
     {
       base.ValidArgument_OutArgumentIsNotNull(value);
     }
 
-    [Test]
-    public override void ValidArgument_OutParamIsOfValidType([Values("true", "false")]string value)
+    [Theory]
+    [InlineData("true")]
+    [InlineData("false")]
+    public override void ValidArgument_OutParamIsOfValidType(string value)
     {
       base.ValidArgument_OutParamIsOfValidType(value);
     }

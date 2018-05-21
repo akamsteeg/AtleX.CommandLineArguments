@@ -5,7 +5,7 @@ namespace AtleX.CommandLineArguments.Parsers.TypeParsers
   /// <summary>
   /// Represents a <see cref="TypeParser{T}"/> for <see cref="DateTime"/>
   /// </summary>
-  public sealed class DateTimeTypeParser
+  internal sealed class DateTimeTypeParser
   : TypeParser<DateTime>
   {
     /// <summary>
@@ -30,7 +30,7 @@ namespace AtleX.CommandLineArguments.Parsers.TypeParsers
       }
       else
       {
-        parseResult = default(DateTime);
+        parseResult = default;
         result = false;
       }
 

@@ -1,18 +1,40 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AtleX.CommandLineArguments.Parsers
 {
   /// <summary>
-  /// Represents a Microsoft Windows CLI style ("/key value /key2 value2
-  /// /toggle") command line arguments parser
+  /// Represents a <see cref="ICommandLineArgumentsParser"/> for key value pairs with the key indicated by a certain prefix string
   /// </summary>
-  public sealed class WindowsStyleCommandLineArgumentsParser
+  public abstract class PrefixedKeyParser
     : CommandLineArgumentsParser
   {
     /// <summary>
-    /// The character indicating a key
+    /// Gets the string that indicates the value is a key
     /// </summary>
-    private const string keyIndicatorCharacter = "/";
+    private readonly string _keyPrefix;
+
+    /// <summary>
+    /// Gets the length of the key indicator
+    /// </summary>
+    private readonly int _keyPrefixLength;
+
+    /// <summary>
+    /// Initializes a new instance of <see
+    /// cref="PrefixedKeyParser"/> with the specified key indicator
+    /// </summary>
+    /// <param name="keyIndicator">
+    /// The prefix string that indicates the value is a key
+    /// </param>
+    public PrefixedKeyParser(string keyIndicator)
+    {
+      if (string.IsNullOrWhiteSpace(keyIndicator))
+        throw new ArgumentNullException(nameof(keyIndicator));
+
+      this._keyPrefix = keyIndicator;
+      this._keyPrefixLength = keyIndicator.Length;
+    }
+
 
     /// <summary>
     /// Try to find an argument with the specified name in the specified
@@ -41,7 +63,7 @@ namespace AtleX.CommandLineArguments.Parsers
         var currentItem = allCommandLineArguments[i];
         if (ArgumentIsKey(currentItem))
         {
-          key = currentItem.Substring(1);
+          key = currentItem.Substring(this._keyPrefixLength);
 
           if (string.Compare(key, argumentToFind, ignoreCase: true) == 0)
           {
@@ -74,33 +96,6 @@ namespace AtleX.CommandLineArguments.Parsers
     }
 
     /// <summary>
-    /// Gets whether the specified command line arguments contain a Help argument or not
-    /// </summary>
-    /// <param name="allCommandLineArguments">
-    /// The collection of all command line arguments
-    /// </param>
-    /// <returns>
-    /// True when the collection of command line arguments contains a Help argument, false otherwise
-    /// </returns>
-    protected override bool ContainsHelpArgument(string[] allCommandLineArguments)
-    {
-      var result = false;
-      for (var i = 0; i < allCommandLineArguments.Length; i++)
-      {
-        var currentArgumentName = allCommandLineArguments[i];
-
-        // Accept /? and /help as help arguments
-        if (currentArgumentName == "/?" || currentArgumentName.Equals("/help", StringComparison.OrdinalIgnoreCase))
-        {
-          result = true;
-          break;
-        }
-      }
-
-      return result;
-    }
-
-    /// <summary>
     /// Determines whether the specified argument is a key or not
     /// </summary>
     /// <param name="argument">
@@ -109,13 +104,12 @@ namespace AtleX.CommandLineArguments.Parsers
     /// <returns>
     /// True when the specified parameter is a key, false otherwise
     /// </returns>
-    private static bool ArgumentIsKey(string argument)
+    private bool ArgumentIsKey(string argument)
     {
-      var result = argument.StartsWith(keyIndicatorCharacter);
+      var result = argument.StartsWith(this._keyPrefix);
 
       return result;
     }
 
-    
   }
 }

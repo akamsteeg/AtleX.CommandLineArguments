@@ -1,31 +1,48 @@
 ﻿using AtleX.CommandLineArguments.Parsers.TypeParsers;
-using NUnit.Framework;
+using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers.TypeParsers
 {
-  [TestFixture]
   public class ShortTypeParserTests
-    : NonToggleTypeParserTests<ShortTypeParser>
+    : NonToggleTypeParserTests
   {
-    [Test]
-    public override void ValidArgument_ReturnsTrue([Values("0", "-127", "32767")] string value)
+    public ShortTypeParserTests()
+      : base(new ShortTypeParser())
+    {
+
+    }
+
+    [Theory]
+    [InlineData("0")]
+    [InlineData("-127")]
+    [InlineData("32767")]
+    public override void ValidArgument_ReturnsTrue(string value)
     {
       base.ValidArgument_ReturnsTrue(value);
     }
 
-    [Test]
-    public override void InvalidArgument_ReturnsFalse([Values("a", "32768")] string value)
+    [Theory]
+    [InlineData("a")]
+    [InlineData("32768")]
+    public override void InvalidArgument_ReturnsFalse(string value)
     {
       base.InvalidArgument_ReturnsFalse(value);
     }
 
-    [Test]
-    public override void ValidArgument_OutArgumentIsNotNull([Values("0", "-127", "32767")] string value)
+    [Theory]
+    [InlineData("0")]
+    [InlineData("-127")]
+    [InlineData("32767")]
+    public override void ValidArgument_OutArgumentIsNotNull(string value)
     {
       base.ValidArgument_OutArgumentIsNotNull(value);
     }
 
-    public override void ValidArgument_OutParamIsOfValidType([Values("0", "-127", "32767")] string value)
+    [Theory]
+    [InlineData("0")]
+    [InlineData("-127")]
+    [InlineData("32767")]
+    public override void ValidArgument_OutParamIsOfValidType(string value)
     {
       base.ValidArgument_OutParamIsOfValidType(value);
     }

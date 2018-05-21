@@ -1,31 +1,49 @@
 ﻿using AtleX.CommandLineArguments.Parsers.TypeParsers;
-using NUnit.Framework;
+using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers.TypeParsers
 {
-  [TestFixture]
   public class DateTimeTypeParserTests
-    : NonToggleTypeParserTests<DateTimeTypeParser>
+    : NonToggleTypeParserTests
   {
-    [Test]
-    public override void ValidArgument_ReturnsTrue([Values("01-02-1903", "01-01-2000 00:00:01", "december 25, 2100 17:00")] string value)
+    public DateTimeTypeParserTests()
+      : base(new DateTimeTypeParser())
+    {
+
+    }
+
+    [Theory]
+    [InlineData("01-02-1903")]
+    [InlineData("01-01-2000 00:00:01")]
+    [InlineData("december 25, 2100 17:00")]
+    public override void ValidArgument_ReturnsTrue(string value)
     {
       base.ValidArgument_ReturnsTrue(value);
     }
 
-    [Test]
-    public override void InvalidArgument_ReturnsFalse([Values("aa", "60:61", "32-13-9999")] string value)
+    [Theory]
+    [InlineData("aa")]
+    [InlineData("60:61")]
+    [InlineData("32-13-9999")]
+    public override void InvalidArgument_ReturnsFalse(string value)
     {
       base.InvalidArgument_ReturnsFalse(value);
     }
 
-    [Test]
-    public override void ValidArgument_OutArgumentIsNotNull([Values("01-02-1903", "01-01-2000 00:00:01", "december 25, 2100 17:00")] string value)
+    [Theory]
+    [InlineData("01-02-1903")]
+    [InlineData("01-01-2000 00:00:01")]
+    [InlineData("december 25, 2100 17:00")]
+    public override void ValidArgument_OutArgumentIsNotNull(string value)
     {
       base.ValidArgument_OutArgumentIsNotNull(value);
     }
 
-    public override void ValidArgument_OutParamIsOfValidType([Values("01-02-1903", "01-01-2000 00:00:01", "december 25, 2100 17:00")] string value)
+    [Theory]
+    [InlineData("01-02-1903")]
+    [InlineData("01-01-2000 00:00:01")]
+    [InlineData("december 25, 2100 17:00")]
+    public override void ValidArgument_OutParamIsOfValidType(string value)
     {
       base.ValidArgument_OutParamIsOfValidType(value);
     }

@@ -1,31 +1,30 @@
 ﻿using System;
 using AtleX.CommandLineArguments.Parsers.TypeParsers;
-using NUnit.Framework;
+using Xunit;
 
 namespace AtleX.CommandLineArguments.Tests.Parsers.TypeParsers
 {
-  public abstract class TypeParserTests<Tparser>
-    where Tparser: TypeParser
+  public abstract class TypeParserTests
   {
     protected readonly TypeParser typeParser;
 
-    public TypeParserTests()
+    public TypeParserTests(TypeParser parser)
     {
-      this.typeParser = Activator.CreateInstance<Tparser>();
+      this.typeParser = parser;
     }
 
     public virtual void ValidArgument_ReturnsTrue(string value)
     {
       var result = this.typeParser.TryParse(value, out var parseResult);
 
-      Assert.IsTrue(result);
+      Assert.True(result);
     }
 
     public virtual void ValidArgument_OutArgumentIsNotNull(string value)
     {
       var result = this.typeParser.TryParse(value, out var parseResult);
 
-      Assert.IsNotNull(parseResult);
+      Assert.NotNull(parseResult);
     }
 
     public virtual void ValidArgument_OutParamIsOfValidType(string value)
@@ -33,7 +32,7 @@ namespace AtleX.CommandLineArguments.Tests.Parsers.TypeParsers
 
       var result = this.typeParser.TryParse(value, out var parseResult);
 
-      Assert.IsInstanceOf(this.typeParser.Type, parseResult);
+      Assert.IsType(this.typeParser.Type, parseResult);
     }
   }
 }

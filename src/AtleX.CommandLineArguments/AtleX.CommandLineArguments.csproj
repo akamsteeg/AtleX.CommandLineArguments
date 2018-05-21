@@ -1,8 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.5;net45;net46</TargetFrameworks>
+    <TargetFrameworks>netstandard1.5;net45</TargetFrameworks>
+    <LangVersion>7.2</LangVersion>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <DocumentationFile>docs\AtleX.CommandLineArguments.xml</DocumentationFile>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <IncludeSymbols>True</IncludeSymbols>
     <Authors>Alex Kamsteeg (https://atlex.nl/)</Authors>
     <Company />
@@ -10,31 +13,43 @@
     <Description>AtleX.CommandLineArguments is a helper library to facilitate parsing command line arguments into a strongly-typed object. Values can be validated with extensible and customisable validators and the library can automatically generate help for the user.</Description>
     <Copyright>© Alex Kamsteeg</Copyright>
     <PackageLicenseUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments/blob/master/LICENSE</PackageLicenseUrl>
-    <Version>1.1.1</Version>
+    <Version>2.0.0-beta3</Version>
     <RepositoryUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>cli commandline command line arguments argument parser</PackageTags>
-    <PackageReleaseNotes>1.1.1:
+    <PackageReleaseNotes>2.0.0:
+- [Feature] Added support for GNU/Linux style "--name value" arguments (#19)
+- [Feature] Simplified extending the library with different parsers and help writers by introducing interfaces (#8, #11)
+- [Feature] Rewritten the configuration system. This makes it a lot more explicit by strong-typed configurations (e.g. WindowsStyleConfiguration) and now by default all built-in type parsers and validators are loaded to take that burden away from the user. Also, by default the new AutoDetectConfiguration is used that uses Windows-style arguments when running on Windows, and GNU/Linux style on Linux and Mac (#9)
+- [Fix] Reduce lenght of names of commonly used classes by removing the "CommandLineArguments" cruft from it. E.g. WindowsStyleCommandLineArgumentsParser is now WindowsStyleParser (#23)
+- [Fix] Remove not-needed package reference for System.ComponentModel.Annotations from the NETFX installation (#24)
+- [Fix] Removed redundant .NET 4.6 TFM from supported frameworks. We now support .NET 4.5 and NETSTANDARD 1.5 and those are upwards compatible with newer versions of their respective runtimes (#10)
+- [Feature] Performance improvements (#29, #30, #33, #34)
+
+1.1.1:
 -Many internal improvements (#7, #13, #14, #15, #16, #17)</PackageReleaseNotes>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>docs\AtleX.CommandLineArguments.xml</DocumentationFile>
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <TreatSpecificWarningsAsErrors />
-  </PropertyGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.5'">
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
+  </ItemGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>docs\AtleX.CommandLineArguments.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Configuration\" />
-    <Folder Include="Configuration\" />
+    <Compile Remove="docs\**" />
+    <EmbeddedResource Remove="docs\**" />
+    <None Remove="docs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>$(MSBuildProjectName).Tests</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 
 </Project>

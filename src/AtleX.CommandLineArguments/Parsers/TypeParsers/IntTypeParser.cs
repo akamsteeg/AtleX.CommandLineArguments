@@ -3,7 +3,7 @@
   /// <summary>
   /// Represents a <see cref="TypeParser{T}"/> for <see cref="int"/>
   /// </summary>
-  public sealed class IntTypeParser
+  internal sealed class IntTypeParser
   : TypeParser<int>
   {
     /// <summary>
@@ -28,7 +28,7 @@
       }
       else
       {
-        parseResult = default(int);
+        parseResult = default;
         result = false;
       }
 
