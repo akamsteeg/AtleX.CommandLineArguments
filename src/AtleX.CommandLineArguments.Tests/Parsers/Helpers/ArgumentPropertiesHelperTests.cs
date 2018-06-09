@@ -12,50 +12,45 @@ namespace AtleX.CommandLineArguments.Tests.Parsers.Helpers
   public class ArgumentPropertiesHelperTests
   {
     [Fact]
-    public void Ctor_WithNullTypeParsers_Throws()
-    {
-      Assert.Throws<ArgumentNullException>(() => new ArgumentPropertiesHelper(null));
-    }
-
-    [Fact]
-    public void Ctor_WithTypeParsers_DoesNotThrow()
-    {
-      new ArgumentPropertiesHelper(Enumerable.Empty<TypeParser>());
-    }
-
-    [Fact]
     public void FillProperty_WithNullArgumentParameter_Throws()
     {
-      var helper = new ArgumentPropertiesHelper(Enumerable.Empty<TypeParser>());
       var property = typeof(TestArguments).GetTypeInfo().DeclaredProperties.First(a => a.Name == "RequiredString");
 
-      Assert.Throws<ArgumentNullException>(() => helper.FillProperty<TestArguments>(null, property, "value"));
+      Assert.Throws<ArgumentNullException>(() =>
+        ArgumentPropertiesHelper.FillProperty<TestArguments>(null, property, "value", Enumerable.Empty<TypeParser>())
+      );
     }
 
     [Fact]
     public void FillProperty_WithNullPropertyParameter_Throws()
     {
-      var helper = new ArgumentPropertiesHelper(Enumerable.Empty<TypeParser>());
-
-      Assert.Throws<ArgumentNullException>(() => helper.FillProperty(new TestArguments(), null, "value"));
+      Assert.Throws<ArgumentNullException>(() =>
+        ArgumentPropertiesHelper.FillProperty(new TestArguments(), null, "value", Enumerable.Empty<TypeParser>())
+      );
     }
 
     [Fact]
     public void FillProperty_WithNullPropertyValueParameter_DoesNotThrow()
     {
-      var helper = new ArgumentPropertiesHelper(Enumerable.Empty<TypeParser>());
       var property = typeof(TestArguments).GetTypeInfo().DeclaredProperties.First(a => a.Name == "RequiredString");
 
-      helper.FillProperty(new TestArguments(), property, null);
+      ArgumentPropertiesHelper.FillProperty(new TestArguments(), property, null, Enumerable.Empty<TypeParser>());
     }
 
     [Fact]
     public void FillProperty_WithEmptyPropertyValueParameter_DoesNotThrow()
     {
-      var helper = new ArgumentPropertiesHelper(Enumerable.Empty<TypeParser>());
       var property = typeof(TestArguments).GetTypeInfo().DeclaredProperties.First(a => a.Name == "RequiredString");
 
-      helper.FillProperty(new TestArguments(), property, "");
+      ArgumentPropertiesHelper.FillProperty(new TestArguments(), property, "", Enumerable.Empty<TypeParser>());
+    }
+
+    [Fact]
+    public void FillProperty_WithNullTypeParsersParameter_Throws()
+    {
+      Assert.Throws<ArgumentNullException>(() =>
+        ArgumentPropertiesHelper.FillProperty(new TestArguments(), null, "value", null)
+      );
     }
 
     [Fact]
@@ -67,11 +62,11 @@ namespace AtleX.CommandLineArguments.Tests.Parsers.Helpers
       {
         new StringTypeParser()
       };
-      var helper = new ArgumentPropertiesHelper(typeParsers);
+
       var property = typeof(TestArguments).GetTypeInfo().DeclaredProperties.First(a => a.Name == "RequiredString");
       var arguments = new TestArguments();
-      
-      helper.FillProperty(arguments, property, testValue);
+
+      ArgumentPropertiesHelper.FillProperty(arguments, property, testValue, typeParsers);
 
       Assert.Equal(testValue, arguments.RequiredString);
     }
