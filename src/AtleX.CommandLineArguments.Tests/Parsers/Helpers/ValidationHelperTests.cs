@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AtleX.CommandLineArguments.Parsers.Helpers;
+using AtleX.CommandLineArguments.Tests.Mocks;
 using AtleX.CommandLineArguments.Validators;
 using Xunit;
 
@@ -12,23 +11,32 @@ namespace AtleX.CommandLineArguments.Tests.Parsers.Helpers
   public class ValidationHelperTests
   {
     [Fact]
-    public void Ctor_WithNullValidatorsToRun_Throws()
+    public void TryValidate_WithNullValidatorsArgument_Throws()
     {
-      Assert.Throws<ArgumentNullException>(() => new ValidationHelper(null));
+      Assert.Throws<ArgumentNullException>(() =>
+        ValidationHelper.TryValidate(null, null, true, "", out _)
+      );
     }
 
     [Fact]
-    public void Ctor_WithValidatorsToRun_DoesNotThrow()
+    public void TryValidate_WithNullPropertyInfoArgument_Throws()
     {
-      new ValidationHelper(Enumerable.Empty<ArgumentValidator>());
+      Assert.Throws<ArgumentNullException>(() =>
+        ValidationHelper.TryValidate(Enumerable.Empty<ArgumentValidator>(), null, true, "", out _)
+      );
     }
 
     [Fact]
-    public void TryValidate_WithNullPropertyInfo_Throws()
+    public void TryValidate_WithValidArguments_Succeeds()
     {
-      var helper = new ValidationHelper(Enumerable.Empty<ArgumentValidator>());
+      var validators = new List<ArgumentValidator>()
+      {
+        new RequiredArgumentValidator(),
+      };
 
-      Assert.Throws<ArgumentNullException>(() => helper.TryValidate(null, true, "", out _));
+      var propertyInfo = typeof(TestArguments).GetProperties().First();
+
+      ValidationHelper.TryValidate(validators, propertyInfo, true, "", out _);
     }
   }
 }

@@ -10,7 +10,6 @@ namespace AtleX.CommandLineArguments.Validators
   internal sealed class RequiredArgumentValidator
   : ArgumentValidator
   {
-
     /// <summary>
     /// Initializes a new instance of <see cref="RequiredArgumentValidator"/>
     /// </summary>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using AtleX.CommandLineArguments.Parsers.TypeParsers;
 
 namespace AtleX.CommandLineArguments.Parsers.Helpers
@@ -8,24 +9,8 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
   /// <summary>
   /// Represents a helper for setting property values in the <see cref="Arguments"/>
   /// </summary>
-  internal sealed class ArgumentPropertiesHelper
+  internal static class ArgumentPropertiesHelper
   {
-    /// <summary>
-    /// Gets the collection of <see cref="TypeParser"/> to parse the argument values with
-    /// </summary>
-    private readonly IEnumerable<TypeParser> typeParsers;
-
-    /// <summary>
-    /// Initializes a new instance of <see cref="ArgumentPropertiesHelper"/>
-    /// </summary>
-    /// <param name="typeParsers">
-    /// The <see cref="IEnumerable{T}"/> of <see cref="TypeParser"/> to parse the argument values with
-    /// </param>
-    public ArgumentPropertiesHelper(IEnumerable<TypeParser> typeParsers)
-    {
-      this.typeParsers = typeParsers ?? throw new ArgumentNullException(nameof(typeParsers));
-    }
-
     /// <summary>
     /// Set the value of the property with the specified name in the <see
     /// cref="Arguments"/> to the specified value
@@ -42,14 +27,19 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// <param name="propertyValue">
     /// The value of the property to set
     /// </param>
-    public void FillProperty<T>(T arguments, PropertyInfo propertyInfo, string propertyValue)
+    /// <param name="typeParsers">
+    /// The <see cref="IEnumerable{T}"/> of <see cref="TypeParser"/> to parse the
+    /// argument values with
+    /// </param>
+    public static void FillProperty<T>(T arguments, PropertyInfo propertyInfo, string propertyValue, IEnumerable<TypeParser> typeParsers)
       where T: Arguments
     {
       _ = arguments ?? throw new ArgumentNullException(nameof(arguments));
       _ = propertyInfo ?? throw new ArgumentNullException(nameof(propertyInfo));
+      _ = typeParsers ?? throw new ArgumentNullException(nameof(typeParsers));
 
       if (
-            (this.TryFillCustomType(arguments, propertyInfo, propertyValue))
+            (TryFillCustomType(arguments, propertyInfo, propertyValue, typeParsers))
             ||
              (propertyInfo.PropertyType.GetTypeInfo().IsEnum && TryFillEnum(arguments, propertyInfo, propertyValue))
              )
@@ -76,7 +66,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// <returns>
     /// True when the property value could be set, false otherwise
     /// </returns>
-    private bool TryFillEnum<T>(T arguments, PropertyInfo property, string value)
+    private static bool TryFillEnum<T>(T arguments, PropertyInfo property, string value)
       where T: Arguments
     {
       var result = false;
@@ -109,15 +99,19 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// <param name="value">
     /// The value to set
     /// </param>
+    /// <param name="typeParsers">
+    /// The <see cref="IEnumerable{T}"/> of <see cref="TypeParser"/> to parse the
+    /// argument values with
+    /// </param>
     /// <returns>
     /// True when the property value could be set, false otherwise
     /// </returns>
-    private bool TryFillCustomType<T>(T arguments, PropertyInfo property, string value)
+    private static bool TryFillCustomType<T>(T arguments, PropertyInfo property, string value, IEnumerable<TypeParser> typeParsers)
       where T: Arguments
     {
       var result = false;
 
-      foreach (var currentTypeParser in this.typeParsers)
+      foreach (var currentTypeParser in typeParsers)
       {
         if (currentTypeParser.Type == property.PropertyType)
         {
