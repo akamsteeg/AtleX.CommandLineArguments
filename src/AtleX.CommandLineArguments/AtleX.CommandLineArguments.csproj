@@ -13,11 +13,15 @@
     <Description>AtleX.CommandLineArguments is a helper library to facilitate parsing command line arguments into a strongly-typed object. Values can be validated with extensible and customisable validators and the library can automatically generate help for the user.</Description>
     <Copyright>© Alex Kamsteeg</Copyright>
     <PackageLicenseUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments/blob/master/LICENSE</PackageLicenseUrl>
-    <Version>2.0.0</Version>
+    <Version>2.0.1</Version>
     <RepositoryUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>cli commandline command line arguments argument parser</PackageTags>
-    <PackageReleaseNotes>2.0.0:
+    <PackageReleaseNotes>
+2.0.1:
+- Performance improvements (#39)
+
+2.0.0:
 - [Feature] Added support for GNU/Linux style "--name value" arguments (#19)
 - [Feature] Simplified extending the library with different parsers and help writers by introducing interfaces (#8, #11)
 - [Feature] Rewritten the configuration system. This makes it a lot more explicit by strong-typed configurations (e.g. WindowsStyleConfiguration) and now by default all built-in type parsers and validators are loaded to take that burden away from the user. Also, by default the new AutoDetectConfiguration is used that uses Windows-style arguments when running on Windows, and GNU/Linux style on Linux and Mac (#9)
