@@ -31,8 +31,8 @@ namespace AtleX.CommandLineArguments.Tests
 
       var newConfig = new CommandLineArgumentsConfiguration()
       {
-        Parser = new MockParser(),
-        HelpWriter = null
+        Parser = null,
+        HelpWriter = new MockHelpWriter()
       };
 
       Assert.Throws<InvalidOperationException>(() => CommandLineArguments.Configuration = newConfig);
@@ -47,8 +47,8 @@ namespace AtleX.CommandLineArguments.Tests
 
       var newConfig = new CommandLineArgumentsConfiguration()
       {
-        Parser = null,
-        HelpWriter = new MockHelpWriter()
+        Parser = new MockParser(),
+        HelpWriter = null
       };
 
       Assert.Throws<InvalidOperationException>(() => CommandLineArguments.Configuration = newConfig);
