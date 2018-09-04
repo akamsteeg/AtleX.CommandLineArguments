@@ -13,7 +13,7 @@
     <Copyright>© Alex Kamsteeg</Copyright>
     <PackageLicenseUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments/blob/master/LICENSE</PackageLicenseUrl>
     <Version>2.0.1</Version>
-    <RepositoryUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments</RepositoryUrl>
+    <RepositoryUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments.git</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>cli commandline command line arguments argument parser</PackageTags>
     <PackageReleaseNotes>
