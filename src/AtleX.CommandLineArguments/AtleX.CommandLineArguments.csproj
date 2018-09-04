@@ -6,7 +6,6 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <DocumentationFile>docs\AtleX.CommandLineArguments.xml</DocumentationFile>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <IncludeSymbols>True</IncludeSymbols>
     <Authors>Alex Kamsteeg (https://atlex.nl/)</Authors>
     <Company />
     <PackageProjectUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments</PackageProjectUrl>
