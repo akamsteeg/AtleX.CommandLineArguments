@@ -111,7 +111,7 @@ namespace AtleX.CommandLineArguments.Configuration
     /// <returns>
     /// A <see cref="List{T}"/> with an instance of all built-in type validators
     /// </returns>
-    private List<ArgumentValidator> CreateBuiltInValidators()
+    private static List<ArgumentValidator> CreateBuiltInValidators()
     {
       var result = new List<ArgumentValidator>()
       {
