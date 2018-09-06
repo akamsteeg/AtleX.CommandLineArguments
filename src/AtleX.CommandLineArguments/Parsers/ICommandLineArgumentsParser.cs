@@ -1,8 +1,6 @@
 ﻿using AtleX.CommandLineArguments.Parsers.TypeParsers;
 using AtleX.CommandLineArguments.Validators;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AtleX.CommandLineArguments.Parsers
 {

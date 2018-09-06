@@ -18,6 +18,5 @@ namespace AtleX.CommandLineArguments.Configuration
       this.Parser = new KeyValueStyleParser();
       this.HelpWriter = new KeyValueStyleHelpWriter();
     }
-
   }
 }

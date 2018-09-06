@@ -13,7 +13,7 @@ namespace AtleX.CommandLineArguments.Parsers
     /// Gets the prefix that indicates a key
     /// </summary>
     private const string KeyPrefix = "--";
-    
+
     /// <summary>
     /// Gets the complete argument that indicates that the user requested help
     /// </summary>
@@ -27,7 +27,7 @@ namespace AtleX.CommandLineArguments.Parsers
       : base(KeyPrefix)
     {
     }
-    
+
     /// <summary>
     /// Gets whether the specified command line arguments contain a Help argument or not
     /// </summary>
@@ -44,7 +44,7 @@ namespace AtleX.CommandLineArguments.Parsers
       for (var i = 0; i < allCommandLineArguments.Length; i++)
       {
         var currentArgumentName = allCommandLineArguments[i];
-        
+
         if (currentArgumentName == HelpArgument)
         {
           result = true;

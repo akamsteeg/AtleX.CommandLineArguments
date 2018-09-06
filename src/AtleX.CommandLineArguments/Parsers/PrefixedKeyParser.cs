@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace AtleX.CommandLineArguments.Parsers
 {
@@ -34,7 +33,6 @@ namespace AtleX.CommandLineArguments.Parsers
       this._keyPrefix = keyIndicator;
       this._keyPrefixLength = keyIndicator.Length;
     }
-
 
     /// <summary>
     /// Try to find an argument with the specified name in the specified
@@ -110,6 +108,5 @@ namespace AtleX.CommandLineArguments.Parsers
 
       return result;
     }
-
   }
 }

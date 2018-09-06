@@ -32,8 +32,6 @@ namespace AtleX.CommandLineArguments.Configuration
         this.Parser = new LinuxStyleParser();
         this.HelpWriter = new LinuxStyleHelpWriter();
       }
-
-
     }
   }
 }

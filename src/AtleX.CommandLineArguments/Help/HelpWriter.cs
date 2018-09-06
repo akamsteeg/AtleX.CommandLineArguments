@@ -94,7 +94,6 @@ namespace AtleX.CommandLineArguments.Help
     /// </returns>
     protected abstract string GetExactCommandlineNameOfArgument(string argumentName);
 
-
     /// <summary>
     /// Get the description from the <see cref="DisplayAttribute"/> on the
     /// specified <see cref="PropertyInfo"/>, if any

@@ -9,7 +9,7 @@
     /// <summary>
     /// Initializes a new instance of <see cref="LinuxStyleHelpWriter"/>
     /// </summary>
-    public LinuxStyleHelpWriter() 
+    public LinuxStyleHelpWriter()
       : base("--")
     {
     }

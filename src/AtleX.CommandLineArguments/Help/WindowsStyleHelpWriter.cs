@@ -9,7 +9,7 @@
     /// <summary>
     /// Initializes a new instance of <see cref="WindowsStyleHelpWriter"/>
     /// </summary>
-    public WindowsStyleHelpWriter() 
+    public WindowsStyleHelpWriter()
       : base("/")
     {
     }
