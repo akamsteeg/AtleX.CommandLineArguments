@@ -12,13 +12,22 @@
     <Description>AtleX.CommandLineArguments is a helper library to facilitate parsing command line arguments into a strongly-typed object. Values can be validated with extensible and customisable validators and the library can automatically generate help for the user.</Description>
     <Copyright>© Alex Kamsteeg</Copyright>
     <PackageLicenseUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments/blob/master/LICENSE</PackageLicenseUrl>
-    <Version>2.0.1</Version>
+    
+    <Version>2.1.0</Version>
+    <AssemblyVersion>2.1.0.0</AssemblyVersion>
+    <FileVersion>2.1.0.0</FileVersion>
+    
     <RepositoryUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments.git</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryType>Git</RepositoryType>
+    
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <PackageTags>cli commandline command line arguments argument parser</PackageTags>
     <PackageReleaseNotes>
+      2.1.0:
+      - Enabled SourceLink for a better debugging experience (#40)
+      - General code quality improvements (#41, #42)
+
       2.0.1:
       - Performance improvements (#39)
 
@@ -34,8 +43,6 @@
       1.1.1:
       -Many internal improvements (#7, #13, #14, #15, #16, #17)
     </PackageReleaseNotes>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.5'">
