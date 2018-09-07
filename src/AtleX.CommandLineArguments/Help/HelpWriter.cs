@@ -12,22 +12,10 @@ namespace AtleX.CommandLineArguments.Help
     : IHelpWriter
   {
     /// <summary>
-    /// Gets the cached <see cref="Type"/> of <see cref="DisplayAttribute"/>
-    /// </summary>
-    private readonly Type cachedDisplayAttributeType;
-
-    /// <summary>
-    /// Gets the cached <see cref="Type"/> of <see cref="RequiredAttribute"/>
-    /// </summary>
-    private readonly Type cachedRequiredAttributeType;
-
-    /// <summary>
     /// Initializes a new instance of <see cref="HelpWriter"/>
     /// </summary>
     public HelpWriter()
     {
-      this.cachedDisplayAttributeType = typeof(DisplayAttribute);
-      this.cachedRequiredAttributeType = typeof(RequiredAttribute);
     }
 
     /// <summary>
@@ -58,7 +46,7 @@ namespace AtleX.CommandLineArguments.Help
     /// the specified <see cref="Arguments"/> object
     /// </returns>
     protected IEnumerable<ArgumentHelpDetails> GetHelpDetails<T>(T argumentsObject)
-      where T: Arguments, new()
+      where T : Arguments, new()
     {
       _ = argumentsObject ?? throw new ArgumentNullException(nameof(argumentsObject));
 
@@ -70,8 +58,8 @@ namespace AtleX.CommandLineArguments.Help
       {
         var exactUsageName = GetExactCommandlineNameOfArgument(currentProperty.Name);
 
-        var description = this.GetDisplayDescription(currentProperty);
-        var isRequired = this.IsRequiredArgument(currentProperty);
+        var description = GetDisplayDescription(currentProperty);
+        var isRequired = IsRequiredArgument(currentProperty);
 
         var helpDetails = new ArgumentHelpDetails(exactUsageName, description, isRequired);
 
@@ -106,11 +94,11 @@ namespace AtleX.CommandLineArguments.Help
     /// The description from the <see cref="DisplayAttribute"/> on the
     /// specified <see cref="PropertyInfo"/>, if any
     /// </returns>
-    protected string GetDisplayDescription(PropertyInfo property)
+    protected static string GetDisplayDescription(PropertyInfo property)
     {
       var result = string.Empty;
 
-      if (property.GetCustomAttribute(cachedDisplayAttributeType) is DisplayAttribute displayAttribute)
+      if (property.GetCustomAttribute(typeof(DisplayAttribute)) is DisplayAttribute displayAttribute)
       {
         result = displayAttribute.Description;
       }
@@ -129,11 +117,11 @@ namespace AtleX.CommandLineArguments.Help
     /// True when the specified <see cref="PropertyInfo"/> is a required
     /// argument, false otherwise
     /// </returns>
-    protected bool IsRequiredArgument(PropertyInfo property)
+    protected static bool IsRequiredArgument(PropertyInfo property)
     {
       var result = false;
 
-      if (property.GetCustomAttribute(cachedRequiredAttributeType) is RequiredAttribute requiredAttribute)
+      if (property.GetCustomAttribute<RequiredAttribute>() != null)
       {
         result = true;
       }
