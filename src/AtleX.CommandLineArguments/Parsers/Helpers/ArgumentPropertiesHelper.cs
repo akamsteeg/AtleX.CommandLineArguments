@@ -109,18 +109,41 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
       where T: Arguments
     {
       var result = false;
+      var typeParser = GetTypeParser(property.PropertyType, typeParsers);
 
+      if (typeParser != null && typeParser.TryParse(value, out var parseResult))
+      {
+        result = true;
+        property.SetValue(arguments, parseResult);
+      }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Get the <see cref="TypeParser"/> for the specified <see cref="Type"/> in
+    /// the specified <see cref="IEnumerable{T}"/> of <see cref="TypeParser"/>
+    /// </summary>
+    /// <param name="type">
+    /// The <see cref="Type"/> to get the <see cref="TypeParser"/> for
+    /// </param>
+    /// <param name="typeParsers">
+    /// The <see cref="IEnumerable{T}"/> of <see cref="TypeParser"/> to find the
+    /// parser for the specified <see cref="Type"/> in
+    /// </param>
+    /// <returns>
+    /// The <see cref="TypeParser"/> for the specified <see cref="Type"/>; null
+    /// if no parser is available
+    /// </returns>
+    private static TypeParser GetTypeParser(Type type, IEnumerable<TypeParser> typeParsers)
+    {
+      TypeParser result = null;
       foreach (var currentTypeParser in typeParsers)
       {
-        if (currentTypeParser.Type == property.PropertyType)
+        if (currentTypeParser.Type == type)
         {
-          result = currentTypeParser.TryParse(value, out var parseResult);
-
-          if (result)
-          {
-            property.SetValue(arguments, parseResult);
-            break;
-          }
+          result = currentTypeParser;
+          break;
         }
       }
 
