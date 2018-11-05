@@ -78,6 +78,70 @@ namespace AtleX.CommandLineArguments.Configuration
     }
 
     /// <summary>
+    /// Initializes a new instance of <see
+    /// cref="CommandLineArgumentsConfiguration"/> with the specified <see cref="IArgumentValidator"/>
+    /// </summary>
+    /// <param name="argumentValidator">
+    /// The <see cref="IArgumentValidator"/> to use in addition to the built-in validators
+    /// </param>
+    public CommandLineArgumentsConfiguration(IArgumentValidator argumentValidator)
+      : this()
+    {
+      _ = argumentValidator ?? throw new ArgumentNullException(nameof(argumentValidator));
+
+      this._validators.Add(argumentValidator);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of <see
+    /// cref="CommandLineArgumentsConfiguration"/> with the specified <see
+    /// cref="IEnumerable{T}"/> of <see cref="IArgumentValidator"/>
+    /// </summary>
+    /// <param name="argumentValidators">
+    /// The <see cref="IEnumerable{T}"/> of <see cref="IArgumentValidator"/> to
+    /// use in addition to the built-in validators
+    /// </param>
+    public CommandLineArgumentsConfiguration(IEnumerable<IArgumentValidator> argumentValidators)
+      : this()
+    {
+      _ = argumentValidators ?? throw new ArgumentNullException(nameof(argumentValidators));
+
+      this._validators.AddRange(argumentValidators);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of <see
+    /// cref="CommandLineArgumentsConfiguration"/> with the specified <see cref="ITypeParser"/>
+    /// </summary>
+    /// <param name="typeParser">
+    /// The <see cref="ITypeParser"/> to use in addition to the built-in validators
+    /// </param>
+    public CommandLineArgumentsConfiguration(ITypeParser typeParser)
+      : this()
+    {
+      _ = typeParser ?? throw new ArgumentNullException(nameof(typeParser));
+
+      this._typeParsers.Add(typeParser);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of <see
+    /// cref="CommandLineArgumentsConfiguration"/> with the specified <see
+    /// cref="IEnumerable{T}"/> of <see cref="ITypeParser"/>
+    /// </summary>
+    /// <param name="typeParsers">
+    /// The <see cref="IEnumerable{T}"/> of <see cref="ITypeParser"/> to
+    /// use in addition to the built-in validators
+    /// </param>
+    public CommandLineArgumentsConfiguration(IEnumerable<ITypeParser> typeParsers)
+      : this()
+    {
+      _ = typeParsers ?? throw new ArgumentNullException(nameof(typeParsers));
+
+      this._typeParsers.AddRange(typeParsers);
+    }
+
+    /// <summary>
     /// Add the specified <see cref="IArgumentValidator"/> to the validators to
     /// use for validating the commandline arguments
     /// </summary>
