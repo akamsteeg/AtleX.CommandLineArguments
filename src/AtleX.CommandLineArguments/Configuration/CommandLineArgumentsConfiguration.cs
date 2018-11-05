@@ -25,10 +25,10 @@ namespace AtleX.CommandLineArguments.Configuration
     }
 
     /// <summary>
-    /// Gets the <see cref="IEnumerable{T}"/> of <see cref="TypeParser"/> to
+    /// Gets the <see cref="IEnumerable{T}"/> of <see cref="ITypeParser"/> to
     /// parse the command line arguments with
     /// </summary>
-    public IEnumerable<TypeParser> TypeParsers
+    public IEnumerable<ITypeParser> TypeParsers
     {
       get
       {
@@ -62,10 +62,10 @@ namespace AtleX.CommandLineArguments.Configuration
     private readonly List<ArgumentValidator> _validators;
 
     /// <summary>
-    /// Gets the <see cref="List{T}"/> of <see cref="TypeParser"/> to
+    /// Gets the <see cref="List{T}"/> of <see cref="ITypeParser"/> to
     /// parse the command line arguments with
     /// </summary>
-    private readonly List<TypeParser> _typeParsers;
+    private readonly List<ITypeParser> _typeParsers;
 
     /// <summary>
     /// Initializes a new instance of <see cref="CommandLineArgumentsConfiguration"/>
@@ -92,13 +92,13 @@ namespace AtleX.CommandLineArguments.Configuration
     }
 
     /// <summary>
-    /// Add the specified <see cref="TypeParser"/> to the type parsers to
+    /// Add the specified <see cref="ITypeParser"/> to the type parsers to
     /// use for parsing the commandline arguments
     /// </summary>
     /// <param name="typeParser">
     /// The <see cref="TypeParser"/> to add
     /// </param>
-    public void Add(TypeParser typeParser)
+    public void Add(ITypeParser typeParser)
     {
       _ = typeParser ?? throw new ArgumentNullException(nameof(typeParser));
 
@@ -127,7 +127,7 @@ namespace AtleX.CommandLineArguments.Configuration
     /// <returns>
     /// A <see cref="List{T}"/> with an instance of all built-in type parsers
     /// </returns>
-    private static List<TypeParser> CreateBuiltInTypeParsers()
+    private static List<ITypeParser> CreateBuiltInTypeParsers()
     {
       /*
        * PERF
@@ -137,7 +137,7 @@ namespace AtleX.CommandLineArguments.Configuration
        * set the initial capacity to the next larger power of two that's larger 
        * than or equal to the number of built-in type parsers we add
        */
-      var result = new List<TypeParser>(16)
+      var result = new List<ITypeParser>(16)
       {
         /*
         This is ordered by most likely type parsers first so searching

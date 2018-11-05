@@ -5,27 +5,12 @@ namespace AtleX.CommandLineArguments.Parsers.TypeParsers
   /// <summary>
   /// Represents a type parser for custom types
   /// </summary>
-  public abstract class TypeParser
-    : ITypeParser
+  public interface ITypeParser
   {
     /// <summary>
-    /// Gets the <see cref="Type"/> this <see cref="TypeParser{T}"/> handles
+    /// Gets the <see cref="Type"/> this <see cref="ITypeParser"/> handles
     /// </summary>
-    public Type Type
-    {
-      get;
-    }
-
-    /// <summary>
-    /// Initializes a new instance of <see cref="TypeParser"/>
-    /// </summary>
-    /// <param name="type">
-    /// The type this <see cref="TypeParser"/> handles
-    /// </param>
-    public TypeParser(Type type)
-    {
-      this.Type = type ?? throw new ArgumentNullException(nameof(type));
-    }
+    Type Type { get; }
 
     /// <summary>
     /// Tries to parse the specified value to the specified parse result
@@ -39,6 +24,6 @@ namespace AtleX.CommandLineArguments.Parsers.TypeParsers
     /// <returns>
     /// True if value was converted successfully; otherwise, false
     /// </returns>
-    public abstract bool TryParse(string value, out object parseResult);
+    bool TryParse(string value, out object parseResult);
   }
 }

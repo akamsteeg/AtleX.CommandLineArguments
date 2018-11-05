@@ -34,12 +34,12 @@ namespace AtleX.CommandLineArguments.Parsers
     /// The <see cref="IEnumerable{T}"/> of <see cref="ArgumentValidator"/> to validate the arguments with
     /// </param>
     /// <param name="typeParsers">
-    /// The <see cref="IEnumerable{T}"/> of <see cref="TypeParser"/> to parse the argument values with
+    /// The <see cref="IEnumerable{T}"/> of <see cref="ITypeParser"/> to parse the argument values with
     /// </param>
     /// <returns>
     /// The <see cref="ParseResult{T}"/>
     /// </returns>
-    public ParseResult<T> Parse<T>(string[] arguments, IEnumerable<ArgumentValidator> validators, IEnumerable<TypeParser> typeParsers)
+    public ParseResult<T> Parse<T>(string[] arguments, IEnumerable<ArgumentValidator> validators, IEnumerable<ITypeParser> typeParsers)
       where T : Arguments, new()
     {
       _ = arguments ?? throw new ArgumentNullException(nameof(arguments));
