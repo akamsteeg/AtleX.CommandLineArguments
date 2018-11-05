@@ -13,10 +13,10 @@ namespace AtleX.CommandLineArguments.Configuration
   public class CommandLineArgumentsConfiguration
   {
     /// <summary>
-    /// Gets the <see cref="IEnumerable{T}"/> of <see cref="ArgumentValidator"/>
+    /// Gets the <see cref="IEnumerable{T}"/> of <see cref="IArgumentValidator"/>
     /// to validate the command line arguments with
     /// </summary>
-    public IEnumerable<ArgumentValidator> Validators
+    public IEnumerable<IArgumentValidator> Validators
     {
       get
       {
@@ -56,10 +56,10 @@ namespace AtleX.CommandLineArguments.Configuration
     }
 
     /// <summary>
-    /// Gets the <see cref="List{T}"/> of <see cref="ArgumentValidator"/> to
+    /// Gets the <see cref="List{T}"/> of <see cref="IArgumentValidator"/> to
     /// validate the command line arguments with
     /// </summary>
-    private readonly List<ArgumentValidator> _validators;
+    private readonly List<IArgumentValidator> _validators;
 
     /// <summary>
     /// Gets the <see cref="List{T}"/> of <see cref="ITypeParser"/> to
@@ -78,13 +78,13 @@ namespace AtleX.CommandLineArguments.Configuration
     }
 
     /// <summary>
-    /// Add the specified <see cref="ArgumentValidator"/> to the validators to
+    /// Add the specified <see cref="IArgumentValidator"/> to the validators to
     /// use for validating the commandline arguments
     /// </summary>
     /// <param name="validator">
-    /// The <see cref="ArgumentValidator"/> to add
+    /// The <see cref="IArgumentValidator"/> to add
     /// </param>
-    public void Add(ArgumentValidator validator)
+    public void Add(IArgumentValidator validator)
     {
       _ = validator ?? throw new ArgumentNullException(nameof(validator));
 
@@ -111,9 +111,9 @@ namespace AtleX.CommandLineArguments.Configuration
     /// <returns>
     /// A <see cref="List{T}"/> with an instance of all built-in type validators
     /// </returns>
-    private static List<ArgumentValidator> CreateBuiltInValidators()
+    private static List<IArgumentValidator> CreateBuiltInValidators()
     {
-      var result = new List<ArgumentValidator>()
+      var result = new List<IArgumentValidator>()
       {
           new RequiredArgumentValidator(),
       };

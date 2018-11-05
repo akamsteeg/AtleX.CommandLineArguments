@@ -31,7 +31,7 @@ namespace AtleX.CommandLineArguments.Parsers
     /// The arguments to parse
     /// </param>
     /// <param name="validators">
-    /// The <see cref="IEnumerable{T}"/> of <see cref="ArgumentValidator"/> to validate the arguments with
+    /// The <see cref="IEnumerable{T}"/> of <see cref="IArgumentValidator"/> to validate the arguments with
     /// </param>
     /// <param name="typeParsers">
     /// The <see cref="IEnumerable{T}"/> of <see cref="ITypeParser"/> to parse the argument values with
@@ -39,7 +39,7 @@ namespace AtleX.CommandLineArguments.Parsers
     /// <returns>
     /// The <see cref="ParseResult{T}"/>
     /// </returns>
-    public ParseResult<T> Parse<T>(string[] arguments, IEnumerable<ArgumentValidator> validators, IEnumerable<ITypeParser> typeParsers)
+    public ParseResult<T> Parse<T>(string[] arguments, IEnumerable<IArgumentValidator> validators, IEnumerable<ITypeParser> typeParsers)
       where T : Arguments, new()
     {
       _ = arguments ?? throw new ArgumentNullException(nameof(arguments));

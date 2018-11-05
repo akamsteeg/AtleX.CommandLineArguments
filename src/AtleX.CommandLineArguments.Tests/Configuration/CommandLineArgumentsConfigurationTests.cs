@@ -13,7 +13,7 @@ namespace AtleX.CommandLineArguments.Tests.Configuration
     {
       var config = new CommandLineArgumentsConfiguration();
 
-      Assert.Throws<ArgumentNullException>(() => config.Add((TypeParser)null));
+      Assert.Throws<ArgumentNullException>(() => config.Add((ITypeParser)null));
     }
 
     [Fact]
@@ -21,7 +21,7 @@ namespace AtleX.CommandLineArguments.Tests.Configuration
     {
       var config = new CommandLineArgumentsConfiguration();
 
-      Assert.Throws<ArgumentNullException>(() => config.Add((ArgumentValidator)null));
+      Assert.Throws<ArgumentNullException>(() => config.Add((IArgumentValidator)null));
     }
   }
 }
