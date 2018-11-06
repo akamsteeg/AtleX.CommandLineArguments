@@ -170,6 +170,34 @@ namespace AtleX.CommandLineArguments.Configuration
     }
 
     /// <summary>
+    /// Add the specified <see cref="IEnumerable{T}"/> of <see cref="IArgumentValidator"/> to the validators to
+    /// use for validating the commandline arguments
+    /// </summary>
+    /// <param name="validators">
+    /// The <see cref="IEnumerable{T}"/> of <see cref="IArgumentValidator"/> to add
+    /// </param>
+    public void AddRange(IEnumerable<IArgumentValidator> validators)
+    {
+      _ = validators ?? throw new ArgumentNullException(nameof(validators));
+
+      this._validators.AddRange(validators);
+    }
+
+    /// <summary>
+    /// Add the specified <see cref="IEnumerable{T}"/> of <see cref="ITypeParser"/> to the validators to
+    /// use for parsing the commandline arguments
+    /// </summary>
+    /// <param name="typeParsers">
+    /// The <see cref="IEnumerable{T}"/> of <see cref="ITypeParser"/> to add
+    /// </param>
+    public void AddRange(IEnumerable<ITypeParser> typeParsers)
+    {
+      _ = typeParsers ?? throw new ArgumentNullException(nameof(typeParsers));
+
+      this._typeParsers.AddRange(typeParsers);
+    }
+
+    /// <summary>
     /// Create a <see cref="List{T}"/> with an instance of all built-in type validators
     /// </summary>
     /// <returns>
