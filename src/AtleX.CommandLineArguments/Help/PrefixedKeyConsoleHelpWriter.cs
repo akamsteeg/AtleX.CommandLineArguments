@@ -5,7 +5,7 @@ namespace AtleX.CommandLineArguments.Help
   /// <summary>
   /// Represents a <see cref="ConsoleHelpWriter"/> for key value pairs with the key indicated by a certain prefix string
   /// </summary>
-  public abstract class PrefixedKeyConsoleHelpWriter
+  public class PrefixedKeyConsoleHelpWriter
     : ConsoleHelpWriter
   {
     /// <summary>
