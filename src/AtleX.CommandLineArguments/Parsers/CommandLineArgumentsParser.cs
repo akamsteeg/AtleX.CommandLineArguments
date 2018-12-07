@@ -39,7 +39,7 @@ namespace AtleX.CommandLineArguments.Parsers
     /// <returns>
     /// The <see cref="ParseResult{T}"/>
     /// </returns>
-    public ParseResult<T> Parse<T>(string[] arguments, IEnumerable<IArgumentValidator> validators, IEnumerable<ITypeParser> typeParsers)
+    public virtual ParseResult<T> Parse<T>(string[] arguments, IEnumerable<IArgumentValidator> validators, IEnumerable<ITypeParser> typeParsers)
       where T : Arguments, new()
     {
       _ = arguments ?? throw new ArgumentNullException(nameof(arguments));
