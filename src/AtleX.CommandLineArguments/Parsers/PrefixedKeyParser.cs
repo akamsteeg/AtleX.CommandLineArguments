@@ -5,7 +5,7 @@ namespace AtleX.CommandLineArguments.Parsers
   /// <summary>
   /// Represents a <see cref="ICommandLineArgumentsParser"/> for key value pairs with the key indicated by a certain prefix string
   /// </summary>
-  public abstract class PrefixedKeyParser
+  public class PrefixedKeyParser
     : CommandLineArgumentsParser
   {
     /// <summary>
@@ -88,6 +88,29 @@ namespace AtleX.CommandLineArguments.Parsers
             break; // We found everything we need
           }
         }
+      }
+
+      return result;
+    }
+
+    /// <summary>
+    /// Gets whether the specified command line arguments contain a Help argument or not
+    /// </summary>
+    /// <param name="allCommandLineArguments">
+    /// The collection of all command line arguments
+    /// </param>
+    /// <returns>
+    /// True when the collection of command line arguments contains a Help argument, false otherwise
+    /// </returns>
+    protected override bool ContainsHelpArgument(string[] allCommandLineArguments)
+    {
+      var completeHelpArgument = this._keyPrefix + "help";
+
+      var result = false;
+
+      for (var i = 0; i < allCommandLineArguments.Length && !result; i++)
+      {
+        result = (allCommandLineArguments[i] == completeHelpArgument);
       }
 
       return result;
