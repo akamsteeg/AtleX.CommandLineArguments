@@ -4,8 +4,8 @@ AtleX.CommandLineArguments is a helper library to facilitate parsing command lin
 and customisable validators and the library can automatically generate help for the user.
 
 Supported .NET frameworks:
-* .NET 4.5
-* NETSTANDARD 1.5
+* .NET 4.6.1
+* NETSTANDARD 2.0
 
 # Installation
 

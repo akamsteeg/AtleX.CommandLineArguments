@@ -15,9 +15,7 @@
     <Company />
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     
-    <Version>2.1.0</Version>
-    <AssemblyVersion>2.1.0.0</AssemblyVersion>
-    <FileVersion>2.1.0.0</FileVersion>
+    <Version>3.0.0</Version>
     
     <RepositoryUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments.git</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -25,7 +23,20 @@
     
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <PackageTags>cli commandline command line arguments argument parser</PackageTags>
-    <PackageReleaseNotes>
+    <PackageReleaseNotes>      
+      3.0.0:
+      - [Breaking] Moved from .NET Standard 1.5 &amp; .NET 4.5 to .NET Standard 2.0 &amp; .NET 4.6.1 (#38 and #59)
+      - [Feature] PrefixedKeyConsoleHelpWriter is no longer marked as abstract (#45)
+      - [Feature] Added IArgumentValidator interface (#49)
+      - [Feature] Added ITypeParser interface (#50)
+      - [Feature] Added constructor overrides to CommandLineArgumentConfiguration to accept custom ITypeParser and/or IArgumentValidator arguments (#52)
+      - [Feature] Added .AddRange() methods for ITypeParser and IArgumentValidator to CommandLineArgumentsConfiguration (#53)
+      - [Feature] PrefixedKeyParser  is no longer marked as abstract (#54)
+      - [Feature] Marked Parse&lt;T&gt;() methods in built-in abstract parser classes as virtual (#55)
+      - [Feature] Updated the System.ComponentModel.Annotations dependency to 4.5.0 (#57)
+      - [Feature] General code quality and performance improvements (#48, #51)
+      - [Fix] ParseResult.IsValid is no longer re-evaluated for each call (#58)
+      
       2.1.0:
       - Enabled SourceLink for a better debugging experience (#40)
       - General code quality improvements (#41, #42)
