@@ -37,12 +37,7 @@ namespace AtleX.CommandLineArguments.Parsers
     /// </summary>
     public bool IsValid
     {
-      get
-      {
-        var result = !ValidationErrors.Any();
-
-        return result;
-      }
+      get;
     }
 
     /// <summary>
@@ -60,6 +55,7 @@ namespace AtleX.CommandLineArguments.Parsers
     {
       this.CommandLineArguments = commandLineArguments ?? throw new ArgumentNullException(nameof(commandLineArguments));
       this.ValidationErrors = validationErrors ?? throw new ArgumentNullException(nameof(validationErrors));
+      this.IsValid = !validationErrors.Any();
     }
   }
 }

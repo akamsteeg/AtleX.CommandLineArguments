@@ -7,6 +7,7 @@ namespace AtleX.CommandLineArguments.Validators
   /// Represents a validator for command line arguments
   /// </summary>
   public abstract class ArgumentValidator
+    : IArgumentValidator
   {
     /// <summary>
     /// Gets the name of the current <see cref="ArgumentValidator"/>

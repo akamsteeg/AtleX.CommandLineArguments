@@ -1,21 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.5;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
     <LangVersion>7.2</LangVersion>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <DocumentationFile>docs\AtleX.CommandLineArguments.xml</DocumentationFile>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <Authors>Alex Kamsteeg (https://atlex.nl/)</Authors>
-    <Company />
+    
     <PackageProjectUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments</PackageProjectUrl>
     <Description>AtleX.CommandLineArguments is a helper library to facilitate parsing command line arguments into a strongly-typed object. Values can be validated with extensible and customisable validators and the library can automatically generate help for the user.</Description>
-    <Copyright>© Alex Kamsteeg</Copyright>
-    <PackageLicenseUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments/blob/master/LICENSE</PackageLicenseUrl>
     
-    <Version>2.1.0</Version>
-    <AssemblyVersion>2.1.0.0</AssemblyVersion>
-    <FileVersion>2.1.0.0</FileVersion>
+    <Copyright>© Alex Kamsteeg</Copyright>
+    <Authors>Alex Kamsteeg (https://atlex.nl/)</Authors>
+    <Company />
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    
+    <Version>3.0.0</Version>
     
     <RepositoryUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments.git</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -23,7 +23,20 @@
     
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <PackageTags>cli commandline command line arguments argument parser</PackageTags>
-    <PackageReleaseNotes>
+    <PackageReleaseNotes>      
+      3.0.0:
+      - [Breaking] Moved from .NET Standard 1.5 &amp; .NET 4.5 to .NET Standard 2.0 &amp; .NET 4.6.1 (#38 and #59)
+      - [Feature] PrefixedKeyConsoleHelpWriter is no longer marked as abstract (#45)
+      - [Feature] Added IArgumentValidator interface (#49)
+      - [Feature] Added ITypeParser interface (#50)
+      - [Feature] Added constructor overrides to CommandLineArgumentConfiguration to accept custom ITypeParser and/or IArgumentValidator arguments (#52)
+      - [Feature] Added .AddRange() methods for ITypeParser and IArgumentValidator to CommandLineArgumentsConfiguration (#53)
+      - [Feature] PrefixedKeyParser  is no longer marked as abstract (#54)
+      - [Feature] Marked Parse&lt;T&gt;() methods in built-in abstract parser classes as virtual (#55)
+      - [Feature] Updated the System.ComponentModel.Annotations dependency to 4.5.0 (#57)
+      - [Feature] General code quality and performance improvements (#48, #51)
+      - [Fix] ParseResult.IsValid is no longer re-evaluated for each call (#58)
+      
       2.1.0:
       - Enabled SourceLink for a better debugging experience (#40)
       - General code quality improvements (#41, #42)
@@ -45,16 +58,16 @@
     </PackageReleaseNotes>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.5'">
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19367-01" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>

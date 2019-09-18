@@ -9,7 +9,7 @@ namespace AtleX.CommandLineArguments.Tests.Mocks
   public sealed class MockParser
     : ICommandLineArgumentsParser
   {
-    public ParseResult<T> Parse<T>(string[] arguments, IEnumerable<ArgumentValidator> validators, IEnumerable<TypeParser> typeParsers) where T : Arguments, new()
+    public ParseResult<T> Parse<T>(string[] arguments, IEnumerable<IArgumentValidator> validators, IEnumerable<ITypeParser> typeParsers) where T : Arguments, new()
     {
       throw new NotImplementedException();
     }

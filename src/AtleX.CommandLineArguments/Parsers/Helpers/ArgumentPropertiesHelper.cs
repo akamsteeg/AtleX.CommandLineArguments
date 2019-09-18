@@ -27,11 +27,11 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// The value of the property to set
     /// </param>
     /// <param name="typeParsers">
-    /// The <see cref="IEnumerable{T}"/> of <see cref="TypeParser"/> to parse the
+    /// The <see cref="IEnumerable{T}"/> of <see cref="ITypeParser"/> to parse the
     /// argument values with
     /// </param>
-    public static void FillProperty<T>(T arguments, PropertyInfo propertyInfo, string propertyValue, IEnumerable<TypeParser> typeParsers)
-      where T: Arguments
+    public static void FillProperty<T>(T arguments, PropertyInfo propertyInfo, string propertyValue, IEnumerable<ITypeParser> typeParsers)
+      where T : Arguments
     {
       _ = arguments ?? throw new ArgumentNullException(nameof(arguments));
       _ = propertyInfo ?? throw new ArgumentNullException(nameof(propertyInfo));
@@ -66,7 +66,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// True when the property value could be set, false otherwise
     /// </returns>
     private static bool TryFillEnum<T>(T arguments, PropertyInfo property, string value)
-      where T: Arguments
+      where T : Arguments
     {
       var result = false;
 
@@ -99,28 +99,51 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// The value to set
     /// </param>
     /// <param name="typeParsers">
-    /// The <see cref="IEnumerable{T}"/> of <see cref="TypeParser"/> to parse the
+    /// The <see cref="IEnumerable{T}"/> of <see cref="ITypeParser"/> to parse the
     /// argument values with
     /// </param>
     /// <returns>
     /// True when the property value could be set, false otherwise
     /// </returns>
-    private static bool TryFillCustomType<T>(T arguments, PropertyInfo property, string value, IEnumerable<TypeParser> typeParsers)
-      where T: Arguments
+    private static bool TryFillCustomType<T>(T arguments, PropertyInfo property, string value, IEnumerable<ITypeParser> typeParsers)
+      where T : Arguments
     {
       var result = false;
+      var typeParser = GetTypeParser(property.PropertyType, typeParsers);
 
+      if (typeParser != null && typeParser.TryParse(value, out var parseResult))
+      {
+        result = true;
+        property.SetValue(arguments, parseResult);
+      }
+
+      return result;
+    }
+
+    /// <summary>
+    /// Get the <see cref="ITypeParser"/> for the specified <see cref="Type"/> in
+    /// the specified <see cref="IEnumerable{T}"/> of <see cref="ITypeParser"/>
+    /// </summary>
+    /// <param name="type">
+    /// The <see cref="Type"/> to get the <see cref="ITypeParser"/> for
+    /// </param>
+    /// <param name="typeParsers">
+    /// The <see cref="IEnumerable{T}"/> of <see cref="ITypeParser"/> to find the
+    /// parser for the specified <see cref="Type"/> in
+    /// </param>
+    /// <returns>
+    /// The <see cref="ITypeParser"/> for the specified <see cref="Type"/>; null
+    /// if no parser is available
+    /// </returns>
+    private static ITypeParser GetTypeParser(Type type, IEnumerable<ITypeParser> typeParsers)
+    {
+      ITypeParser result = null;
       foreach (var currentTypeParser in typeParsers)
       {
-        if (currentTypeParser.Type == property.PropertyType)
+        if (currentTypeParser.Type == type)
         {
-          result = currentTypeParser.TryParse(value, out var parseResult);
-
-          if (result)
-          {
-            property.SetValue(arguments, parseResult);
-            break;
-          }
+          result = currentTypeParser;
+          break;
         }
       }
 

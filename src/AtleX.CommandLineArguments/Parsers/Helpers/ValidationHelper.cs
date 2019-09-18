@@ -15,7 +15,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// Try validating the argument with all argument validators
     /// </summary>
     /// <param name="argumentValidators">
-    /// The <see cref="IEnumerable{T}"/> of <see cref="ArgumentValidator"/> to
+    /// The <see cref="IEnumerable{T}"/> of <see cref="IArgumentValidator"/> to
     /// validate with
     /// </param>
     /// <param name="parsedPropertyToValidate">
@@ -35,7 +35,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// <returns>
     /// True when the argument is valid, false otherwise
     /// </returns>
-    public static bool TryValidate(IEnumerable<ArgumentValidator> argumentValidators,
+    public static bool TryValidate(IEnumerable<IArgumentValidator> argumentValidators,
       PropertyInfo parsedPropertyToValidate,
       bool isSpecified,
       string originalValue,
