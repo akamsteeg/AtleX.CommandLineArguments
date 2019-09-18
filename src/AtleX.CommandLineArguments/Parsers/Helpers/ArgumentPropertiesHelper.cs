@@ -31,7 +31,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// argument values with
     /// </param>
     public static void FillProperty<T>(T arguments, PropertyInfo propertyInfo, string propertyValue, IEnumerable<ITypeParser> typeParsers)
-      where T: Arguments
+      where T : Arguments
     {
       _ = arguments ?? throw new ArgumentNullException(nameof(arguments));
       _ = propertyInfo ?? throw new ArgumentNullException(nameof(propertyInfo));
@@ -66,7 +66,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// True when the property value could be set, false otherwise
     /// </returns>
     private static bool TryFillEnum<T>(T arguments, PropertyInfo property, string value)
-      where T: Arguments
+      where T : Arguments
     {
       var result = false;
 
@@ -106,7 +106,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
     /// True when the property value could be set, false otherwise
     /// </returns>
     private static bool TryFillCustomType<T>(T arguments, PropertyInfo property, string value, IEnumerable<ITypeParser> typeParsers)
-      where T: Arguments
+      where T : Arguments
     {
       var result = false;
       var typeParser = GetTypeParser(property.PropertyType, typeParsers);
@@ -117,7 +117,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
         property.SetValue(arguments, parseResult);
       }
 
-        return result;
+      return result;
     }
 
     /// <summary>
