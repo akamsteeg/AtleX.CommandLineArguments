@@ -74,7 +74,7 @@ namespace AtleX.CommandLineArguments.Parsers.Helpers
 
       if (result = enumType.GetTypeInfo().IsEnumDefined(value) == true)
       {
-        var propertyValue = Enum.Parse(enumType, value, true);
+        var propertyValue = Enum.Parse(enumType, value, ignoreCase: true);
 
         property.SetValue(arguments, propertyValue);
       }
