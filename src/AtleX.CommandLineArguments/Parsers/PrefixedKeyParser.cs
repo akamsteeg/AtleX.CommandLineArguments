@@ -59,7 +59,7 @@ namespace AtleX.CommandLineArguments.Parsers
       for (var i = 0; i < allCommandLineArguments.Length; i++)
       {
         var currentItem = allCommandLineArguments[i];
-        if (ArgumentIsKey(currentItem))
+        if (this.ArgumentIsKey(currentItem))
         {
           key = currentItem.Substring(this._keyPrefixLength);
 
@@ -69,7 +69,7 @@ namespace AtleX.CommandLineArguments.Parsers
             if (i + 1 != allCommandLineArguments.Length)
             {
               var possibleValue = allCommandLineArguments[i + 1];
-              if (!ArgumentIsKey(possibleValue))
+              if (!this.ArgumentIsKey(possibleValue))
               {
                 value = possibleValue;
                 i++;
