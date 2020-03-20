@@ -40,8 +40,9 @@ namespace AtleX.CommandLineArguments.Benchmarks
 
       config.Add(MemoryDiagnoser.Default);
 
-      config.Add(Job.Default.With(CsProjCoreToolchain.NetCoreApp21).AsBaseline());
-      config.Add(Job.Default.With(CsProjCoreToolchain.NetCoreApp30));
+
+      config.Add(Job.Default.With(CsProjCoreToolchain.NetCoreApp31).AsBaseline());
+      config.Add(Job.Default.With(CsProjCoreToolchain.NetCoreApp21));
       config.Add(Job.Default.With(CsProjClassicNetToolchain.Net472));
 
       return config;
