@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using AtleX.CommandLineArguments.Help;
 using AtleX.CommandLineArguments.Parsers;
 
@@ -18,11 +17,9 @@ namespace AtleX.CommandLineArguments.Configuration
     /// </summary>
     public AutoDetectConfiguration()
     {
-#if NETSTANDARD1_5
-      if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-#else
-      if (Environment.OSVersion.Platform != PlatformID.Unix && Environment.OSVersion.Platform != PlatformID.MacOSX)
-#endif
+      var currentPlatform = Environment.OSVersion.Platform;
+
+      if (currentPlatform != PlatformID.Unix && currentPlatform != PlatformID.MacOSX)
       {
         this.Parser = new WindowsStyleParser();
         this.HelpWriter = new WindowsStyleHelpWriter();
