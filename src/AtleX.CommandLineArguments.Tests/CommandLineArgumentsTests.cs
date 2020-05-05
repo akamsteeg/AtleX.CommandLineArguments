@@ -55,5 +55,51 @@ namespace AtleX.CommandLineArguments.Tests
 
       CommandLineArguments.Configuration = oldConfig; // The beauty of static, we need to restore the configuration
     }
+
+    [Fact]
+    public void ParserConfigurationProperty_SetToNullBeforeTryParse_ThrowsInvalidOperationException()
+    {
+      var oldConfig = CommandLineArguments.Configuration;
+
+      var config = new CommandLineArgumentsConfiguration()
+      {
+        Parser = new MockParser(),
+        HelpWriter = new MockHelpWriter()
+      };
+
+      CommandLineArguments.Configuration = config;
+
+      config.Parser = null;
+
+      Assert.Throws<InvalidOperationException>(() => CommandLineArguments.TryParse<TestArguments>(new string[0], out _));
+
+      CommandLineArguments.Configuration = oldConfig; // The beauty of static, we need to restore the configuration
+    }
+
+    [Fact]
+    public void HelpWriterConfigurationProperty_SetToNullBeforeTryParse_ThrowsInvalidOperationException()
+    {
+      var oldConfig = CommandLineArguments.Configuration;
+
+      var config = new CommandLineArgumentsConfiguration()
+      {
+        Parser = new MockParser(),
+        HelpWriter = new MockHelpWriter()
+      };
+
+      CommandLineArguments.Configuration = config;
+
+      config.HelpWriter = null;
+
+      Assert.Throws<InvalidOperationException>(() => CommandLineArguments.DisplayHelp(new TestArguments()));
+
+      CommandLineArguments.Configuration = oldConfig; // The beauty of static, we need to restore the configuration
+    }
+
+    [Fact]
+    public void DisplayHelp_WithNullArgumentsObject_ThrowsArgumentNullException()
+    {
+      Assert.Throws<ArgumentNullException>(() => CommandLineArguments.DisplayHelp((TestArguments)null));
+    }
   }
 }

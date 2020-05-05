@@ -54,7 +54,9 @@ namespace AtleX.CommandLineArguments
     public static bool TryParse<T>(string[] arguments, out T argumentsObject)
       where T : Arguments, new()
     {
-      return TryParse(arguments, out argumentsObject, out _);
+      var result = TryParseInternal(arguments, out argumentsObject, out _);
+
+      return result;
     }
 
     /// <summary>
@@ -79,13 +81,7 @@ namespace AtleX.CommandLineArguments
     public static bool TryParse<T>(string[] arguments, out T argumentsObject, out IEnumerable<ValidationError> validationResults)
       where T : Arguments, new()
     {
-      _ = arguments ?? throw new ArgumentNullException(nameof(arguments));
-
-      var parseResult = Configuration.Parser.Parse<T>(arguments, Configuration.Validators, Configuration.TypeParsers);
-
-      var result = parseResult.IsValid;
-      argumentsObject = parseResult.CommandLineArguments;
-      validationResults = parseResult.ValidationErrors;
+      var result = TryParseInternal(arguments, out argumentsObject, out validationResults);
 
       return result;
     }
@@ -102,7 +98,44 @@ namespace AtleX.CommandLineArguments
     public static void DisplayHelp<T>(T argumentsObject)
       where T : Arguments, new()
     {
+      _ = argumentsObject ?? throw new ArgumentNullException(nameof(argumentsObject));
+      ValidateConfiguration(Configuration);
+
       Configuration.HelpWriter.Write(argumentsObject);
+    }
+
+    /// <summary>
+    /// Parse the specified arguments to the specified type
+    /// </summary>
+    /// <typeparam name="T">
+    /// The type of <see cref="Arguments"/> to parse to
+    /// </typeparam>
+    /// <param name="arguments">
+    /// The arguments to parse
+    /// </param>
+    /// <param name="argumentsObject">
+    /// The <see cref="Arguments"/> object to parse to
+    /// </param>
+    /// <param name="validationResults">
+    /// The <see cref="IEnumerable{T}"/> of <see cref="ValidationError"/> as the
+    /// result of the validation
+    /// </param>
+    /// <returns>
+    /// True when parsing and validation succeeded, false otherwise
+    /// </returns>
+    public static bool TryParseInternal<T>(string[] arguments, out T argumentsObject, out IEnumerable<ValidationError> validationResults)
+      where T : Arguments, new()
+    {
+      _ = arguments ?? throw new ArgumentNullException(nameof(arguments));
+      ValidateConfiguration(Configuration);
+
+      var parseResult = Configuration.Parser.Parse<T>(arguments, Configuration.Validators, Configuration.TypeParsers);
+
+      var result = parseResult.IsValid;
+      argumentsObject = parseResult.CommandLineArguments;
+      validationResults = parseResult.ValidationErrors;
+
+      return result;
     }
 
     /// <summary>
