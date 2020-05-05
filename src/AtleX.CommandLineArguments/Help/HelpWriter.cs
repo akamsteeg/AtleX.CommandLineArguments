@@ -56,7 +56,7 @@ namespace AtleX.CommandLineArguments.Help
 
       foreach (var currentProperty in allProperties)
       {
-        var exactUsageName = GetExactCommandlineNameOfArgument(currentProperty.Name);
+        var exactUsageName = this.GetExactCommandlineNameOfArgument(currentProperty.Name);
 
         var description = GetDisplayDescription(currentProperty);
         var isRequired = IsRequiredArgument(currentProperty);
