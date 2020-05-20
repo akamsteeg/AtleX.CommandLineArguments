@@ -53,40 +53,39 @@ namespace AtleX.CommandLineArguments.Parsers
     protected override bool TryFindRawArgumentValue(string[] allCommandLineArguments, string argumentToFind, out string value)
     {
       var result = false;
-      string key;
       value = null;
+
+      var previousItemWasCorrectKey = false;
 
       for (var i = 0; i < allCommandLineArguments.Length; i++)
       {
         var currentItem = allCommandLineArguments[i];
-        if (this.ArgumentIsKey(currentItem))
+        var currentItemIsKey = currentItem.StartsWith(this._keyPrefix, StringComparison.OrdinalIgnoreCase);
+
+        // Previous key wasn't correct and current item is a key
+        if (!previousItemWasCorrectKey && currentItemIsKey)
         {
-          key = currentItem.Substring(this._keyPrefixLength);
+          var keyName = currentItem.Substring(this._keyPrefixLength);
 
-          if (string.Compare(key, argumentToFind, ignoreCase: true) == 0)
-          {
-            // Look ahead for the next argument, because they're separated by a space
-            if (i + 1 != allCommandLineArguments.Length)
-            {
-              var possibleValue = allCommandLineArguments[i + 1];
-              if (!this.ArgumentIsKey(possibleValue))
-              {
-                value = possibleValue;
-                i++;
-              }
-              else
-              {
-                value = null;
-              }
-            }
-            else
-            {
-              value = null;
-            }
+          previousItemWasCorrectKey = (string.Compare(argumentToFind, keyName, StringComparison.OrdinalIgnoreCase) == 0);
 
-            result = true;
-            break; // We found everything we need
-          }
+          result = previousItemWasCorrectKey;
+        }
+        // Current value is not a key (so it's a value) and the previous value was the correct key
+        else if (previousItemWasCorrectKey && !currentItemIsKey)
+        {
+          value = currentItem;
+          break;
+        }
+        //Previous value was the correct key, current one is a key too. So, empty value
+        else if (previousItemWasCorrectKey && currentItemIsKey)
+        {
+          value = null;
+          break;
+        }
+        else
+        {
+          previousItemWasCorrectKey = false;
         }
       }
 
@@ -112,22 +111,6 @@ namespace AtleX.CommandLineArguments.Parsers
       {
         result = (allCommandLineArguments[i] == completeHelpArgument);
       }
-
-      return result;
-    }
-
-    /// <summary>
-    /// Determines whether the specified argument is a key or not
-    /// </summary>
-    /// <param name="argument">
-    /// The parameter to verify
-    /// </param>
-    /// <returns>
-    /// True when the specified parameter is a key, false otherwise
-    /// </returns>
-    private bool ArgumentIsKey(string argument)
-    {
-      var result = argument.StartsWith(this._keyPrefix);
 
       return result;
     }
