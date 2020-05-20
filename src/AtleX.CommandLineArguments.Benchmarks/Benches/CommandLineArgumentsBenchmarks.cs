@@ -1,37 +1,43 @@
 ﻿using AtleX.CommandLineArguments.Configuration;
-using AtleX.CommandLineArguments.Help;
-using AtleX.CommandLineArguments.Parsers;
 using BenchmarkDotNet.Attributes;
+using System.Collections.Generic;
 
 namespace AtleX.CommandLineArguments.Benchmarks.Benches
 {
   public class CommandLineArgumentsBenchmarks
   {
-    private string[] _commandLineArguments;
-
-    [GlobalSetup]
-    public void GlobalSetup()
+    public static IEnumerable<CommandLineArgumentsBenchmarkConfiguration> Configurations
     {
-      this._commandLineArguments = ArgumentsFaker.GetWindowsStyleArguments();
+      get
+      {
+        yield return new CommandLineArgumentsBenchmarkConfiguration
+        {
+          Arguments = ArgumentsFaker.GetWindowsStyleArguments(),
+          Configuration = new WindowsStyleConfiguration(),
+        };
+
+        yield return new CommandLineArgumentsBenchmarkConfiguration
+        {
+          Arguments = ArgumentsFaker.GetLinuxStyleArguments(),
+          Configuration = new LinuxStyleConfiguration(),
+        };
+
+        yield return new CommandLineArgumentsBenchmarkConfiguration
+        {
+          Arguments = ArgumentsFaker.GetKeyValueStyleArguments(),
+          Configuration = new KeyValueStyleConfiguration(),
+        };
+      }
     }
 
     [Benchmark]
-    public bool CommandLineArgumentsTryParse_WindowsStyleConfiguration_SuccessFul()
+    [ArgumentsSource((nameof(Configurations)))]
+    public bool CommandLineArgumentsTryParse_SuccessFul(CommandLineArgumentsBenchmarkConfiguration configuration)
     {
-      CommandLineArguments.Configuration = new CommandLineArgumentsConfiguration()
-      {
-        HelpWriter = new WindowsStyleHelpWriter(),
-        Parser = new WindowsStyleParser(),
-      };
+      CommandLineArguments.Configuration = configuration.Configuration;
 
-      bool result = ParseCommandLineArguments();
+      var result = CommandLineArguments.TryParse(configuration.Arguments, out MockArguments parsedArguments);
 
-      return result;
-    }
-
-    private bool ParseCommandLineArguments()
-    {
-      var result = CommandLineArguments.TryParse(this._commandLineArguments, out MockArguments arguments);
       return result;
     }
   }
