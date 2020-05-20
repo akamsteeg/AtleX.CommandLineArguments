@@ -104,6 +104,8 @@ namespace AtleX.CommandLineArguments.Tests.Parsers
       Assert.Equal(PrimitiveTypeTestValues.Char, arguments.Char);
       Assert.Equal(PrimitiveTypeTestValues.String, arguments.String);
 
+      Assert.Equal(PrimitiveTypeTestValues.String, arguments.RequiredString);
+
       Assert.True(arguments.Toggle);
     }
 
