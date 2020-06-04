@@ -26,7 +26,7 @@ namespace AtleX.CommandLineArguments
         * We only need to create the AutoDetectConfiguration when no 
         * configuration is supplied yet by the user
         */
-        return _configuration ?? (_configuration = new AutoDetectConfiguration());
+        return _configuration ??= new AutoDetectConfiguration();
       }
       set
       {
