@@ -29,24 +29,13 @@ namespace AtleX.CommandLineArguments.Parsers
       var result = false;
       value = null;
 
-      string key;
-
       for (var i = 0; i < allCommandLineArguments.Length; i++)
       {
-        var argumentParts = allCommandLineArguments[i].Split('=');
+        var argumentParts = GetArgumentParts(allCommandLineArguments[i]);
 
-        key = argumentParts[0];
-
-        if (string.Compare(key, argumentToFind) == 0)
+        if (argumentParts.Key.Equals(argumentToFind, StringComparison.InvariantCultureIgnoreCase))
         {
-          if (argumentParts.Length == 2)
-          {
-            value = argumentParts[1];
-          }
-          else
-          {
-            value = null;
-          }
+          value = argumentParts.Value;
 
           result = true;
           break;
@@ -73,7 +62,7 @@ namespace AtleX.CommandLineArguments.Parsers
         var currentArgumentName = allCommandLineArguments[i];
 
         // Accept "?" and "help" as help arguments
-        if (currentArgumentName == "?" || currentArgumentName.Equals("help", StringComparison.OrdinalIgnoreCase))
+        if (currentArgumentName == "?" || currentArgumentName.Equals("help", StringComparison.InvariantCultureIgnoreCase))
         {
           result = true;
           break;
@@ -81,6 +70,23 @@ namespace AtleX.CommandLineArguments.Parsers
       }
 
       return result;
+    }
+
+    private static (string Key, string Value) GetArgumentParts(string argument)
+    {
+      var separatorPosition = argument.IndexOf('=');
+
+      var key = argument; // For empty arguments
+      string value = null;
+
+      if (separatorPosition != -1)
+      {
+        key = argument.Substring(0, separatorPosition);
+        value = argument.Substring(separatorPosition + 1);
+      }
+
+      return (key, value);
+
     }
   }
 }
