@@ -21,6 +21,7 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <PackageTags>cli commandline command line arguments argument parser</PackageTags>
@@ -88,6 +89,7 @@
   <PropertyGroup Condition="'$(TF_BUILD)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <Deterministic>true</Deterministic>
+    
   </PropertyGroup>
 
 </Project>
