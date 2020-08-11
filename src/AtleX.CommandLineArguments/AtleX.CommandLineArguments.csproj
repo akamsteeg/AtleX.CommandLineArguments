@@ -15,7 +15,7 @@
     <Company />
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     
-    <Version>3.0.0</Version>
+    <Version>3.1.0</Version>
     
     <RepositoryUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments.git</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -25,7 +25,12 @@
     
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <PackageTags>cli commandline command line arguments argument parser</PackageTags>
-    <PackageReleaseNotes>      
+    <PackageReleaseNotes>
+      3.1.0:
+      - [Feature] Performance improvements (#64, #67)
+      - [Feature] Updated dependencies (#65)
+      - [Fix] NullReferenceException when nulling a property of CommandLineArgumentsConfiguration between assigning it to CommandLineArguments.Configuration and using it (#62)
+      - [Fix] Incorrect platform detection in AutoDetectConfiguration (#61)
       3.0.0:
       - [Breaking] Moved from .NET Standard 1.5 &amp; .NET 4.5 to .NET Standard 2.0 &amp; .NET 4.6.1 (#38 and #59)
       - [Feature] PrefixedKeyConsoleHelpWriter is no longer marked as abstract (#45)
