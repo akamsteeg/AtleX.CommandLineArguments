@@ -17,15 +17,7 @@ namespace AtleX.CommandLineArguments.Parsers
     {
     }
 
-    /// <summary>
-    /// Gets whether the specified command line arguments contain a Help argument or not
-    /// </summary>
-    /// <param name="allCommandLineArguments">
-    /// The collection of all command line arguments
-    /// </param>
-    /// <returns>
-    /// True when the collection of command line arguments contains a Help argument, false otherwise
-    /// </returns>
+    /// <inheritdoc />
     protected override bool ContainsHelpArgument(string[] allCommandLineArguments)
     {
       var result = false;

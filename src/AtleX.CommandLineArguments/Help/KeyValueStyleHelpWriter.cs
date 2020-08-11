@@ -8,15 +8,7 @@ namespace AtleX.CommandLineArguments.Help
   public class KeyValueStyleHelpWriter
     : ConsoleHelpWriter
   {
-    /// <summary>
-    /// Write the help for the specified <see cref="Arguments"/> object
-    /// </summary>
-    /// <typeparam name="T">
-    /// The type of the <see cref="Arguments"/> to write the help for
-    /// </typeparam>
-    /// <param name="argumentsToWriteHelpFor">
-    /// The <see cref="Arguments"/> object to write the help for
-    /// </param>
+    /// <inheritdoc />
     public override void Write<T>(T argumentsToWriteHelpFor)
     {
       _= argumentsToWriteHelpFor ?? throw new ArgumentNullException(nameof(argumentsToWriteHelpFor));
@@ -38,17 +30,7 @@ namespace AtleX.CommandLineArguments.Help
       Console.WriteLine("*: Required arguments");
     }
 
-    /// <summary>
-    /// Gets the exact name of an argument how it should be used on the command
-    /// line, including prefixes
-    /// </summary>
-    /// <param name="argumentName">
-    /// The name of the argument to get the exact commandline usage for
-    /// </param>
-    /// <returns>
-    /// The exact name of an argument how it should be used on the command line,
-    /// including prefixes
-    /// </returns>
+    /// <inheritdoc />
     protected override string GetExactCommandlineNameOfArgument(string argumentName)
     {
       return argumentName;

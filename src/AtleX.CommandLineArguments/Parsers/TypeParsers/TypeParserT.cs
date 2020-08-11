@@ -15,18 +15,7 @@
     {
     }
 
-    /// <summary>
-    /// Tries to parse the specified value to the specified parse result
-    /// </summary>
-    /// <param name="value">
-    /// The value to parse
-    /// </param>
-    /// <param name="parseResult">
-    /// The parsed value
-    /// </param>
-    /// <returns>
-    /// True if value was converted successfully; otherwise, false
-    /// </returns>
+    /// <inheritdoc />
     public override bool TryParse(string value, out object parseResult)
     {
       var result = this.TryParse(value, out T innerParseResult);

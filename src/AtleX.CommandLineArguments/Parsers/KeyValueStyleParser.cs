@@ -8,22 +8,7 @@ namespace AtleX.CommandLineArguments.Parsers
   public sealed class KeyValueStyleParser
     : CommandLineArgumentsParser
   {
-    /// <summary>
-    /// Try to find an argument with the specified name in the specified
-    /// collection of all command line arguments
-    /// </summary>
-    /// <param name="allCommandLineArguments">
-    /// The collection of all command line arguments
-    /// </param>
-    /// <param name="argumentToFind">
-    /// The name of the argument to find
-    /// </param>
-    /// <param name="value">
-    /// The value of the argument, if found
-    /// </param>
-    /// <returns>
-    /// True when the argument with the specified name to find is found, false otherwise
-    /// </returns>
+    /// <inheritdoc />
     protected override bool TryFindRawArgumentValue(string[] allCommandLineArguments, string argumentToFind, out string value)
     {
       var result = false;
@@ -45,15 +30,7 @@ namespace AtleX.CommandLineArguments.Parsers
       return result;
     }
 
-    /// <summary>
-    /// Gets whether the specified command line arguments contain a Help argument or not
-    /// </summary>
-    /// <param name="allCommandLineArguments">
-    /// The collection of all command line arguments
-    /// </param>
-    /// <returns>
-    /// True when the collection of command line arguments contains a Help argument, false otherwise
-    /// </returns>
+    /// <inheritdoc />
     protected override bool ContainsHelpArgument(string[] allCommandLineArguments)
     {
       var result = false;

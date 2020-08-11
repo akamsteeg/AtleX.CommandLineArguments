@@ -8,18 +8,7 @@ namespace AtleX.CommandLineArguments.Parsers.TypeParsers
   internal sealed class DateTimeTypeParser
   : TypeParser<DateTime>
   {
-    /// <summary>
-    /// Tries to parse the specified value to the specified parse result
-    /// </summary>
-    /// <param name="value">
-    /// The value to parse
-    /// </param>
-    /// <param name="parseResult">
-    /// The parsed value
-    /// </param>
-    /// <returns>
-    /// True if value was converted successfully; otherwise, false
-    /// </returns>
+    /// <inheritdoc />
     public override bool TryParse(string value, out DateTime parseResult)
     {
       bool result;

@@ -28,17 +28,7 @@ namespace AtleX.CommandLineArguments.Help
       this._keyPrefix = keyPrefix;
     }
 
-    /// <summary>
-    /// Gets the exact name of an argument how it should be used on the command
-    /// line, including prefixes
-    /// </summary>
-    /// <param name="argumentName">
-    /// The name of the argument to get the exact commandline usage for
-    /// </param>
-    /// <returns>
-    /// The exact name of an argument how it should be used on the command line,
-    /// including prefixes
-    /// </returns>
+    /// <inheritdoc />
     protected override string GetExactCommandlineNameOfArgument(string argumentName)
     {
       var result = this._keyPrefix + argumentName;

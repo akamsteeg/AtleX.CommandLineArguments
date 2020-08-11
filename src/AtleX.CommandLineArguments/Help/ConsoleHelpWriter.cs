@@ -8,15 +8,7 @@ namespace AtleX.CommandLineArguments.Help
   public abstract class ConsoleHelpWriter
     : HelpWriter
   {
-    /// <summary>
-    /// Write the help for the specified <see cref="Arguments"/> object
-    /// </summary>
-    /// <typeparam name="T">
-    /// The type of the <see cref="Arguments"/> to write the help for
-    /// </typeparam>
-    /// <param name="argumentsToWriteHelpFor">
-    /// The <see cref="Arguments"/> object to write the help for
-    /// </param>
+    /// <inheritdoc />
     public override void Write<T>(T argumentsToWriteHelpFor)
     {
       _ = argumentsToWriteHelpFor ?? throw new ArgumentNullException(nameof(argumentsToWriteHelpFor));

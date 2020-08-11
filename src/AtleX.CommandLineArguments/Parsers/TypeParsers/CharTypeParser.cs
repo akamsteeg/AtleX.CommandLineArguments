@@ -6,18 +6,7 @@
   internal sealed class CharTypeParser
   : TypeParser<char>
   {
-    /// <summary>
-    /// Tries to parse the specified value to the specified parse result
-    /// </summary>
-    /// <param name="value">
-    /// The value to parse
-    /// </param>
-    /// <param name="parseResult">
-    /// The parsed value
-    /// </param>
-    /// <returns>
-    /// True if value was converted successfully; otherwise, false
-    /// </returns>
+    /// <inheritdoc />
     public override bool TryParse(string value, out char parseResult)
     {
       var result = (!string.IsNullOrEmpty(value) && value.Length == 1);
