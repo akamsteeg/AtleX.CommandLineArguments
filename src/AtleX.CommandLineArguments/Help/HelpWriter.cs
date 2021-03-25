@@ -44,10 +44,13 @@ namespace AtleX.CommandLineArguments.Help
 
       var result = new List<ArgumentHelpDetails>();
 
-      var allProperties = argumentsObject.GetType().GetTypeInfo().DeclaredProperties;
+      var allProperties = argumentsObject.GetType().GetTypeInfo().GetRuntimeProperties();
 
       foreach (var currentProperty in allProperties)
       {
+        // Skip everything in the base Arguments class
+        if (currentProperty.DeclaringType == typeof(Arguments)) { continue; }
+
         var exactUsageName = this.GetExactCommandlineNameOfArgument(currentProperty.Name);
 
         var description = GetDisplayDescription(currentProperty);

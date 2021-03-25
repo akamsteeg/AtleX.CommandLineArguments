@@ -32,7 +32,7 @@ namespace AtleX.CommandLineArguments.Parsers
       var argumentsObject = new T();
       var allValidationErrors = new List<ValidationError>();
 
-      var properties = typeof(T).GetTypeInfo().DeclaredProperties;
+      var properties = typeof(T).GetTypeInfo().GetRuntimeProperties();
 
       foreach (var currentProperty in properties)
       {
