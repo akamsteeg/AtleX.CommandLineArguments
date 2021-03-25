@@ -15,7 +15,7 @@
     <Company />
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     
-    <Version>3.1.0</Version>
+    <Version>3.1.1</Version>
     
     <RepositoryUrl>https://github.com/akamsteeg/AtleX.CommandLineArguments.git</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -26,6 +26,8 @@
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <PackageTags>cli commandline command line arguments argument parser</PackageTags>
     <PackageReleaseNotes>
+      3.1.1:
+      - [Fix] Fixed not parsing of arguments in base Arguments classes (#70)
       3.1.0:
       - [Feature] Performance improvements (#64, #67)
       - [Feature] Updated dependencies (#65)
